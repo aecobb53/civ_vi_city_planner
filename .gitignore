@@ -1,9 +1,4 @@
 # This project
-db/*
-etc/weather_api_private.json
-etc/key.json
-out/*
-logs/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
