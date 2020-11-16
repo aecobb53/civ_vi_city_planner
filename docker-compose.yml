@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+
+  weather:
+    build: .
+    image: weather:latest
+    restart: always
+    command: uvicorn main:app --workers 1 --host 0.0.0.0 --port 8000
+    volumes:
+      - .:/usr/src
+    ports:
+      - 8000:8000
+
+    environment:
+      - ENVIRONMENT=prod
+      - TESTING=False
+
+  dev:
+    build: .
+    image: weather-dev:latest
+    command: uvicorn main:app --reload --workers 1 --host 0.0.0.0 --port 8000
+    volumes:
+      - .:/usr/src
+    ports:
+      - 8010:8000
+    environment:
+      - ENVIRONMENT=dev
+      - TESTING=False
+
+  test:
+    build: .
+    image: weather-dev:latest
+    command: behave
+    volumes:
+      - .:/usr/src
+    ports:
+      - 8020:8000
+    environment:
+      - ENVIRONMENT=test
+      - TESTING=True
+
+  unit-test:
+    build: .
+    image: weather-unit-test:latest
+    command: pytest
+    volumes:
+      - .:/usr/src
+    ports:
+      - 8030:8000
+    environment:
+      - ENVIRONMENT=test
+      - TESTING=True
