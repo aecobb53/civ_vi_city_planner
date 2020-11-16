@@ -1,0 +1,193 @@
+#! /bin/sh
+
+setup () {
+    # Verify the directories and files that are not uplaoded to the github are there. 
+    # This function also creates the two files that are ignored but needed. 
+    # This is a good thing to run after cloaning a new github branch. 
+
+    echo "Setting up directories and files that may not be in the github. "
+
+    if [ ! -d db ]; then
+        echo "making db/ dir"
+        mkdir db;fi
+
+    if [ ! -d out ]; then
+        echo "making out/ dir"
+        mkdir out; fi
+
+    if [ ! -d logs/behave/old ]; then
+        echo "making logs/behave/old/ dir"
+        mkdir logs/behave/old; fi
+
+    if [ ! -d logs/archive ]; then
+        echo "making logs/archive/ dir"
+        mkdir logs/archive; fi
+
+    if [ ! -f etc/key.json ]; then
+        echo "making etc/key.json file"
+        {
+            echo '{'
+            echo '    "Weather_Key": "REPLACE TEXT WITH KEY"'
+            echo '}'
+            echo ''
+        } > etc/testkey.json;
+        echo ''
+        echo 'If you dont have a key set up one here:'
+        echo 'https://openweathermap.org/appid'
+        echo ''
+        fi
+
+    if [ ! -f etc/weather_api_private.json ]; then
+        echo "making etc/weather_api_private.json file"
+        {
+            echo '{'
+            echo '    "locations": {'
+            echo '        "YOUR LOCATION NAME": CITY-ID,'
+            echo '        "YOUR LOCATION NAME": CITY-ID'
+            echo '    }'
+            echo '}'
+            echo ''
+        } > etc/testweather_api_private.json;
+        echo ''
+        echo 'If you dont know what city-ids you need, download this zip:'
+        echo 'http://bulk.openweathermap.org/sample/city.list.json.gz'
+        echo ''
+        fi
+
+    echo "Done!"
+}
+
+clean () {
+    # Move log files to the logs/archive directory to work with a clean log file. 
+    # When the log file is moved a prefix of the date is added. 
+
+    echo "Archiving log files from the logs/ dir"
+    
+    move_file () {
+        if [ -f ${1}${2} ]; then
+            echo "Archiving log file ${1}${2} to ${3}${4}${2}"
+            mv ${1}${2} ${3}${4}${2};
+        fi
+
+    }
+    DATE=$(date '+%Y%m%d%H%M%S')
+    move_file "logs/" "weatherman.log" "logs/archive/" "${DATE}_"
+    move_file "logs/" "weatherman_startup.log" "logs/archive/" "${DATE}_"
+    move_file "logs/" "weatherman_dev.log" "logs/archive/" "${DATE}_"
+
+    echo "Done!"
+}
+
+run () {
+    # Use docker-compose to spin up the app. 
+    docker-compose up -d weather
+}
+
+dev () {
+    # Spin up the dev environment. 
+    docker-compose up dev
+}
+
+stop () {
+    # Stop weatherman containers
+
+    echo "Stopping all weatherman containers"
+
+    docker ps --filter name=weatherman* -aq | xargs docker stop
+}
+
+clense () {
+    # Find all containers that have weatherman* in the name and stop/rm them. 
+
+    echo "About to stop/rm all weatherman containers. If one is running in terminal this cmd will wait"
+
+    docker ps --filter name=weatherman* -aq | xargs docker stop | xargs docker rm
+}
+
+
+unit () {
+    # Run the unit tests. 
+    # This includes flake and lenting
+    docker-compose up unit-test
+}
+
+functional () {
+    # Run the functional tests. 
+    docker-compose up test
+}
+
+tests () {
+    # Run each test. 
+    # I have them seporated in case i want to grep for things in the test or save them to files. 
+    unit
+    functional
+}
+
+about () {
+    echo "
+    This is a makeshift Makefile
+    setup               - Set up dir and files (run if its a new cloan)
+    clean               - Move log files to the logs/archive directory
+    run                 - Run the container
+    dev                 - Run a dev instance
+    clean-run           - Clean then run
+    clean-dev           - Clean then dev
+    stop                - Stop weatherman containers
+    clense-containers   - Stop/rm weatherman containers
+    unit                - Unit tests
+    functional          - Functional tests
+    tests               - Unit then Functional
+    help                - Uhhh speaking...
+    "
+}
+
+case "$1" in
+    # Setup
+    setup)
+        setup
+        ;;
+
+    clean)
+        clean
+        ;;
+
+    # Running
+    run)
+        run
+        ;;
+    dev)
+        dev
+        ;;
+    clean-run)
+        clean
+        run
+        ;;
+    clean-dev)
+        clean
+        dev
+        ;;
+
+    # Stopping
+    stop)
+        stop
+        ;;
+    clense-containers)
+        clense
+        ;;
+
+    # Testing
+    unit)
+        unit
+        ;;
+    functional)
+        functional
+        ;;
+    tests)
+        tests
+        ;;
+
+    # Help
+    help)
+        about
+        ;;
+esac
