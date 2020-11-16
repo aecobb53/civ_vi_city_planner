@@ -1,0 +1,270 @@
+
+
+class Districts:
+
+    def __init__(self, erah):
+        self.food = None
+        self.production = None
+        self.gold = None
+        self.science = None
+        self.culture = None
+        self.faith = None
+        self.amenities = None
+        self.housing = None
+        self.traderoute = False
+        self.loyalty = None
+        self.erah = erah
+        self.district = None
+
+
+    def city_center(self):
+        """Explanation"""
+        self.food = 0
+        self.production = 0
+        self.gold = 0
+        self.science = 0
+        self.culture = 0
+        self.faith = 0
+        self.amenities = 0
+        self.housing = 0
+        self.traderoute = False
+        self.district = 0
+        
+
+    def campus(self):
+        """Explanation"""
+        self.food = 0
+        self.production = 0
+        self.gold = 0
+        self.science = 0
+        self.culture = 0
+        self.faith = 0
+        self.amenities = 0
+        self.housing = 0
+        self.traderoute = False
+        self.district = 0
+        
+
+    def canal(self):
+        """Explanation"""
+        self.food = 0
+        self.production = 0
+        self.gold = 0
+        self.science = 0
+        self.culture = 0
+        self.faith = 0
+        self.amenities = 0
+        self.housing = 0
+        self.traderoute = False
+        self.district = 0
+        
+
+    def dam(self):
+        """Explanation"""
+        self.food = 0
+        self.production = 0
+        self.gold = 0
+        self.science = 0
+        self.culture = 0
+        self.faith = 0
+        self.amenities = 0
+        self.housing = 0
+        self.traderoute = False
+        self.district = 0
+        
+
+    def diplomatic_quarter(self):
+        """Explanation"""
+        self.food = 0
+        self.production = 0
+        self.gold = 0
+        self.science = 0
+        self.culture = 0
+        self.faith = 0
+        self.amenities = 0
+        self.housing = 0
+        self.traderoute = False
+        self.district = 0
+        
+
+    def holy_site(self):
+        """Explanation"""
+        self.food = 0
+        self.production = 0
+        self.gold = 0
+        self.science = 0
+        self.culture = 0
+        self.faith = 0
+        self.amenities = 0
+        self.housing = 0
+        self.traderoute = False
+        self.district = 0
+        
+
+    def theater_square(self):
+        """Explanation"""
+        self.food = 0
+        self.production = 0
+        self.gold = 0
+        self.science = 0
+        self.culture = 0
+        self.faith = 0
+        self.amenities = 0
+        self.housing = 0
+        self.traderoute = False
+        self.district = 0
+        
+
+    def encampment(self):
+        """Explanation"""
+        self.food = 0
+        self.production = 0
+        self.gold = 0
+        self.science = 0
+        self.culture = 0
+        self.faith = 0
+        self.amenities = 0
+        self.housing = 0
+        self.traderoute = False
+        self.district = 0
+        
+
+    def harbor(self):
+        """Explanation"""
+        self.food = 0
+        self.production = 0
+        self.gold = 0
+        self.science = 0
+        self.culture = 0
+        self.faith = 0
+        self.amenities = 0
+        self.housing = 0
+        self.traderoute = False
+        self.district = 0
+        
+
+    def commercial_hub(self):
+        """Explanation"""
+        self.food = 0
+        self.production = 0
+        self.gold = 0
+        self.science = 0
+        self.culture = 0
+        self.faith = 0
+        self.amenities = 0
+        self.housing = 0
+        self.traderoute = False
+        self.district = 0
+        
+
+    def industrial_zone(self):
+        """Explanation"""
+        self.food = 0
+        self.production = 0
+        self.gold = 0
+        self.science = 0
+        self.culture = 0
+        self.faith = 0
+        self.amenities = 0
+        self.housing = 0
+        self.traderoute = False
+        self.district = 0
+        
+
+    def entertainment_complex(self):
+        """Explanation"""
+        self.food = 0
+        self.production = 0
+        self.gold = 0
+        self.science = 0
+        self.culture = 0
+        self.faith = 0
+        self.amenities = 0
+        self.housing = 0
+        self.traderoute = False
+        self.district = 0
+        
+
+    def aqueduct(self):
+        """Explanation"""
+        self.food = 0
+        self.production = 0
+        self.gold = 0
+        self.science = 0
+        self.culture = 0
+        self.faith = 0
+        self.amenities = 0
+        self.housing = 0
+        self.traderoute = False
+        self.district = 0
+        
+
+    def neighborhood(self):
+        """Explanation"""
+        self.food = 0
+        self.production = 0
+        self.gold = 0
+        self.science = 0
+        self.culture = 0
+        self.faith = 0
+        self.amenities = 0
+        self.housing = 0
+        self.traderoute = False
+        self.district = 0
+        
+
+    def aerodrome(self):
+        """Explanation"""
+        self.food = 0
+        self.production = 0
+        self.gold = 0
+        self.science = 0
+        self.culture = 0
+        self.faith = 0
+        self.amenities = 0
+        self.housing = 0
+        self.traderoute = False
+        self.district = 0
+        
+
+    def spaceport(self):
+        """Explanation"""
+        self.food = 0
+        self.production = 0
+        self.gold = 0
+        self.science = 0
+        self.culture = 0
+        self.faith = 0
+        self.amenities = 0
+        self.housing = 0
+        self.traderoute = False
+        self.district = 0
+        
+
+    def government_plaza(self):
+        """Explanation"""
+        self.food = 0
+        self.production = 0
+        self.gold = 0
+        self.science = 0
+        self.culture = 0
+        self.faith = 0
+        self.amenities = 0
+        self.housing = 0
+        self.traderoute = False
+        self.district = 0
+        
+
+    def water_park(self):
+        """Explanation"""
+        self.food = 0
+        self.production = 0
+        self.gold = 0
+        self.science = 0
+        self.culture = 0
+        self.faith = 0
+        self.amenities = 0
+        self.housing = 0
+        self.traderoute = False
+        self.district = 0
+        
