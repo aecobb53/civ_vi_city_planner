@@ -1,0 +1,47 @@
+name: civ_vi_frontend
+starting_state:
+    env: null
+    log_file: logs/civ_frontend_startup.log
+    testing: null
+    working_directory: null
+    appname: Civ-VI-frontend
+environments:
+    prod:
+        env: prod
+        file_handler_level: DEBUG
+        consol_handler_level: INFO
+        testing_flag: False
+        db_addition: ''
+        docker_working_dir: /usr/src/
+        log_parameters:
+            log_suffix: None
+    dev:
+        env: dev
+        file_handler_level: DEBUG
+        consol_handler_level: DEBUG
+        testing_flag: False
+        db_addition: 'dev'
+        docker_working_dir: /usr/src/
+        log_parameters:
+            log_suffix: 'dev'
+            # f_level: null
+            # c_level: null
+            # log_rolling: null
+            # log_directory: null
+            # log_prefix: null
+            # log_suffix: null
+            # app_name_in_file: null
+            # date_in_file: null
+            # time_in_file: null
+            # utc_in_file: null
+            # short_datetime: null
+    testing:
+        env: test
+        file_handler_level: DEBUG
+        consol_handler_level: INFO
+        testing_flag: True
+        db_addition: 'test'
+        docker_working_dir: /usr/src/
+        log_parameters:
+            log_suffix: 'test'
+datetime_str: '%Y-%m-%dT%H:%M:%SZ'

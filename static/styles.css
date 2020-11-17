@@ -1,0 +1,300 @@
+/* pallet
+000000 - Black base
+E09200 - Orange accent for menues
+
+33673B - Green
+2274A5 - Deep Blue
+0BC9CD - Light blue
+
+
+001524 - rich black
+15616D - ming
+FFECD1 - blanched almond
+510D0A - rosewood
+DC602E - flame */
+
+/* Global Styles */
+html {
+    box-sizing: border-box;
+    background-color: #000000;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+body {
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    line-height: 1.25;
+}
+a {
+    color: #E09200;
+}
+a:hover {
+    text-decoration: none;
+}
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Menu */
+h1 {
+    color: #E09200;
+    margin: 3px;
+    padding: 3px;
+    font-size: 32px;
+    /* line-height: 1; */
+    float: left;
+}
+.main-menu {
+    color: #E09200;
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    float: right;
+    display: inline-block;
+    font-size: 16px;
+    padding: 10px 0;
+}
+
+/* Brushes */
+.brushes {
+    background-color: #33673B;
+    font-size: 24px;
+}
+.brushes > div:nth-of-type(2n) {
+    background-color: #264d2c;
+}
+/* .brushes > div > p {
+    display: grid;
+    grid-template-columns: 150px auto;
+    column-gap: 5px;
+} */
+.indicator {
+    /* font-size: 24px; */
+    margin: 5px;
+    padding: 0;
+    /* display: inline; */
+    /* margin-right: 20px; */
+    /* display: grid; */
+    /* grid-template-columns: 150px auto; */
+    /* column-gap: 5px; */
+    /* overflow: hidden; */
+}
+.btn {
+    font-size: 75%;
+    margin: 5px 0;
+    padding: 0;
+    background-color: #2274A5;
+    color: #FFFFFF;
+}
+
+/* Terrains */
+.terrains {
+    display: grid;
+    grid-template-columns: 150px auto;
+    column-gap: 5px;
+    margin: 0;
+    padding: 0;
+}
+.terrains btn {
+    /* display: inline-block; */
+    margin: 10px;
+    padding: 0;
+}
+
+/* Features */
+.fatures {
+    display: grid;
+    grid-template-columns: 150px auto;
+    column-gap: 5px;
+    margin: 0;
+    padding: 0;
+}
+.fatures btn {
+    /* display: inline-block; */
+    margin: 10px;
+    padding: 0;
+}
+
+/* Improvements */
+.improvements {
+    display: grid;
+    grid-template-columns: 150px auto;
+    column-gap: 5px;
+    margin: 0;
+    padding: 0;
+}
+.improvements btn {
+    /* display: inline-block; */
+    margin: 10px;
+    padding: 0;
+}
+
+/* Districs */
+.districts {
+    display: grid;
+    grid-template-columns: 150px auto;
+    column-gap: 5px;
+    margin: 0;
+    padding: 0;
+}
+.districts btn {
+    /* display: inline-block; */
+    margin: 10px;
+    padding: 0;
+}
+
+/* Natural Wonders */
+
+/* Wonders */
+
+/* Display */
+.honycomb {
+    width: 800px;
+    height: 724px;
+    /* background: #CD5C5C; */
+    margin: 20px auto;
+    background-image: url(/images/honeycomb.jpg);
+    position: relative;
+}
+.hex-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    font-size: 32px;
+    border-radius: 50%;
+    position: relative;
+    /* text-align: top-left; */
+    padding: 52px;
+  }
+  .cc {
+    left: 43.6%;
+    top: 43%;
+  }
+  .i0 {
+    left: 37.3%;
+    top: 29.2%;
+  }
+  .i1 {
+    left: 30.9%;
+    top: 43%;
+  }
+  .i2 {
+    left: 10.1%;
+    top: 56.6%;
+  }
+  .i3 {
+    left: -17.6%;
+    top: 56.6%;
+  }
+  .i4 {
+    left: -38.4%;
+    top: 43%;
+  }
+  .i5 {
+    left: -44.6%;
+    top: 29.2%;
+  }
+  .m0 {
+    left: 0%;
+    top: 0%;
+  }
+  .m1 {
+    left: 0%;
+    top: 0%;
+  }
+  .m2 {
+    left: 0%;
+    top: 0%;
+  }
+  .m3 {
+    left: 0%;
+    top: 0%;
+  }
+  .m4 {
+    left: 0%;
+    top: 0%;
+  }
+  .m5 {
+    left: 0%;
+    top: 0%;
+  }
+  .m6 {
+    left: 0%;
+    top: 0%;
+  }
+  .m7 {
+    left: 0%;
+    top: 0%;
+  }
+  .m8 {
+    left: 0%;
+    top: 0%;
+  }
+  .m9 {
+
+  }
+  .m10 {
+
+  }
+  .m11 {
+
+  }
+  .o0 {
+
+  }
+  .o1 {
+
+  }
+  .o2 {
+
+  }
+  .o3 {
+
+  }
+  .o4 {
+
+  }
+  .o5 {
+
+  }
+  .o6 {
+
+  }
+  .o7 {
+
+  }
+  .o8 {
+
+  }
+  .o9 {
+
+  }
+  .o10 {
+
+  }
+  .o11 {
+
+  }
+  .o12 {
+
+  }
+  .o13 {
+
+  }
+  .o14 {
+
+  }
+  .o15 {
+
+  }
+  .o16 {
+
+  }
+  .o17 {
+
+  }
