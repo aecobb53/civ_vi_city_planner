@@ -12,11 +12,6 @@ ENV IS_IN_DOCKER=True
 
 EXPOSE 8000
 
-# # install system dependencies
-# RUN apt-get update \
-#   && apt-get -y install netcat gcc \
-#   && apt-get clean
-RUN pip install --upgrade pip
-
 # install requirements file
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt

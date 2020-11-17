@@ -9,7 +9,7 @@ setup () {
 
     if [ ! -d db ]; then
         echo "making db/ dir"
-        mkdir db;fi
+        mkdir db; fi
 
     if [ ! -d logs/behave/old ]; then
         echo "making logs/behave/old/ dir"
@@ -36,21 +36,30 @@ clean () {
 
     }
     DATE=$(date '+%Y%m%d%H%M%S')
-    move_file "logs/" "weatherman.log" "logs/archive/" "${DATE}_"
-    move_file "logs/" "weatherman_startup.log" "logs/archive/" "${DATE}_"
-    move_file "logs/" "weatherman_dev.log" "logs/archive/" "${DATE}_"
+    move_file "logs/" "frontend.log" "logs/archive/" "${DATE}_"
+    move_file "logs/" "frontend_startup.log" "logs/archive/" "${DATE}_"
+    move_file "logs/" "frontend_dev.log" "logs/archive/" "${DATE}_"
+    move_file "logs/" "backend.log" "logs/archive/" "${DATE}_"
+    move_file "logs/" "backend_startup.log" "logs/archive/" "${DATE}_"
+    move_file "logs/" "backend_dev.log" "logs/archive/" "${DATE}_"
 
     echo "Done!"
 }
 
 run () {
     # Use docker-compose to spin up the app. 
-    docker-compose up -d weather
+    docker-compose up -d frontend
+    docker-compose up -d backend
 }
 
-dev () {
+dev_fe () {
     # Spin up the dev environment. 
-    docker-compose up dev
+    docker-compose up dev_fe
+}
+
+dev_be () {
+    # Spin up the dev environment. 
+    docker-compose up dev_be
 }
 
 stop () {
@@ -58,7 +67,7 @@ stop () {
 
     echo "Stopping all weatherman containers"
 
-    docker ps --filter name=weatherman* -aq | xargs docker stop
+    docker ps --filter name=civ* -aq | xargs docker stop
 }
 
 clense () {
@@ -66,7 +75,7 @@ clense () {
 
     echo "About to stop/rm all weatherman containers. If one is running in terminal this cmd will wait"
 
-    docker ps --filter name=weatherman* -aq | xargs docker stop | xargs docker rm
+    docker ps --filter name=civ* -aq | xargs docker stop | xargs docker rm
 }
 
 
@@ -90,13 +99,16 @@ tests () {
 
 about () {
     echo "
-    This is a makeshift Makefile
+
+    
     setup               - Set up dir and files (run if its a new cloan)
     clean               - Move log files to the logs/archive directory
     run                 - Run the container
-    dev                 - Run a dev instance
+    dev-fe              - Run a frontend dev instance
+    dev-be              - Run a backend dev instance
     clean-run           - Clean then run
-    clean-dev           - Clean then dev
+    clean_fe            - Clean then dev
+    clean_be            - Clean then dev
     stop                - Stop weatherman containers
     clense-containers   - Stop/rm weatherman containers
     unit                - Unit tests
@@ -120,16 +132,23 @@ case "$1" in
     run)
         run
         ;;
-    dev)
-        dev
+    dev_fe)
+        dev_fe
+        ;;
+    dev_be)
+        dev_be
         ;;
     clean-run)
         clean
         run
         ;;
-    clean-dev)
+    clean-fe)
         clean
-        dev
+        dev-fe
+        ;;
+    clean-be)
+        clean
+        dev-be
         ;;
 
     # Stopping

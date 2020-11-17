@@ -2,52 +2,78 @@ version: '3'
 
 services:
 
-  weather:
-    build: .
-    image: weather:latest
-    restart: always
-    command: uvicorn main:app --workers 1 --host 0.0.0.0 --port 8000
-    volumes:
-      - .:/usr/src
-    ports:
-      - 8000:8000
+    frontend:
+        build: .
+        image: civ_fe
+        restart: always
+        command: uvicorn frontend:app --reload --workers 1 --host 0.0.0.0 --port 8000
+        volumes:
+            - .:/usr/src
+        ports:
+            - 8000:8000
 
-    environment:
-      - ENVIRONMENT=prod
-      - TESTING=False
+        environment:
+            - ENVIRONMENT=prod
+            - TESTING=False
 
-  dev:
-    build: .
-    image: weather-dev:latest
-    command: uvicorn main:app --reload --workers 1 --host 0.0.0.0 --port 8000
-    volumes:
-      - .:/usr/src
-    ports:
-      - 8010:8000
-    environment:
-      - ENVIRONMENT=dev
-      - TESTING=False
+    backend:
+        build: .
+        image: civ_be
+        restart: always
+        command: uvicorn backend:app --reload --workers 1 --host 0.0.0.0 --port 8000
+        volumes:
+            - .:/usr/src
+        ports:
+            - 8010:8000
 
-  test:
-    build: .
-    image: weather-dev:latest
-    command: behave
-    volumes:
-      - .:/usr/src
-    ports:
-      - 8020:8000
-    environment:
-      - ENVIRONMENT=test
-      - TESTING=True
+        environment:
+            - ENVIRONMENT=prod
+            - TESTING=False
 
-  unit-test:
-    build: .
-    image: weather-unit-test:latest
-    command: pytest
-    volumes:
-      - .:/usr/src
-    ports:
-      - 8030:8000
-    environment:
-      - ENVIRONMENT=test
-      - TESTING=True
+    dev-fe:
+        build: .
+        image: civ_dev_fe
+        command: uvicorn frontend:app --reload --workers 1 --host 0.0.0.0 --port 8000
+        volumes:
+            - .:/usr/src
+        ports:
+            - 8020:8000
+        environment:
+            - ENVIRONMENT=dev
+            - TESTING=False
+
+    dev-be:
+        build: .
+        image: civ_dev_be
+        command: uvicorn backend:app --reload --workers 1 --host 0.0.0.0 --port 8000
+        volumes:
+            - .:/usr/src
+        ports:
+            - 8030:8000
+        environment:
+            - ENVIRONMENT=dev
+            - TESTING=False
+
+    test:
+        build: .
+        image: civ_testing
+        command: behave
+        volumes:
+            - .:/usr/src
+        ports:
+            - 8040:8000
+        environment:
+            - ENVIRONMENT=test
+            - TESTING=True
+
+    unit-test:
+        build: .
+        image: civ_unit_testing
+        command: pytest
+        volumes:
+            - .:/usr/src
+        ports:
+            - 8050:8000
+        environment:
+            - ENVIRONMENT=test
+            - TESTING=True
