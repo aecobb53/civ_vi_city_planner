@@ -1,5 +1,10 @@
 #! /bin/sh
 
+grep_port () {
+    echo "Activiating ports:"
+    grep -A10 $1 docker-compose.yml | grep -A2 ports | grep "-"
+}
+
 setup () {
     # Verify the directories and files that are not uplaoded to the github are there. 
     # This function also creates the two files that are ignored but needed. 
@@ -48,18 +53,24 @@ clean () {
 
 run () {
     # Use docker-compose to spin up the app. 
+    echo "frontend"
+    grep_port "frontend"
+    echo "backend"
+    grep_port "backend"
     docker-compose up -d frontend
     docker-compose up -d backend
 }
 
 dev_fe () {
     # Spin up the dev environment. 
-    docker-compose up dev_fe
+    grep_port "dev-fe"
+    docker-compose up dev-fe
 }
 
 dev_be () {
     # Spin up the dev environment. 
-    docker-compose up dev_be
+    grep_port "dev-be"
+    docker-compose up dev-be
 }
 
 stop () {
@@ -132,10 +143,10 @@ case "$1" in
     run)
         run
         ;;
-    dev_fe)
+    dev-fe)
         dev_fe
         ;;
-    dev_be)
+    dev-be)
         dev_be
         ;;
     clean-run)
