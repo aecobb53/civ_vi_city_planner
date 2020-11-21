@@ -11,6 +11,8 @@ ENV PYTHONUNBUFFERED 1
 ENV IS_IN_DOCKER=True
 
 EXPOSE 8000
+LABEL project="Civ-VI"
+LABEL color=blue
 
 # install requirements file
 RUN pip install --upgrade pip

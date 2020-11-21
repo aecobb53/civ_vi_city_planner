@@ -73,6 +73,26 @@ dev_be () {
     docker-compose up dev-be
 }
 
+containers () {
+    # List containers matching name
+
+    echo "\nList of containers"
+
+    echo "-${0}-${1}-${2}-"
+    if [ -z $2 ]
+    then
+        echo '\nActive containers'
+        docker ps --filter label=project="Civ-VI"
+        # docker ps
+    else
+        echo "\nSearching for ${2}"
+        docker ps --filter "name=${2}"
+        # docker ps -a --filter label=project="Civ-VI"
+    fi
+
+    # docker ps --filter name=civ* -aq
+}
+
 stop () {
     # Stop weatherman containers
 
@@ -161,6 +181,19 @@ case "$1" in
         clean
         dev-be
         ;;
+
+    # Status
+    containers)
+        containers $@
+        # if [ -z $2 ]
+        # then
+        #     echo 'onev'
+        #     containers 'project=Civ-VI'
+        # else
+        #     echo 'two'
+        #     containers
+        # fi
+        ;;  
 
     # Stopping
     stop)
