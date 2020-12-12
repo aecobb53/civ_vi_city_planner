@@ -8,7 +8,6 @@ COPY . .
 # set environment varibles for python
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-ENV IS_IN_DOCKER=True
 
 EXPOSE 8000
 LABEL project="Civ-VI"

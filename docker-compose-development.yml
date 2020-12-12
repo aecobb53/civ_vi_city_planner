@@ -7,26 +7,26 @@ services:
             dockerfile: backend/Dockerfile
         image: civ_backend
         restart: always
-        command: uvicorn backend:app --workers 1 --host 0.0.0.0 --port 8000
+        command: uvicorn backend:app --reload --workers 1 --host 0.0.0.0 --port 8000
         volumes:
             - .:/usr/src
         ports:
-            - 8104:8000
+            - 8304:8000
         environment:
-            - ENVIRONMENT=prod
+            - ENVIRONMENT=dev
             - SERVICE=backend
 
     calculator:
         build:
             context: .
-            dockerfile: backend/Dockerfile
+            dockerfile: calculator/Dockerfile
         image: civ_calculator
         restart: always
-        command: uvicorn backend:app --host 0.0.0.0 --port 8000
+        command: uvicorn backend:app --reload --host 0.0.0.0 --port 8000
         volumes:
             - .:/usr/src
         ports:
-          - 8105:8000
+          - 8305:8000
         environment:
-            - ENVIRONMENT=prod
+            - ENVIRONMENT=dev
             - SERVICE=calculator
