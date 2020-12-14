@@ -214,8 +214,16 @@ Really this is for notes to keep track of for building things out
 
 
 
-
-
+# Era
+- Era:0 Ancient Era (4000 BC ~ 1000 BC)
+- Era:1 Classical Era (1000 BC ~ 500 AD)
+- Era:2 Medieval Era (500 ~ 1350)
+- Era:3 Renaissance Era (1350 ~ 1725)
+- Era:4 Industrial Era (1725 ~ 1890)
+- Era:5 Modern Era (1890 ~ 1945)
+- Era:6 Atomic Era (1945 ~ 1995)
+- Era:7 Information Era (1995 ~ 2020)
+- Era:8 Future Era GS-Only.png (2020 ~ 2050)
 
 
 

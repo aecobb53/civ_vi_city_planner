@@ -73,6 +73,66 @@ class TileManager:
                 v = [v]
             setattr(self, k, v)
 
+        self.adjacency_members = {
+            'cc': [self.i0, self.i1, self.i2, self.i3, self.i4, self.i5],
+            'i0': [self.m0, self.m1, self.i1, self.cc, self.i5, self.m11],
+            'i1': [self.m1, self.m2, self.m3, self.i2, self.cc, self.i0],
+            'i2': [self.i1, self.m3, self.m4, self.m5, self.i3, self.cc],
+            'i3': [self.cc, self.i2, self.m5, self.m6, self.m7, self.i4],
+            'i4': [self.i5, self.cc, self.i3, self.m7, self.m8, self.m9],
+            'i5': [self.m11, self.i0, self.cc, self.i4, self.m9, self.m10],
+            'm0': [self.o0, self.o1, self.m1, self.i0, self.m11, self.o17],
+            'm1': [self.o1, self.o2, self.m2, self.i1, self.i0, self.m0],
+            'm2': [self.o2, self.o3, self.o4, self.m3, self.i1, self.m1],
+            'm3': [self.m2, self.o4, self.o5, self.m4, self.i2, self.i1],
+            'm4': [self.m3, self.o5, self.o6, self.o7, self.m5, self.i2],
+            'm5': [self.i2, self.m4, self.o7, self.o8, self.m6, self.i3],
+            'm6': [self.i3, self.m5, self.o8, self.o9, self.o10, self.m7],
+            'm7': [self.i4, self.i3, self.m6, self.o10, self.o11, self.m8],
+            'm8': [self.m9, self.i4, self.m7, self.o11, self.o12, self.o13],
+            'm9': [self.m10, self.i5, self.i4, self.m8, self.o13, self.o14],
+            'm10': [self.o16, self.m11, self.i5, self.m9, self.o14, self.o15],
+            'm11': [self.o17, self.m0, self.i0, self.i5, self.m10, self.o16],
+            'o0': [None, None, self.i1, self.m0, self.o17, None],
+            'o1': [None, None, self.o2, self.m1, self.m0, self.o0],
+            'o2': [None, None, self.o3, self.m2, self.m1, self.o1],
+            'o3': [None, None, None, self.o4, self.m2, self.o2],
+            'o4': [self.o3, None, None, self.o5, self.m3, self.m2],
+            'o5': [self.o4, None, None, self.o6, self.m4, self.m3],
+            'o6': [self.o5, None, None, None, self.o7, self.m4],
+            'o7': [self.m4, self.o6, None, None, self.o8, self.m5],
+            'o8': [self.m5, self.o7, None, None, self.o9, self.m6],
+            'o9': [self.m6, self.o8, None, None, None, self.o10],
+            'o10': [self.m7, self.m6, self.o9, None, None, self.o11],
+            'o11': [self.m8, self.m7, self.o10, None, None, self.o12],
+            'o12': [self.o13, self.m8, self.o11, None, None, None],
+            'o13': [self.o14, self.m9, self.m8, self.o12, None, None],
+            'o14': [self.o15, self.m10, self.m9, self.o13, None, None],
+            'o15': [None, self.o16, self.m10, self.o14, None, None],
+            'o16': [None, self.o17, self.m11, self.m10, self.o15, None],
+            'o17': [None, self.o0, self.m0, self.m11, self.o16, None],
+        }
+
+        self.resource_list = [
+            'food',
+            'production',
+            'gold',
+            'science',
+            'culture',
+            'faith',
+            'tourism',
+            'population',
+            'houseing',
+            'amenities',
+            'power',
+            'appeal',
+        ]
+        self.tile_list = [
+            'terrain',
+            'feature',
+            'improvement',
+        ]
+
         # Era:0 Ancient Era (4000 BC ~ 1000 BC)
         # Era:1 Classical Era (1000 BC ~ 500 AD)
         # Era:2 Medieval Era (500 ~ 1350)
@@ -532,12 +592,14 @@ class TileManager:
     @property
     def erah(self):
         if self._erah == None:
-            return None
+            return 8
         return self._erah
 
     @erah.setter
     def erah(self, value):
-        self._erah = Tile(value)
+        if not isinstance(value, list):
+            value = [value]
+        self._erah = value[0]
 
     # govener
     @property
@@ -617,12 +679,17 @@ class TileManager:
         self._trader = Tile(value)
 
 
-    def calculate_adjacency(self, tile_index):
+    def _calculate_adjacency(self, tile_index):
         """
         Many tile elements are dependant on the surrounding tiles. This will go through each adjacent tile
         and apply the appropriate adjacency bonuses if there are any. 
         """
         # print(tile_index)
+        if getattr(self, tile_index) is None:
+            # If there is no valid tile, break out
+            return None
+
+        # Sum upp different adjacency bonusues
         adj_farm_count = 0
         for dex in self.return_adj_matrix(tile_index):
             try:
@@ -631,67 +698,83 @@ class TileManager:
                     adj_farm_count +=1
             except:
                 pass
-        if isinstance(getattr(self, tile_index).improvement, Farm):
-            print(f"The number of 2 adj farms is {math.floor(adj_farm_count / 2)}")
 
-    def calculate_era(self, tile_index):
+        # Apply the adjacency bonuses
+        print(getattr(self, tile_index).__dict__)
+        if isinstance(getattr(self, tile_index).improvement, Farm):
+            # print('instance is farm')
+            # if getattr(self, tile_index).food == None:
+            #     getattr(self, tile_index).food = 0
+            # print(getattr(self, tile_index).food)
+            # print(math.floor(adj_farm_count / 2))
+            getattr(self, tile_index).food = getattr(self, tile_index).food + math.floor(adj_farm_count / 2)
+
+            # # if getattr(self, tile_index).houseing == None:
+            # #     getattr(self, tile_index).houseing = 0
+            # getattr(self, tile_index).houseing = getattr(self, tile_index).houseing + math.floor(adj_farm_count / 2)
+
+    def _calculate_era(self, tile_index):
         """
         Many tile elements benefit from technologies in the different eras. 
         It would be nice to be able to input that and not just the endgame era. 
         """
-        pass
+        if getattr(self, tile_index) is None:
+            # If there is no valid tile, break out
+            return None
 
-    def calculate_tile_yield(self, tile_index):
+        if isinstance(getattr(self, tile_index).improvement, Farm):
+            # if getattr(self, tile_index).food == None:
+            #     getattr(self, tile_index).food = 0
+            if self.erah >= 2:
+                getattr(self, tile_index).food = getattr(self, tile_index).food + 1
+            if self.erah >= 5:
+                getattr(self, tile_index).food = getattr(self, tile_index).food + 1
+
+    def _tile_summer(self, tile_index, tile_type, resource):
+        # print(self, tile_index, tile_type, resource)
+        # print(getattr(getattr(getattr(self, tile_index), tile_type), resource))
+        try:
+            orig_yield = getattr(getattr(self, tile_index), resource)
+            tile_yield = getattr(getattr(getattr(self, tile_index), tile_type), resource)
+            new_yield = orig_yield + tile_yield
+            # if resource == 'food':
+                # print(orig_yield, tile_yield, new_yield)
+            setattr(getattr(self, tile_index), resource, new_yield)
+            return tile_yield
+            # return getattr(getattr(getattr(self, tile_index), tile_type), resource)
+        except AttributeError:
+            return None
+
+    def calculate_tile_yield(self, tile_index=None):
         """
         This will run both the adjacency and era calculators to get a final tile yield. 
         """
-        pass
+        if tile_index == None:
+            print('for testing only running first few keys. Fix this later!!!!')
+            search_list = list(self.adjacency_members.keys())[:7]
+            # search_list = self.adjacency_members.keys()
+        else:
+            if not isinstance(tile_index, list):
+                search_list = [tile_index]
+        for tile_index in search_list:
+            # print('')
+            print(f"tile_index: {tile_index}")
+            # print(getattr(self, tile_index).food)
+            for tile_type in self.tile_list:
+                # print(f"--tile_type: {tile_type}")
+                for resource in self.resource_list:
+                    # print(f"----resource: {resource}")
+                    tile_yield = self._tile_summer(tile_index, tile_type, resource)
+            # print(getattr(self, tile_index).food)
+            self._calculate_adjacency(tile_index)
+            self._calculate_era(tile_index)
 
     def return_adj_matrix(self, tile_index):
         """
         This keeps track of the tile's adjacency list. The list is either the object or None if there is not one. 
         This may need to be updated eventually in case I keep track of surrounding tiles outside of the city that still influence it. 
         """
-        adjacency_members = {
-            'cc': [self.i0, self.i1, self.i2, self.i3, self.i4, self.i5],
-            'i0': [self.m0, self.m1, self.i1, self.cc, self.i5, self.m11],
-            'i1': [self.m1, self.m2, self.m3, self.i2, self.cc, self.i0],
-            'i2': [self.i1, self.m3, self.m4, self.m5, self.i3, self.cc],
-            'i3': [self.cc, self.i2, self.m5, self.m6, self.m7, self.i4],
-            'i4': [self.i5, self.cc, self.i3, self.m7, self.m8, self.m9],
-            'i5': [self.m11, self.i0, self.cc, self.i4, self.m9, self.m10],
-            'm0': [self.o0, self.o1, self.m1, self.i0, self.m11, self.o17],
-            'm1': [self.o1, self.o2, self.m2, self.i1, self.i0, self.m0],
-            'm2': [self.o2, self.o3, self.o4, self.m3, self.i1, self.m1],
-            'm3': [self.m2, self.o4, self.o5, self.m4, self.i2, self.i1],
-            'm4': [self.m3, self.o5, self.o6, self.o7, self.m5, self.i2],
-            'm5': [self.i2, self.m4, self.o7, self.o8, self.m6, self.i3],
-            'm6': [self.i3, self.m5, self.o8, self.o9, self.o10, self.m7],
-            'm7': [self.i4, self.i3, self.m6, self.o10, self.o11, self.m8],
-            'm8': [self.m9, self.i4, self.m7, self.o11, self.o12, self.o13],
-            'm9': [self.m10, self.i5, self.i4, self.m8, self.o13, self.o14],
-            'm10': [self.o16, self.m11, self.i5, self.m9, self.o14, self.o15],
-            'm11': [self.o17, self.m0, self.i0, self.i5, self.m10, self.o16],
-            'o0': [None, None, self.i1, self.m0, self.o17, None],
-            'o1': [None, None, self.o2, self.m1, self.m0, self.o0],
-            'o2': [None, None, self.o3, self.m2, self.m1, self.o1],
-            'o3': [None, None, None, self.o4, self.m2, self.o2],
-            'o4': [self.o3, None, None, self.o5, self.m3, self.m2],
-            'o5': [self.o4, None, None, self.o6, self.m4, self.m3],
-            'o6': [self.o5, None, None, None, self.o7, self.m4],
-            'o7': [self.m4, self.o6, None, None, self.o8, self.m5],
-            'o8': [self.m5, self.o7, None, None, self.o9, self.m6],
-            'o9': [self.m6, self.o8, None, None, None, self.o10],
-            'o10': [self.m7, self.m6, self.o9, None, None, self.o11],
-            'o11': [self.m8, self.m7, self.o10, None, None, self.o12],
-            'o12': [self.o13, self.m8, self.o11, None, None, None],
-            'o13': [self.o14, self.m9, self.m8, self.o12, None, None],
-            'o14': [self.o15, self.m10, self.m9, self.o13, None, None],
-            'o15': [None, self.o16, self.m10, self.o14, None, None],
-            'o16': [None, self.o17, self.m11, self.m10, self.o15, None],
-            'o17': [None, self.o0, self.m0, self.m11, self.o16, None],
-        }
-        return adjacency_members[tile_index]
+        return self.adjacency_members[tile_index]
 
         
 
@@ -699,7 +782,125 @@ class TileManager:
 
 
 
+# tm = TileManager(
+#     i0=[
+#         'grassland'
+#     ]
+# )
 
+# # for k,v in tm.__dict__.items():
+# for k,v in tm.i0.__dict__.items():
+#     print(k,v)
+# print('')
+# for k,v in tm.i0._terrain.__dict__.items():
+#     print(k,v)
+
+# print('\n')
+
+tm2 = TileManager(
+    cc=[
+        'desert',
+        # 'grassland',
+        # 'floodplains',
+        # 'farm'
+    ],
+    i0=[
+        'grassland',
+        'floodplains',
+        'farm'
+    ],
+    # i1=[
+    #     'grassland',
+    #     'floodplains',
+    #     'farm'
+    # ]
+)
+
+# # for k,v in tm.__dict__.items():
+# for k,v in tm2.i0.__dict__.items():
+#     print(k,v)
+# print('t')
+# for k,v in tm2.i0._terrain.__dict__.items():
+#     print(k,v)
+# print('f')
+# for k,v in tm2.i0._feature.__dict__.items():
+#     print(k,v)
+
+print(tm2.i0.food)
+# tm2.i0.food += tm2.i0.terrain.food + tm2.i0.feature.food
+# # tm2.i0.food += sum([i for i in [tm2.i0.terrain.food + tm2.i0.feature.food + tm.i0.improvement.food] if i is not None])
+# print(tm2.i0.food)
+
+# tm2.tile_summer('i0', '')
+# tm2.calculate_tile_yield('i0')
+tm2.calculate_tile_yield()
+print(tm2.i0.food)
+
+exit()
+
+resource_list = [
+    'food',
+    'production',
+    'gold',
+    'science',
+    'culture',
+    'faith',
+    'tourism',
+    'population',
+    'houseing',
+    'amenities',
+    'power',
+    'appeal',
+]
+tile_list = [
+    'terrain',
+    'feature',
+    'improvement',
+]
+
+def tile_summer(self, tile_index, tile_type, resource):
+    print(self, tile_index, tile_type, resource)
+    # print(getattr(getattr(getattr(self, tile_index), tile_type), resource))
+    try:
+        orig_yield = getattr(getattr(self, tile_index), resource)
+        tile_yield = getattr(getattr(getattr(self, tile_index), tile_type), resource)
+        new_yield = orig_yield + tile_yield
+        setattr(getattr(self, tile_index), resource, new_yield)
+        return tile_yield
+        # return getattr(getattr(getattr(self, tile_index), tile_type), resource)
+    except AttributeError:
+        return None
+    
+    
+
+
+
+# for item in summer_list:
+#     print('')
+#     print(item)
+#     # print(getattr(tm.i0, item))
+#     # print(getattr(tm.i0.terrain, item))
+#     # print(getattr(tm.i0.feature, item))
+#     for tile in tile_list:
+#         try:
+#             print(getattr(getattr(tm2.i0, tile), item))
+#         except AttributeError:
+#             pass
+
+for tile_index in ['i0']:
+    for tile_type in tile_list:
+        for resource in resource_list:
+            tile_yield = tile_summer(tm2, tile_index, tile_type, resource)
+            # if tile_yield is not None:
+            #     print(tile_yield)
+
+print('i0 food yield')
+print(tm2.i0.food)
+    
+
+# print(tile_summer(tm2, 'i0', 'terrain', 'food'))
+
+exit()
 
 
 
@@ -708,8 +909,6 @@ class TileManager:
 
 
 tm = TileManager(
-
-        erah=1,
 
         cc=[
             'grassland',
@@ -764,7 +963,13 @@ wd = Woods()
 # print(tm.i0.__dict__)
 # print(tm.i0.terrain.__dict__)
 # print('')
-print(tm.calculate_adjacency('i0'))
+print(tm.i0.food)
+print(tm.i0.houseing)
+print(tm.erah)
+# tm._calculate_adjacency('i0')
+tm.calculate_tile_yield('i0')
+print(tm.i0.food)
+print(tm.i0.houseing)
 # print(tm.calculate_adjacency('cc'))
 # print(tm._cc.__dict__)
 # print(json.dumps(tm.__dict__, indent=2))
