@@ -22,7 +22,7 @@ services:
             dockerfile: backend/Dockerfile
         image: civ_calculator
         restart: always
-        command: uvicorn backend:app --host 0.0.0.0 --port 8000
+        command: uvicorn calculator:app --host 0.0.0.0 --port 8000
         volumes:
             - .:/usr/src
         ports:

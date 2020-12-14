@@ -6,12 +6,11 @@ services:
             context: .
             dockerfile: backend/Dockerfile
         image: civ_backend
-        restart: always
         command: uvicorn backend:app --reload --workers 1 --host 0.0.0.0 --port 8000
         volumes:
             - .:/usr/src
         ports:
-            - 8304:8000
+            - 8314:8000
         environment:
             - ENVIRONMENT=dev
             - SERVICE=backend
@@ -21,12 +20,24 @@ services:
             context: .
             dockerfile: calculator/Dockerfile
         image: civ_calculator
-        restart: always
-        command: uvicorn backend:app --reload --host 0.0.0.0 --port 8000
+        command: sh
+        # command: uvicorn backend:app --reload --host 0.0.0.0 --port 8000
         volumes:
             - .:/usr/src
         ports:
-          - 8305:8000
+            - 8316:8000
         environment:
             - ENVIRONMENT=dev
             - SERVICE=calculator
+
+    database:
+        image: mongo:latest
+        environment: 
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: rootpassword
+        ports:
+            - 8305:8000
+        volumes:
+            - mongodb_data_container:/data/db
+volumes:
+    mongodb_data_container:

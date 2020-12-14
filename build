@@ -17,6 +17,8 @@ start_container () {
     COMPOSE_EXIT_CODE=2
     # echo $1 # env (prod, reg, dev, test)
     # echo $2 # Service
+    # echo $3
+    # echo $@
 
     case "$1" in
         # prod
@@ -32,7 +34,7 @@ start_container () {
             ;;
         dev)
             echo "Spinning up a ${service} service in a DEV env for ${APPNAME} program"
-            docker-compose -f docker-compose-development.yml run $2
+            docker-compose -f docker-compose-development.yml run --rm $2
             COMPOSE_EXIT_CODE=$?
             ;;
         test)
@@ -44,104 +46,112 @@ start_container () {
 }
 
 clean () {
-    # Move log files to the logs/archive directory to work with a clean log file. 
-    # When the log file is moved a prefix of the date is added. 
+    echo clean
+    # # Move log files to the logs/archive directory to work with a clean log file. 
+    # # When the log file is moved a prefix of the date is added. 
 
-    echo "Archiving log files from the logs/ dir"
+    # echo "Archiving log files from the logs/ dir"
     
-    move_file () {
-        if [ -f ${1}${2} ]; then
-            echo "Archiving log file ${1}${2} to ${3}${4}${2}"
-            mv ${1}${2} ${3}${4}${2};
-        fi
+    # move_file () {
+    #     if [ -f ${1}${2} ]; then
+    #         echo "Archiving log file ${1}${2} to ${3}${4}${2}"
+    #         mv ${1}${2} ${3}${4}${2};
+    #     fi
 
-    }
-    DATE=$(date '+%Y%m%d%H%M%S')
-    move_file "logs/" "frontend.log" "logs/archive/" "${DATE}_"
-    move_file "logs/" "frontend_startup.log" "logs/archive/" "${DATE}_"
-    move_file "logs/" "frontend_dev.log" "logs/archive/" "${DATE}_"
-    move_file "logs/" "backend.log" "logs/archive/" "${DATE}_"
-    move_file "logs/" "backend_startup.log" "logs/archive/" "${DATE}_"
-    move_file "logs/" "backend_dev.log" "logs/archive/" "${DATE}_"
+    # }
+    # DATE=$(date '+%Y%m%d%H%M%S')
+    # move_file "logs/" "frontend.log" "logs/archive/" "${DATE}_"
+    # move_file "logs/" "frontend_startup.log" "logs/archive/" "${DATE}_"
+    # move_file "logs/" "frontend_dev.log" "logs/archive/" "${DATE}_"
+    # move_file "logs/" "backend.log" "logs/archive/" "${DATE}_"
+    # move_file "logs/" "backend_startup.log" "logs/archive/" "${DATE}_"
+    # move_file "logs/" "backend_dev.log" "logs/archive/" "${DATE}_"
 
-    echo "Done!"
+    # echo "Done!"
 }
 
 run () {
-    # Use docker-compose to spin up the app. 
-    echo "frontend"
-    grep_port "frontend"
-    echo "backend"
-    grep_port "backend"
-    docker-compose up -d frontend
-    docker-compose up -d backend
+    echo run
+    # # Use docker-compose to spin up the app. 
+    # echo "frontend"
+    # grep_port "frontend"
+    # echo "backend"
+    # grep_port "backend"
+    # docker-compose up -d frontend
+    # docker-compose up -d backend
 }
 
-dev_fe () {
-    # Spin up the dev environment. 
-    grep_port "dev-fe"
-    docker-compose up dev-fe
-}
+# dev_fe () {
+#     # Spin up the dev environment. 
+#     grep_port "dev-fe"
+#     docker-compose up dev-fe
+# }
 
-dev_be () {
-    # Spin up the dev environment. 
-    grep_port "dev-be"
-    docker-compose up dev-be
-}
+# dev_be () {
+#     # Spin up the dev environment. 
+#     grep_port "dev-be"
+#     docker-compose up dev-be
+# }
 
 containers () {
-    # List containers matching name
+    echo containers
+    # # List containers matching name
 
-    echo "\nList of containers"
+    # echo "\nList of containers"
 
-    echo "-${0}-${1}-${2}-"
-    if [ -z $2 ]
-    then
-        echo '\nActive containers'
-        docker ps --filter label=project="Civ-VI"
-        # docker ps
-    else
-        echo "\nSearching for ${2}"
-        docker ps --filter "name=${2}"
-        # docker ps -a --filter label=project="Civ-VI"
-    fi
+    # echo "-${0}-${1}-${2}-"
+    # if [ -z $2 ]
+    # then
+    #     echo '\nActive containers'
+    #     docker ps --filter label=project="Civ-VI"
+    #     # docker ps
+    # else
+    #     echo "\nSearching for ${2}"
+    #     docker ps --filter "name=${2}"
+    #     # docker ps -a --filter label=project="Civ-VI"
+    # fi
 
-    # docker ps --filter name=civ* -aq
+    # # docker ps --filter name=civ* -aq
 }
 
 stop () {
-    # Stop weatherman containers
+    echo stop
+    # # Stop weatherman containers
 
-    echo "Stopping all weatherman containers"
+    # echo "Stopping all weatherman containers"
 
-    docker ps --filter name=civ* -aq | xargs docker stop
+    # docker ps --filter name=civ* -aq | xargs docker stop
 }
 
 clense () {
-    # Find all containers that have weatherman* in the name and stop/rm them. 
+    echo clense
+    # # Find all containers that have weatherman* in the name and stop/rm them. 
 
-    echo "About to stop/rm all weatherman containers. If one is running in terminal this cmd will wait"
+    # echo "About to stop/rm all weatherman containers. If one is running in terminal this cmd will wait"
 
-    docker ps --filter name=civ* -aq | xargs docker stop | xargs docker rm
+    # docker ps --filter name=civ* -aq | xargs docker stop | xargs docker rm
 }
 
 
 unit () {
-    # Run the unit tests. 
-    # This includes flake and lenting
-    docker-compose up unit-test
+    echo unit
+    # # Run the unit tests. 
+    # # This includes flake and lenting
+    # docker-compose up unit-test
 }
 
 functional () {
-    # Run the functional tests. 
-    docker-compose up test
+    echo functional
+    # # Run the functional tests. 
+    # docker-compose up test
 }
 
 tests () {
-    # Run each test. 
-    # I have them seporated in case i want to grep for things in the test or save them to files. 
-    unit
-    functional
+    echo tests
+    # # Run each test. 
+    # # I have them seporated in case i want to grep for things in the test or save them to files. 
+    # unit
+    # functional
 }
 
 about () {
@@ -176,27 +186,44 @@ case "$1" in
         ;;
 
     # Running
-    run)
-        run
+    prod)
+        start_container "prod"
         ;;
-    dev-fe)
-        dev_fe
+
+    reg)
+        start_container "reg" "${2}"
         ;;
-    dev-be)
-        dev_be
+
+    dev)
+        start_container "dev" "${2}"
         ;;
-    clean-run)
-        clean
-        run
+
+    test)
+        start_container "test"
         ;;
-    clean-fe)
-        clean
-        dev-fe
-        ;;
-    clean-be)
-        clean
-        dev-be
-        ;;
+
+    
+    # run)
+    #     run
+    #     ;;
+    # dev-fe)
+    #     dev_fe
+    #     ;;
+    # dev-be)
+    #     dev_be
+    #     ;;
+    # clean-run)
+    #     clean
+    #     run
+    #     ;;
+    # clean-fe)
+    #     clean
+    #     dev-fe
+    #     ;;
+    # clean-be)
+    #     clean
+    #     dev-be
+    #     ;;
 
     # Status
     containers)
