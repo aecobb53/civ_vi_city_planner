@@ -1,7 +1,11 @@
+from common_tile import CommonTile
 
+class Plains(CommonTile):
 
-class Plains:
-
-    def __init__(self):
-        pass
-
+    def __init__(
+        self,
+        hills=None
+    ):
+        super().__init__()
+        self.food = 1
+        self.production = 2 if hills == True else 1

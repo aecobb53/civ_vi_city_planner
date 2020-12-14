@@ -18,6 +18,7 @@ class CommonTile:
         self._houseing = None
         self._amenities = None
         self._power = None
+        self._appeal = None
         self._bonus = None
         self._strategic = None
         self._luxury = None
@@ -165,6 +166,17 @@ class CommonTile:
     @power.setter
     def power(self, value):
         self._power = value
+
+    # appeal
+    @property
+    def appeal(self):
+        if self._appeal == None:
+            return None
+        return self._appeal
+
+    @appeal.setter
+    def appeal(self, value):
+        self._appeal = value
 
     # bonus        
     @property

@@ -1,11 +1,11 @@
 from common_tile import CommonTile
 
-class Grassland(CommonTile):
+class Coast(CommonTile):
 
     def __init__(
         self,
         hills=None
     ):
         super().__init__()
-        self.food = 2
-        self.production = 1 if hills == True else 0
+        self.food = 1
+        self.gold = 1

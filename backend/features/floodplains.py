@@ -1,14 +1,13 @@
 from common_tile import CommonTile
 
 
-class Woods(CommonTile):
+class Floodplains(CommonTile):
 
     def __init__(self):
         super().__init__()
-        self.production = 1
+        self.food = 3
         self.acceptable_terrain = [
-            'grassland',
+            'desert',
             'plains',
-            'tundra',
+            'grassland',
         ]
-        self.hills = True
