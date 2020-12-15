@@ -745,9 +745,9 @@ class TileManager:
             pass
 
     def _use_district(self, tile_index):
-        print(getattr(self, tile_index).district)
+        # print(getattr(self, tile_index).district)
         for resource in self.resource_list:
-            print(f"----resource: {resource}")
+            # print(f"----resource: {resource}")
             tile_yield = self._tile_summer(tile_index, 'district', resource)
 
     def calculate_tile_yield(self, tile_index=None):
@@ -762,11 +762,14 @@ class TileManager:
             if not isinstance(tile_index, list):
                 search_list = [tile_index]
         for tile_index in search_list:
-            if getattr(self, tile_index).district is not None:
-                self._use_district(tile_index)
-                return None
+            try:
+                if getattr(self, tile_index).district is not None:
+                    self._use_district(tile_index)
+                    return None
+            except AttributeError:
+                pass
             # print('')
-            print(f"tile_index: {tile_index}")
+            # print(f"tile_index: {tile_index}")
             # print(getattr(self, tile_index).food)
             for tile_type in self.tile_list:
                 # print(f"--tile_type: {tile_type}")
@@ -793,7 +796,8 @@ tm = TileManager(
         'grasslandh',
         'floodplains',
         # 'campus',
-        'farm',
+        'bananas',
+        'plantation',
     ]
 )
 
@@ -803,11 +807,11 @@ tm = TileManager(
 print(tm.cc.__dict__)
 print('')
 print(tm.cc.food)
-print(tm.cc.science)
+# print(tm.cc.science)
 tm.calculate_tile_yield()
-print(tm.cc.district.__dict__)
+# print(tm.cc.district.__dict__)
 print(tm.cc.food)
-print(tm.cc.science)
+# print(tm.cc.science)
 
 
 exit()

@@ -5,6 +5,7 @@ from features.woods import Woods
 from features.floodplains import Floodplains
 from improvements.farm import Farm
 from districts.campus import Campus
+from resources.bananas import Bananas
 
 class Tile(CommonTile):
     """
@@ -54,9 +55,136 @@ class Tile(CommonTile):
         ]
         self.list_of_improvements = [
             'farm',
+            'mine',
+            'quarry',
+            'plantation',
+            'camp',
+            'pasture',
+            'fishing_boat',
+            'lumber_mill',
+            'fort',
+            'airstrip',
+            'seaside_resprot',
+            'geothermal_plant',
+            'wind_farm',
+            'solar_farm',
+            'offshore_wind_farm',
+            'ski_resort',
+            'oil_well',
+            'offshore_oil_well',
+            'missle_silo',
+            'mountain_tunnel',
+            'railroad',
+            'seastead',
+            'alcazar',
+            'batey',
+            'cahokia_mounds',
+            'colossal_heads',
+            'mahavihara',
+            'moai',
+            'monistary',
+            'nazca_line',
+            'trading_dome',
+            'chateau',
+            'chemamull',
+            'golf_course',
+            'great_wall',
+            'hacienda',
+            'ice_hocky_rink',
+            'kampung',
+            'kurgan',
+            'mekewap',
+            'mission',
+            'nubian_pyramid',
+            'open-air_museum',
+            'outback_station',
+            'pa',
+            'pairirdaeza',
+            'polder',
+            'qhapaq_nan',
+            'rock-hewn_church',
+            'roman_fort',
+            'sphinx',
+            'stepwell',
+            'terrace_farms',
+            'ziggurat',
+            'city_park',
+            'fishery',
         ]
         self.list_of_districts = [
-            'campus'
+            'city_center',
+            'campus',
+            'theater_square',
+            'holy_site',
+            'encampment',
+            'commercial_hub',
+            'harbor',
+            'industrial_zone',
+            'entertainment_complex',
+            'water_park',
+            'aqueduct',
+            'neighborhood',
+            'canal',
+            'dam',
+            'aerodrome',
+            'spaceport',
+            'govermment_plaza',
+            'diplomatic_quarter',
+        ]
+        self.list_of_resources = [
+            'bananas',
+            'copper',
+            'cattle',
+            'crabs',
+            'deer',
+            'fish',
+            'maize',
+            'rice',
+            'sheep',
+            'stone',
+            'wheat',
+            'amber',
+            'cinnamon',
+            'citrus',
+            'cloves',
+            'cocoa',
+            'coffee',
+            'cosmetics',
+            'cotton',
+            'dyes',
+            'diamonds',
+            'furs',
+            'gold_ore',
+            'gypsum',
+            'honey',
+            'insense',
+            'ivory',
+            'jade',
+            'jeans',
+            'marble',
+            'murcury',
+            'olives',
+            'pearls',
+            'perfume',
+            'salt',
+            'silk',
+            'silver',
+            'spices',
+            'sugar',
+            'tea',
+            'tobacco',
+            'toys',
+            'truffles',
+            'turtles',
+            'whales',
+            'wine',
+            'horses',
+            'iron',
+            'niter',
+            'coal',
+            'oil',
+            'aluminum',
+            'uranium',
         ]
         self.list_of_wonders = []
 
@@ -100,6 +228,15 @@ class Tile(CommonTile):
                     print('type is campus')
                     self.district = Campus()
                     self.district.set_buildings()
+
+            if name in self.list_of_resources:
+                print('type is resource')
+                if name == 'bananas':
+                    print('type is bananas')
+                    self.resource = Bananas()
+
+
+
 
     # terrain
     @property

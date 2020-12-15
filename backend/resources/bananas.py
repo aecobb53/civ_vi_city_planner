@@ -1,11 +1,8 @@
 from common_tile import CommonTile
 
-class Grassland(CommonTile):
+class Bananas(CommonTile):
 
-    def __init__(
-        self,
-        hills=None
-    ):
+    def __init__(self):
         super().__init__()
-        self.food = 2
-        self.production = 1 if hills == True else 0
+        self.food = 1
+        self.improvement = 'plantation'

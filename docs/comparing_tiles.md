@@ -210,6 +210,67 @@ Really this is for notes to keep track of for building things out
 - diplomatic_quarter
     - 
 
+# Resources
+
+## Bonus
+bananas
+copper
+cattle
+crabs
+deer
+fish
+maize
+rice
+sheep
+stone
+wheat
+
+## Luxury
+amber
+cinnamon
+citrus
+cloves
+cocoa
+coffee
+cosmetics
+cotton
+dyes
+diamonds
+furs
+gold_ore
+gypsum
+honey
+insense
+ivory
+jade
+jeans
+marble
+murcury
+olives
+pearls
+perfume
+salt
+silk
+silver
+spices
+sugar
+tea
+tobacco
+toys
+truffles
+turtles
+whales
+wine
+
+## Strategic
+horses
+iron
+niter
+coal
+oil
+aluminum
+uranium
+
 
 
 
