@@ -15,8 +15,10 @@ class CommonTile:
         self._tourism = None
         self._population = None
         self._houseing = None
+        self._citizen_slot = None
         self._amenities = None
         self._power = None
+        self._powered = None
         self._appeal = None
         self._bonus = None
         self._strategic = None
@@ -144,6 +146,17 @@ class CommonTile:
     def houseing(self, value):
         self._houseing = value
 
+    # citizen_slot
+    @property
+    def citizen_slot(self):
+        if self._citizen_slot == None:
+            return 1
+        return self._citizen_slot
+
+    @citizen_slot.setter
+    def citizen_slot(self, value):
+        self._citizen_slot = value
+
     # amenities        
     @property
     def amenities(self):
@@ -155,7 +168,7 @@ class CommonTile:
     def amenities(self, value):
         self._amenities = value
 
-    # power        
+    # power
     @property
     def power(self):
         if self._power == None:
@@ -165,6 +178,17 @@ class CommonTile:
     @power.setter
     def power(self, value):
         self._power = value
+
+    # powered
+    @property
+    def powered(self):
+        if self._powered == None:
+            return 0
+        return self._powered
+
+    @powered.setter
+    def power(self, value):
+        self._powered = value
 
     # appeal
     @property

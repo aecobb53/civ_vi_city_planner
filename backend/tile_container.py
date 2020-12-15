@@ -4,6 +4,7 @@ from terrain.plains import Plains
 from features.woods import Woods
 from features.floodplains import Floodplains
 from improvements.farm import Farm
+from districts.campus import Campus
 
 class Tile(CommonTile):
     """
@@ -23,10 +24,15 @@ class Tile(CommonTile):
 
         self.list_of_terrain = [
             'grassland',
+            'grasslandh',
             'plains',
+            'plainsh',
             'desert',
+            'deserth',
             'tundra',
+            'tundrah',
             'snow',
+            'snowh',
             'coast',
             'lake',
             'ocean',
@@ -49,7 +55,9 @@ class Tile(CommonTile):
         self.list_of_improvements = [
             'farm',
         ]
-        self.list_of_districts = []
+        self.list_of_districts = [
+            'campus'
+        ]
         self.list_of_wonders = []
 
         for name in tile_list:
@@ -58,9 +66,14 @@ class Tile(CommonTile):
 
             if name in self.list_of_terrain:
                 # print('type is terrain')
-                if name == 'grassland':
+                print(name)
+                if name.endswith('h'):
+                    hills = True
+                else:
+                    hills = False
+                if 'grassland' in name:
                     # print('type is grassland')
-                    self.terrain = Grassland()
+                    self.terrain = Grassland(hills=hills)
 
             if name in self.list_of_features:
                 # print('type is feature')
@@ -80,6 +93,13 @@ class Tile(CommonTile):
                     print('type is farm')
                     self.improvement = Farm()
                     print(self.improvement.__dict__)
+            
+            if name in self.list_of_districts:
+                print('type is district')
+                if name == 'campus':
+                    print('type is campus')
+                    self.district = Campus()
+                    self.district.set_buildings()
 
     # terrain
     @property

@@ -7,6 +7,7 @@ from terrain.grassland import Grassland
 from terrain.plains import Plains
 from features.woods import Woods
 from improvements.farm import Farm
+from districts.campus import Campus
 
 
 class TileManager:
@@ -131,6 +132,8 @@ class TileManager:
             'terrain',
             'feature',
             'improvement',
+            'district',
+            'resources',
         ]
 
         # Era:0 Ancient Era (4000 BC ~ 1000 BC)
@@ -702,16 +705,10 @@ class TileManager:
         # Apply the adjacency bonuses
         print(getattr(self, tile_index).__dict__)
         if isinstance(getattr(self, tile_index).improvement, Farm):
-            # print('instance is farm')
-            # if getattr(self, tile_index).food == None:
-            #     getattr(self, tile_index).food = 0
-            # print(getattr(self, tile_index).food)
-            # print(math.floor(adj_farm_count / 2))
-            getattr(self, tile_index).food = getattr(self, tile_index).food + math.floor(adj_farm_count / 2)
-
-            # # if getattr(self, tile_index).houseing == None:
-            # #     getattr(self, tile_index).houseing = 0
-            # getattr(self, tile_index).houseing = getattr(self, tile_index).houseing + math.floor(adj_farm_count / 2)
+            if self.erah >= 2:
+                getattr(self, tile_index).food = getattr(self, tile_index).food + math.floor(adj_farm_count / 2)
+            if self.erah >= 5:
+                getattr(self, tile_index).food = getattr(self, tile_index).food + adj_farm_count
 
     def _calculate_era(self, tile_index):
         """
@@ -722,13 +719,13 @@ class TileManager:
             # If there is no valid tile, break out
             return None
 
-        if isinstance(getattr(self, tile_index).improvement, Farm):
-            # if getattr(self, tile_index).food == None:
-            #     getattr(self, tile_index).food = 0
-            if self.erah >= 2:
-                getattr(self, tile_index).food = getattr(self, tile_index).food + 1
-            if self.erah >= 5:
-                getattr(self, tile_index).food = getattr(self, tile_index).food + 1
+        # if isinstance(getattr(self, tile_index).improvement, Farm):
+        #     # if getattr(self, tile_index).food == None:
+        #     #     getattr(self, tile_index).food = 0
+        #     if self.erah >= 2:
+        #         getattr(self, tile_index).food = getattr(self, tile_index).food + 1
+        #     if self.erah >= 5:
+        #         getattr(self, tile_index).food = getattr(self, tile_index).food + 1
 
     def _tile_summer(self, tile_index, tile_type, resource):
         # print(self, tile_index, tile_type, resource)
@@ -744,6 +741,14 @@ class TileManager:
             # return getattr(getattr(getattr(self, tile_index), tile_type), resource)
         except AttributeError:
             return None
+        except TypeError:
+            pass
+
+    def _use_district(self, tile_index):
+        print(getattr(self, tile_index).district)
+        for resource in self.resource_list:
+            print(f"----resource: {resource}")
+            tile_yield = self._tile_summer(tile_index, 'district', resource)
 
     def calculate_tile_yield(self, tile_index=None):
         """
@@ -757,6 +762,9 @@ class TileManager:
             if not isinstance(tile_index, list):
                 search_list = [tile_index]
         for tile_index in search_list:
+            if getattr(self, tile_index).district is not None:
+                self._use_district(tile_index)
+                return None
             # print('')
             print(f"tile_index: {tile_index}")
             # print(getattr(self, tile_index).food)
@@ -780,6 +788,29 @@ class TileManager:
 
 
 
+tm = TileManager(
+    cc=[
+        'grasslandh',
+        'floodplains',
+        # 'campus',
+        'farm',
+    ]
+)
+
+# for item, val in tm.cc.terrain.__dict__.items():
+#     print(f"    {item} : {val}")
+
+print(tm.cc.__dict__)
+print('')
+print(tm.cc.food)
+print(tm.cc.science)
+tm.calculate_tile_yield()
+print(tm.cc.district.__dict__)
+print(tm.cc.food)
+print(tm.cc.science)
+
+
+exit()
 
 
 # tm = TileManager(
@@ -798,22 +829,23 @@ class TileManager:
 # print('\n')
 
 tm2 = TileManager(
+    erah=8,
     cc=[
         'desert',
-        # 'grassland',
-        # 'floodplains',
-        # 'farm'
+        'grassland',
+        'floodplains',
+        'farm'
     ],
     i0=[
         'grassland',
         'floodplains',
         'farm'
     ],
-    # i1=[
-    #     'grassland',
-    #     'floodplains',
-    #     'farm'
-    # ]
+    i1=[
+        'grassland',
+        'floodplains',
+        'farm'
+    ]
 )
 
 # # for k,v in tm.__dict__.items():
