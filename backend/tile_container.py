@@ -70,7 +70,7 @@ class Tile(CommonTile):
             'plantation',
             'camp',
             'pasture',
-            'fishing_boat',
+            'fishing_boats',
             'lumber_mill',
             'fort',
             'airstrip',
@@ -1296,7 +1296,7 @@ class Tile(CommonTile):
                     except:
                         pass
 
-                if name == 'fishing_boat':
+                if name == 'fishing_boats':
                     self.improvement = FishingBoats()
                     try:
                         terrain_type = str(type(self.terrain)).split('.')[1]

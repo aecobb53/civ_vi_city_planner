@@ -1,14 +1,18 @@
 from common_tile import CommonTile
 
-class Bananas(CommonTile):
+class Fish(CommonTile):
 
     def __init__(self):
         super().__init__()
         self.food = 1
         self.resource_type = 'bonus'
-        self.features = [
-            'rainforest'
+        self.terrain = [
+            'coast',
+            'lake'
         ]
+        # self.features = [
+        #     'reef'
+        # ]
         self.improvement = [
-            'plantation'
+            'fishing_boats'
         ]
