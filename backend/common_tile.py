@@ -1,4 +1,3 @@
-import json
 
 
 class CommonTile:
@@ -16,8 +15,10 @@ class CommonTile:
         self._tourism = None
         self._population = None
         self._houseing = None
+        self._citizen_slot = None
         self._amenities = None
         self._power = None
+        self._powered = None
         self._appeal = None
         self._bonus = None
         self._strategic = None
@@ -50,7 +51,7 @@ class CommonTile:
     @property
     def food(self):
         if self._food == None:
-            return None
+            return 0
         return self._food
 
     @food.setter
@@ -61,7 +62,7 @@ class CommonTile:
     @property
     def production(self):
         if self._production == None:
-            return None
+            return 0
         return self._production
 
     @production.setter
@@ -72,7 +73,7 @@ class CommonTile:
     @property
     def gold(self):
         if self._gold == None:
-            return None
+            return 0
         return self._gold
 
     @gold.setter
@@ -83,7 +84,7 @@ class CommonTile:
     @property
     def science(self):
         if self._science == None:
-            return None
+            return 0
         return self._science
 
     @science.setter
@@ -94,7 +95,7 @@ class CommonTile:
     @property
     def culture(self):
         if self._culture == None:
-            return None
+            return 0
         return self._culture
 
     @culture.setter
@@ -105,7 +106,7 @@ class CommonTile:
     @property
     def faith(self):
         if self._faith == None:
-            return None
+            return 0
         return self._faith
 
     @faith.setter
@@ -116,7 +117,7 @@ class CommonTile:
     @property
     def tourism(self):
         if self._tourism == None:
-            return None
+            return 0
         return self._tourism
 
     @tourism.setter
@@ -127,7 +128,7 @@ class CommonTile:
     @property
     def population(self):
         if self._population == None:
-            return None
+            return 0
         return self._population
 
     @population.setter
@@ -138,40 +139,62 @@ class CommonTile:
     @property
     def houseing(self):
         if self._houseing == None:
-            return None
+            return 0
         return self._houseing
 
     @houseing.setter
     def houseing(self, value):
         self._houseing = value
 
+    # citizen_slot
+    @property
+    def citizen_slot(self):
+        if self._citizen_slot == None:
+            return 1
+        return self._citizen_slot
+
+    @citizen_slot.setter
+    def citizen_slot(self, value):
+        self._citizen_slot = value
+
     # amenities        
     @property
     def amenities(self):
         if self._amenities == None:
-            return None
+            return 0
         return self._amenities
 
     @amenities.setter
     def amenities(self, value):
         self._amenities = value
 
-    # power        
+    # power
     @property
     def power(self):
         if self._power == None:
-            return None
+            return 0
         return self._power
 
     @power.setter
     def power(self, value):
         self._power = value
 
+    # powered
+    @property
+    def powered(self):
+        if self._powered == None:
+            return 0
+        return self._powered
+
+    @powered.setter
+    def power(self, value):
+        self._powered = value
+
     # appeal
     @property
     def appeal(self):
         if self._appeal == None:
-            return None
+            return 0
         return self._appeal
 
     @appeal.setter
