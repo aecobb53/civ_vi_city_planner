@@ -22,7 +22,7 @@ class TileManager:
         """
         The values of the kwargs are converted to lists if they are not already then provided to the Tile class.
         """
-        
+
         self._cc = None
         self._i0 = None
         self._i1 = None
@@ -129,11 +129,12 @@ class TileManager:
             'appeal',
         ]
         self.tile_list = [
+            'wonder',
+            'district',
             'terrain',
             'feature',
-            'improvement',
-            'district',
             'resources',
+            'improvement',
         ]
 
         # Era:0 Ancient Era (4000 BC ~ 1000 BC)
@@ -682,50 +683,68 @@ class TileManager:
         self._trader = Tile(value)
 
 
-    def _calculate_adjacency(self, tile_index):
-        """
-        Many tile elements are dependant on the surrounding tiles. This will go through each adjacent tile
-        and apply the appropriate adjacency bonuses if there are any. 
-        """
-        # print(tile_index)
-        if getattr(self, tile_index) is None:
-            # If there is no valid tile, break out
-            return None
+    # def _calculate_adjacency(self, tile_index):
+    #     """
+    #     Many tile elements are dependant on the surrounding tiles. This will go through each adjacent tile
+    #     and apply the appropriate adjacency bonuses if there are any.
+    #     """
+    #     # print(tile_index)
+    #     if getattr(self, tile_index) is None:
+    #         # If there is no valid tile, break out
+    #         return None
 
-        # Sum upp different adjacency bonusues
-        adj_farm_count = 0
-        for dex in self.return_adj_matrix(tile_index):
-            try:
-                # print('    ' + str(dex) + '  -  ' + str(dex.terrain) + '  =  ' + str(dex.improvement))
-                if isinstance(dex.improvement, Farm):
-                    adj_farm_count +=1
-            except:
-                pass
+    #     # Sum upp different adjacency bonusues
+    #     adj_farm_count = 0
+    #     for dex in self.return_adj_matrix(tile_index):
+    #         print(isinstance(dex.improvement, getattr('farm', 'Farm')))
+    #         try:
+    #             # print('    ' + str(dex) + '  -  ' + str(dex.terrain) + '  =  ' + str(dex.improvement))
+    #             if isinstance(dex.improvement, getattr('Farm')):
+    #             # if isinstance(dex.improvement, Farm):
+    #                 adj_farm_count +=1
+    #         except:
+    #             pass
 
-        # Apply the adjacency bonuses
-        print(getattr(self, tile_index).__dict__)
-        if isinstance(getattr(self, tile_index).improvement, Farm):
-            if self.erah >= 2:
-                getattr(self, tile_index).food = getattr(self, tile_index).food + math.floor(adj_farm_count / 2)
-            if self.erah >= 5:
-                getattr(self, tile_index).food = getattr(self, tile_index).food + adj_farm_count
+    #     # Apply the adjacency bonuses
+    #     print(getattr(self, tile_index).__dict__)
+    #     if isinstance(getattr(self, tile_index).improvement, Farm):
+    #         if self.erah >= 2:
+    #             getattr(self, tile_index).food = getattr(self, tile_index).food + math.floor(adj_farm_count / 2)
+    #         if self.erah >= 5:
+    #             getattr(self, tile_index).food = getattr(self, tile_index).food + adj_farm_count
+
+    def _count_improvement_adjacency(self, tile_index, search_obj):
+        # Counts the number of adjacent specified objects to the provided tile_index
+        obj_count = 0
+        for adj_index in self.adjacency_members[tile_index]:
+            if adj_index is None:
+                continue
+            # print('')
+            # print(adj_index)
+            # print(type(adj_index))
+            # print(adj_index.improvement)
+            # print(type(adj_index.improvement))
+            # print(isinstance(adj_index.improvement, Farm))
+            # print(isinstance(adj_index.improvement, search_obj))
+            if isinstance(adj_index.improvement, search_obj):
+                obj_count += 1
+            # # print('resource  ' + str(adj_index))
+            # print(tile_index, adj_index, type(search_obj))
+            # print(search_obj)
+            # print(getattr(self, tile_index).improvement)
+            # print(isinstance(getattr(self, tile_index).improvement, Farm))
+            # print(isinstance(getattr(self, tile_index).improvement, search_obj))
+            # if isinstance(getattr(self, tile_index).improvement, search_obj):
+            #     print('object found')
+            #     obj_count += 1
+        return obj_count
 
     def _calculate_era(self, tile_index):
         """
-        Many tile elements benefit from technologies in the different eras. 
-        It would be nice to be able to input that and not just the endgame era. 
+        Many tile elements benefit from technologies in the different eras.
+        It would be nice to be able to input that and not just the endgame era.
         """
-        if getattr(self, tile_index) is None:
-            # If there is no valid tile, break out
-            return None
-
-        # if isinstance(getattr(self, tile_index).improvement, Farm):
-        #     # if getattr(self, tile_index).food == None:
-        #     #     getattr(self, tile_index).food = 0
-        #     if self.erah >= 2:
-        #         getattr(self, tile_index).food = getattr(self, tile_index).food + 1
-        #     if self.erah >= 5:
-        #         getattr(self, tile_index).food = getattr(self, tile_index).food + 1
+        pass
 
     def _tile_summer(self, tile_index, tile_type, resource):
         # print(self, tile_index, tile_type, resource)
@@ -744,60 +763,223 @@ class TileManager:
         except TypeError:
             pass
 
-    def _use_district(self, tile_index):
+    def _calculate_district(self, tile_index):
+        # Calculate the yield and details around the district
         # print(getattr(self, tile_index).district)
         for resource in self.resource_list:
             # print(f"----resource: {resource}")
             tile_yield = self._tile_summer(tile_index, 'district', resource)
 
-    def calculate_tile_yield(self, tile_index=None):
+    def _calculate_terrain(self, tile_index):
+        # Calculate the yield for the terrain of the tile
+        for resource in self.resource_list:
+            self._tile_summer(tile_index, 'terrain', resource)
+
+    def _calculate_feature(self, tile_index):
+        # Calculate the yield for the feature of the tile
+        for resource in self.resource_list:
+            self._tile_summer(tile_index, 'feature', resource)
+
+    def _calculate_improvement(self, tile_index):
+        # Calculate the yield for the improvement on the tile
+        for resource in self.resource_list:
+            self._tile_summer(tile_index, 'improvement', resource)
+
+        # Adjacency or Era bonuses
+        # Farms
+        if isinstance(getattr(self, tile_index).improvement, Farm):
+            print('instance is Farm')
+            adj_farms = self._count_improvement_adjacency(tile_index, Farm)
+            print(f"adj farm count: {adj_farms}")
+            tile_yield = getattr(getattr(self, tile_index), 'food')
+            print(f"Tile yield: {tile_yield}")
+            if self.erah >= 2:
+                tile_yield += math.floor(adj_farms / 2)
+            if self.erah >= 5:
+                tile_yield += adj_farms
+            print(f"New tile yield: {tile_yield}")
+            setattr(getattr(self, tile_index), 'food', tile_yield)
+            # tile_yield = getattr(getattr(self, tile_index), 'food')
+            # print(tile_yield, adj_farms, self.erah)
+            # # tile_yield = 0
+            # if self.erah >= 2:
+            #     tile_yield += math.floor(adj_farms / 2)
+            # if self.erah >= 5:
+            #     tile_yield += adj_farms
+            # print(tile_yield, adj_farms, self.erah)
+            # # new_yield = orig_yield + tile_yield
+            # # print(f"{new_yield} = {orig_yield} + {tile_yield}")
+            # # if resource == 'food':
+            #     # print(orig_yield, tile_yield, new_yield)
+            # setattr(getattr(self, tile_index), 'food', tile_yield)
+            # # self._calculate_adjacency(tile_index)
+            # # for adj_index in self.adjacency_members[tile_index]:
+            # #     self._calculate_adjacency()
+            # #     print('is farm' + str(adj_index))
+
+    def calculate_tile_yield(self, tile_index):
         """
-        This will run both the adjacency and era calculators to get a final tile yield. 
+        This will run both the adjacency and era calculators to get a final tile yield.
         """
-        if tile_index == None:
-            print('for testing only running first few keys. Fix this later!!!!')
-            search_list = list(self.adjacency_members.keys())[:7]
-            # search_list = self.adjacency_members.keys()
-        else:
-            if not isinstance(tile_index, list):
-                search_list = [tile_index]
+        # if tile_index == None:
+        #     print('for testing only running first few keys. Fix this later!!!!')
+        #     search_list = list(self.adjacency_members.keys())[:7]
+        #     # search_list = self.adjacency_members.keys()
+        # else:
+        #     if not isinstance(tile_index, list):
+        #         search_list = [tile_index]
+
+        if getattr(self, tile_index) is None:
+            return None
+
+        if getattr(self, tile_index).wonder is not None:
+            print('has wonder')
+
+        if getattr(self, tile_index).district is not None:
+            print('has district')
+            self._calculate_district(tile_index)
+            return None
+
+        if getattr(self, tile_index).terrain is not None:
+            print('has terrain')
+            self._calculate_terrain(tile_index)
+
+        if getattr(self, tile_index).feature is not None:
+            print('has feature')
+            self._calculate_feature(tile_index)
+
+        if getattr(self, tile_index).resource is not None:
+            print('has resource')
+
+        if getattr(self, tile_index).improvement is not None:
+            print('has improvement')
+            self._calculate_improvement(tile_index)
+
+
+
+
+        # for tile_index in search_list:
+        #     if getattr(self, tile_index) is None:
+        #         continue
+        #     print(f"tile_index: {tile_index}")
+        #     for tile_type in self.tile_list:
+        #         print(f"--tile_type: {tile_type}")
+        #         # try:
+        #         if tile_type == 'wonder':
+        #             continue
+        #         if tile_type == 'district':
+        #             # Because the district ignore the rest of the possibilities in the tile they are ignored
+        #             if getattr(self, tile_index).district is not None:
+        #                 self._use_district(tile_index)
+        #                 return None
+        #         if tile_type == 'terrain':
+        #         # if tile_type == 'feature':
+        #         # if tile_type == 'resources':
+        #         # if tile_type == 'improvement':
+        #         # if tile_type == 'improvement':
+        #         #     print('improvement')
+        #         #     # print(getattr(self, tile_index).__dict__.keys())
+        #         #     if getattr(self, tile_index).improvement is not None:
+        #         #         # Does the improvement negate the feature bonus?
+        #         #         if self._use_improvement(tile_index):
+        #         #             return
+        #         for resource in self.resource_list:
+        #             # print(f"----resource: {resource}")
+        #             tile_yield = self._tile_summer(tile_index, tile_type, resource)
+        #     # print(getattr(self, tile_index).food)
+        #     self._calculate_adjacency(tile_index)
+        #     self._calculate_era(tile_index)
+
+    def calculate_city_yield(self):
+        # print('for testing only running first few keys. Fix this later!!!!')
+        # search_list = list(self.adjacency_members.keys())[:7]
+        search_list = list(self.adjacency_members.keys())
         for tile_index in search_list:
-            try:
-                if getattr(self, tile_index).district is not None:
-                    self._use_district(tile_index)
-                    return None
-            except AttributeError:
-                pass
-            # print('')
-            # print(f"tile_index: {tile_index}")
-            # print(getattr(self, tile_index).food)
-            for tile_type in self.tile_list:
-                # print(f"--tile_type: {tile_type}")
-                for resource in self.resource_list:
-                    # print(f"----resource: {resource}")
-                    tile_yield = self._tile_summer(tile_index, tile_type, resource)
-            # print(getattr(self, tile_index).food)
-            self._calculate_adjacency(tile_index)
-            self._calculate_era(tile_index)
+            self.calculate_tile_yield(tile_index)
+
+
+    # def calculate_tile_yield(self, tile_index=None):
+    #     """
+    #     This will run both the adjacency and era calculators to get a final tile yield.
+    #     """
+    #     if tile_index == None:
+    #         print('for testing only running first few keys. Fix this later!!!!')
+    #         search_list = list(self.adjacency_members.keys())[:7]
+    #         # search_list = self.adjacency_members.keys()
+    #     else:
+    #         if not isinstance(tile_index, list):
+    #             search_list = [tile_index]
+    #     for tile_index in search_list:
+    #         if getattr(self, tile_index) is None:
+    #             continue
+    #         print(f"tile_index: {tile_index}")
+    #         for tile_type in self.tile_list:
+    #             print(f"--tile_type: {tile_type}")
+    #             # try:
+    #             if tile_type == 'wonder':
+    #                 continue
+    #             if tile_type == 'district':
+    #                 # Because the district ignore the rest of the possibilities in the tile they are ignored
+    #                 if getattr(self, tile_index).district is not None:
+    #                     self._use_district(tile_index)
+    #                     return None
+    #             if tile_type == 'terrain':
+    #             # if tile_type == 'feature':
+    #             # if tile_type == 'resources':
+    #             # if tile_type == 'improvement':
+    #             # if tile_type == 'improvement':
+    #             #     print('improvement')
+    #             #     # print(getattr(self, tile_index).__dict__.keys())
+    #             #     if getattr(self, tile_index).improvement is not None:
+    #             #         # Does the improvement negate the feature bonus?
+    #             #         if self._use_improvement(tile_index):
+    #             #             return
+    #             for resource in self.resource_list:
+    #                 # print(f"----resource: {resource}")
+    #                 tile_yield = self._tile_summer(tile_index, tile_type, resource)
+    #         # print(getattr(self, tile_index).food)
+    #         self._calculate_adjacency(tile_index)
+    #         self._calculate_era(tile_index)
 
     def return_adj_matrix(self, tile_index):
         """
-        This keeps track of the tile's adjacency list. The list is either the object or None if there is not one. 
-        This may need to be updated eventually in case I keep track of surrounding tiles outside of the city that still influence it. 
+        This keeps track of the tile's adjacency list. The list is either the object or None if there is not one.
+        This may need to be updated eventually in case I keep track of surrounding tiles outside of the city that still influence it.
         """
         return self.adjacency_members[tile_index]
 
-        
 
 
 
+
+# tm = TileManager(
+#     cc=[
+#         'grasslandh',
+#         'floodplains',
+#         # 'campus',
+#         # 'wheat',
+#         # 'bananas',
+#         'farm',
+#         # 'plantation',
+#     ]
+# )
 tm = TileManager(
+    erah=8,
     cc=[
-        'grasslandh',
+        'grassland',
         'floodplains',
-        # 'campus',
-        'bananas',
-        'plantation',
+        'farm'
+    ],
+    i0=[
+        'grassland',
+        'floodplains',
+        # 'farm'
+    ],
+    i1=[
+        'grassland',
+        'floodplains',
+        # 'farm'
+        'plantation'
     ]
 )
 
@@ -807,11 +989,19 @@ tm = TileManager(
 print(tm.cc.__dict__)
 print('')
 print(tm.cc.food)
-# print(tm.cc.science)
-tm.calculate_tile_yield()
+print(tm.cc.science)
+# print('\n\ndict keys here')
+# print(tm.cc.__dict__.keys())
+# print('')
+# print(tm.cc.terrain.__dict__.keys())
+# print('')
+# print(tm.cc.improvement.__dict__.keys())
+# print('\n\n')
+tm.calculate_city_yield()
+# tm.calculate_tile_yield()
 # print(tm.cc.district.__dict__)
 print(tm.cc.food)
-# print(tm.cc.science)
+print(tm.cc.science)
 
 
 exit()
@@ -906,8 +1096,8 @@ def tile_summer(self, tile_index, tile_type, resource):
         # return getattr(getattr(getattr(self, tile_index), tile_type), resource)
     except AttributeError:
         return None
-    
-    
+
+
 
 
 
@@ -932,7 +1122,7 @@ for tile_index in ['i0']:
 
 print('i0 food yield')
 print(tm2.i0.food)
-    
+
 
 # print(tile_summer(tm2, 'i0', 'terrain', 'food'))
 

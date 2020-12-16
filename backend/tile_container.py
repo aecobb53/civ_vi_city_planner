@@ -6,6 +6,7 @@ from features.floodplains import Floodplains
 from improvements.farm import Farm
 from districts.campus import Campus
 from resources.bananas import Bananas
+from improvements.plantation import Plantation
 
 class Tile(CommonTile):
     """
@@ -19,6 +20,7 @@ class Tile(CommonTile):
         self._terrain = None
         self._feature = None
         self._river = None
+        self._resource = None
         self._improvement = None
         self._district = None
         self._wonder = None
@@ -220,7 +222,9 @@ class Tile(CommonTile):
                 if name == 'farm':
                     print('type is farm')
                     self.improvement = Farm()
-                    print(self.improvement.__dict__)
+                if name == 'plantation':
+                    print('type is plantation')
+                    self.improvement = Plantation()
             
             if name in self.list_of_districts:
                 print('type is district')
@@ -270,6 +274,17 @@ class Tile(CommonTile):
     @river.setter
     def river(self, value):
         self._river = value
+
+    # resource
+    @property
+    def resource(self):
+        if self._resource == None:
+            return None
+        return self._resource
+
+    @resource.setter
+    def resource(self, value):
+        self._resource = value
 
     # improvement
     @property
