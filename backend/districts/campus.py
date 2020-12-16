@@ -1,4 +1,9 @@
 from common_tile import CommonTile
+import math
+from features.mountain import Mountain
+from features.rainforest import Rainforest
+from features.geothermal_fissure import GeothermalFissure
+from features.reef import Reef
 
 class Campus(CommonTile):
 
@@ -15,29 +20,6 @@ class Campus(CommonTile):
         self._research_lab = None
         self._powered = None
         self._power = None
-
-    def set_buildings(
-        self,
-        final_improvement=None,
-        powered=None):
-
-        if final_improvement == None:
-            self.powered = True
-            # print(self.powered)
-            final_improvement = 'research_lab'
-        if isinstance(final_improvement, int):
-            final_improvement = self.default_building_list[final_improvement]
-
-        if powered:
-            self.powered = True
-
-        for building in self.default_building_list:
-            if building == final_improvement:
-                setattr(self, building, True)
-                break
-            else:
-                setattr(self, building, True)
-
 
     # building_list
     @property
@@ -124,3 +106,47 @@ class Campus(CommonTile):
         self._power = 3
         self._powered = value
 
+    def set_buildings(
+        self,
+        final_improvement=None,
+        powered=None):
+
+        if final_improvement == None:
+            self.powered = True
+            # print(self.powered)
+            final_improvement = 'research_lab'
+        try:
+            final_improvement = int(final_improvement)
+        except:
+            pass
+        if isinstance(final_improvement, int):
+            final_improvement = self.default_building_list[final_improvement]
+
+        if powered:
+            self.powered = True
+
+        for building in self.default_building_list:
+            if building == final_improvement:
+                setattr(self, building, True)
+                break
+            else:
+                setattr(self, building, True)
+
+    def calculate_adjacency(self, tile_obj, target_index, adj_list):
+        target_object = getattr(tile_obj, target_index)
+
+        adj_mountain = 0
+        adj_rainforest = 0
+        adj_geo_reef = 0
+        for adj_obj in adj_list:
+            if adj_obj is None:
+                continue
+            if isinstance(adj_obj.feature, Mountain):
+                adj_mountain += 1
+            if isinstance(adj_obj.feature, Rainforest):
+                adj_rainforest += 1
+            if isinstance(adj_obj.feature, GeothermalFissure) or isinstance(adj_obj.feature, Reef):
+                adj_geo_reef += 1
+        target_object.science = target_object.science + adj_mountain
+        target_object.science = target_object.science + math.floor(adj_rainforest / 2)
+        target_object.science = target_object.science + adj_geo_reef
