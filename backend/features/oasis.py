@@ -7,4 +7,6 @@ class Oasis(CommonTile):
         super().__init__()
         self.food = 3
         self.gold = 1
-        self.acceptable_terrain = ['desert']
+        self.acceptable_terrain = [
+            'desert'
+        ]

@@ -8,3 +8,8 @@ class SkiResort(CommonTile):
         self.acceptable_features = [
             'mountains',
         ]
+
+    def calculate_erah(self, tile_obj, target_index, adj_list):
+        target_object = getattr(tile_obj, target_index)
+        if target_object.appeal > 0:
+            target_object.gold = target_object.gold + target_object.appeal

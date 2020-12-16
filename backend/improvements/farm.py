@@ -14,7 +14,8 @@ class Farm(CommonTile):
             'plains',
         ]
         self.acceptable_features = [
-            'floodplains'
+            'floodplains',
+            'volcanic_soil'
         ]
         self.resources = [
             'wheat',

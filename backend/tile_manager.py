@@ -811,16 +811,19 @@ tm = TileManager(
     erah=8,
     cc=[
         # 'campus:1',
-        'campus'
+        'ocean',
+        'seastead'
         # 'campus:university'
     ],
     i0=[
-        'plains',
+        'ocean',
+        'fishing_boat',
         # 'rainforest',
         # 'mountain',
     ],
     i1=[
-        'plains',
+        'ocean'
+        'reef',
         # 'rainforest',
         # 'mountain',
     ]
@@ -830,8 +833,8 @@ tm = TileManager(
 #     print(f"    {item} : {val}")
 
 print(tm.cc.__dict__)
-print('')
-print(tm.i0.__dict__)
+# print('')
+# print(tm.i0.__dict__)
 print(tm.cc.terrain)
 print(tm.cc.feature)
 print(tm.cc.river)

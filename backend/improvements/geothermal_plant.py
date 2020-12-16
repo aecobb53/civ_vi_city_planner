@@ -7,7 +7,6 @@ class GeothermalPlant(CommonTile):
         self.production = 2
         self.science = 1
         self.power = 4
-        self.houseing = 1
         self.acceptable_features = [
             'geothermal_fissure',
         ]

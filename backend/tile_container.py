@@ -74,7 +74,7 @@ class Tile(CommonTile):
             'lumber_mill',
             'fort',
             'airstrip',
-            'seaside_resprot',
+            'seaside_resort',
             'geothermal_plant',
             'wind_farm',
             'solar_farm',
@@ -1297,7 +1297,7 @@ class Tile(CommonTile):
                         pass
 
                 if name == 'fishing_boat':
-                    self.improvement = Fishing_boat()
+                    self.improvement = FishingBoats()
                     try:
                         terrain_type = str(type(self.terrain)).split('.')[1]
                         if terrain_type not in self.improvement.terrain:
@@ -1380,8 +1380,8 @@ class Tile(CommonTile):
                     except:
                         pass
 
-                if name == 'seaside_resprot':
-                    self.improvement = Seaside_resprot()
+                if name == 'seaside_resort':
+                    self.improvement = SeasideResort()
                     try:
                         terrain_type = str(type(self.terrain)).split('.')[1]
                         if terrain_type not in self.improvement.terrain:
