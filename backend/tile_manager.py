@@ -807,62 +807,62 @@ class TileManager:
 
 
 
-tm = TileManager(
-    erah=8,
-    cc=[
-        # 'campus:1',
-        'ocean',
-        'seastead'
-        # 'campus:university'
-    ],
-    i0=[
-        'ocean',
-        'fishing_boat',
-        # 'rainforest',
-        # 'mountain',
-    ],
-    i1=[
-        'ocean'
-        'reef',
-        # 'rainforest',
-        # 'mountain',
-    ]
-)
+# tm = TileManager(
+#     erah=8,
+#     cc=[
+#         # 'campus:1',
+#         'ocean',
+#         'seastead'
+#         # 'campus:university'
+#     ],
+#     i0=[
+#         'ocean',
+#         'fishing_boat',
+#         # 'rainforest',
+#         # 'mountain',
+#     ],
+#     i1=[
+#         'ocean'
+#         'reef',
+#         # 'rainforest',
+#         # 'mountain',
+#     ]
+# )
 
-# for item, val in tm.cc.terrain.__dict__.items():
-#     print(f"    {item} : {val}")
+# # for item, val in tm.cc.terrain.__dict__.items():
+# #     print(f"    {item} : {val}")
 
-print(tm.cc.__dict__)
+# print(tm.cc.__dict__)
+# # print('')
+# # print(tm.i0.__dict__)
+# print(tm.cc.terrain)
+# print(tm.cc.feature)
+# print(tm.cc.river)
+# print(tm.cc.resource)
+# print(tm.cc.improvement)
+# print(tm.cc.district)
 # print('')
-# print(tm.i0.__dict__)
-print(tm.cc.terrain)
-print(tm.cc.feature)
-print(tm.cc.river)
-print(tm.cc.resource)
-print(tm.cc.improvement)
-print(tm.cc.district)
-print('')
-print(f"food: {tm.cc.food}")
-print(f"production: {tm.cc.production}")
-print(f"gold: {tm.cc.gold}")
-print(f"science: {tm.cc.science}")
-# print('\n\ndict keys here')
-# print(tm.cc.__dict__.keys())
-# print('')
-# print(tm.cc.terrain.__dict__.keys())
-# print('')
-# print(tm.cc.improvement.__dict__.keys())
-# print('\n\n')
-tm.calculate_city_yield()
-# tm.calculate_tile_yield()
-# print(tm.cc.district.__dict__)
-print(f"food: {tm.cc.food}")
-print(f"production: {tm.cc.production}")
-print(f"gold: {tm.cc.gold}")
-print(f"science: {tm.cc.science}")
+# print(f"food: {tm.cc.food}")
+# print(f"production: {tm.cc.production}")
+# print(f"gold: {tm.cc.gold}")
+# print(f"science: {tm.cc.science}")
+# # print('\n\ndict keys here')
+# # print(tm.cc.__dict__.keys())
+# # print('')
+# # print(tm.cc.terrain.__dict__.keys())
+# # print('')
+# # print(tm.cc.improvement.__dict__.keys())
+# # print('\n\n')
+# tm.calculate_city_yield()
+# # tm.calculate_tile_yield()
+# # print(tm.cc.district.__dict__)
+# print(f"food: {tm.cc.food}")
+# print(f"production: {tm.cc.production}")
+# print(f"gold: {tm.cc.gold}")
+# print(f"science: {tm.cc.science}")
 
 
-exit()
+# exit()
 
 # tm = TileManager(
 #     cc=[
