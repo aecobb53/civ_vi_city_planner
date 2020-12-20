@@ -1,15 +1,22 @@
 from common_tile import CommonTile
 
-class Bananas(CommonTile):
+class Oil(CommonTile):
 
     def __init__(self):
         super().__init__()
-        self.food = 1
-        self.resource_type = 'bonus'
-        self.terrain = []
-        self.features = [
-            'rainforest'
+        self.production = 3
+        self.resource_type = 'strategic'
+        self.terrain = [
+            'grassland',
+            'desert',
+            'trundra',
+            'coast',
+            'lake',
         ]
+        # self.features = [
+        #     'rainforest'
+        # ]
         self.improvement = [
-            'plantation'
+            'oil_well'
+            'offshore_oil_well'
         ]

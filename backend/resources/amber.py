@@ -4,12 +4,16 @@ class Bananas(CommonTile):
 
     def __init__(self):
         super().__init__()
-        self.food = 1
-        self.resource_type = 'bonus'
+        self.culture = 1
+        self.amenities = 4
+        self.resource_type = 'luxury'
         self.terrain = []
         self.features = [
-            'rainforest'
+            'woods',
+            'rainforest',
+            'coast'
         ]
         self.improvement = [
-            'plantation'
+            'mine'
+            'fishing_boats'
         ]
