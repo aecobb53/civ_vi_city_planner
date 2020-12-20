@@ -888,7 +888,10 @@ tm = TileManager(
         'rainforest',
         'plantation',
         'aluminum',
+        # 'river',
+        # 'city_center'
         # 'floodplains',
+        'campus:1'
         # 'campus'
         # 'farm'
         # 'desert',

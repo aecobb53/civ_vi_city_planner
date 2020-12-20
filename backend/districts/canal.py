@@ -20,8 +20,6 @@ class Campus(CommonTile):
         self._research_lab = None
         self._powered = None
         self._power = None
-        self.specialist_yield = 2
-        self.specialist_power_bonus = 1
 
     # building_list
     @property
@@ -78,35 +76,34 @@ class Campus(CommonTile):
     def research_lab(self, value):
         if value == True:
             self.science = self.science + 3
-            self.houseing = self.houseing + 1
             if self.powered:
                 self.science = self.science + 5
-                self.houseing = self.houseing + 1
+            self.houseing = self.houseing + 1
             self.citizen_slot = self.citizen_slot + 1
             self.update_building_list('research_lab')
             self._research_lab = True
 
-    # power - Whats the power draw
+    # power
     @property
     def power(self):
-        if self._power is None:
+        if self._power == None:
             return 0
-        return self._power
+        self._power
 
     @power.setter
     def power(self, value):
         self._power = value
 
-    # powered - Does the city need power?
+    # powered
     @property
     def powered(self):
-        if self._powered is None:
+        if self._powered == None:
             return False
-        return self._powered
+        self._powered
 
     @powered.setter
     def powered(self, value):
-        self.power = 3
+        self._power = 3
         self._powered = value
 
     def set_buildings(
@@ -114,8 +111,9 @@ class Campus(CommonTile):
         final_improvement=None,
         powered=None):
 
-        if final_improvement is None:
-            powered = True
+        if final_improvement == None:
+            self.powered = True
+            # print(self.powered)
             final_improvement = 'research_lab'
         try:
             final_improvement = int(final_improvement)
@@ -152,10 +150,3 @@ class Campus(CommonTile):
         target_object.science = target_object.science + adj_mountain
         target_object.science = target_object.science + math.floor(adj_rainforest / 2)
         target_object.science = target_object.science + adj_geo_reef
-
-    def calculate_specialist_yield(self):
-        if self.powered:
-            self.science = self.science + self.citizen_slot * \
-                (self.specialist_yield + self.specialist_power_bonus)
-        else:
-            self.science = self.science + self.citizen_slot * self.specialist_yield
