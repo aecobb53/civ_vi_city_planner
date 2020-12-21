@@ -6,6 +6,10 @@ class Mountain(CommonTile):
     def __init__(self):
         super().__init__()
         self.acceptable_terrain = [
-            'grassland'
+            'grassland',
+            'plains',
+            'desert',
+            'tundra',
+            'snow',
         ]
-        pass
+        self.hills = True

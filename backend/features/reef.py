@@ -7,4 +7,6 @@ class Reef(CommonTile):
         super().__init__()
         self.food = 1
         self.production = 1
-        self.acceptable_terrain = ['coast']
+        self.acceptable_terrain = [
+            'coast'
+        ]

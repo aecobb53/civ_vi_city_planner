@@ -5,4 +5,11 @@ class River(CommonTile):
 
     def __init__(self):
         super().__init__()
-        pass
+        self.acceptable_terrain = [
+            'grassland',
+            'plains',
+            'desert',
+            'tundra',
+            'snow',
+        ]
+        self.hills = True
