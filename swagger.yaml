@@ -1,0 +1,375 @@
+openapi: 3.0.0
+info:
+    title: Civ VI City Planner
+    description: Optomize your civ vi city plans
+    version: 0.1.0
+
+servers:
+    - url: http://0.0.0.0
+      description: For now im just testing on localhost
+
+parths:
+    /city_plan:
+        get:
+            summary: Returns the optimal city layout
+            parameters:
+                - id: cityID
+                  required: true
+                  description: uuid for the city
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schemas:
+                                $ref" '#/components/schemas/City'
+                '400':
+                    description: cityid not found in database
+                # '401': NOT MVP
+                #     description: user is not allowed to view this city
+                '418':
+                    description: I'm a teapot
+        post:
+            summary: Update a city
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/City'
+            responses:
+                '201':
+                    description: Created
+                    content:
+                        application/json: cityID
+                '406':
+                    description: There is a tile missmatch like adding whales to a mountain tile
+                    content:
+                        application/json: error message
+
+components:
+    schemas:
+        City:
+            properties:
+                name: string,
+                tiles:
+                    center: 
+                        type: Tile[]
+                        enum:
+                            - cc
+                    inner: 
+                        type: Tile[]
+                        enum:
+                            - i0
+                            - i1
+                            - i2
+                            - i3
+                            - i4
+                            - i5
+                    middle: 
+                        type: Tile[]
+                        enum:
+                            - m0
+                            - m1
+                            - m2
+                            - m3
+                            - m4
+                            - m5
+                            - m6
+                            - m7
+                            - m8
+                            - m9
+                            - m10
+                            - m11
+                    outer: 
+                        type: Tile[]
+                        enum:
+                            - o0
+                            - o1
+                            - o2
+                            - o3
+                            - o4
+                            - o5
+                            - o6
+                            - o7
+                            - o8
+                            - o9
+                            - o10
+                            - o11
+                            - o12
+                            - o13
+                            - o14
+                            - o15
+                            - o16
+                            - o17
+                    nearby: 
+                        type: Tile[]
+                        enum:
+                # locked NOT MVP
+                # era: string NOT MVP
+                # Trader: Trader NOT MVP
+                # Governer: Governer NOT MVP
+                # amenities: string NOT MVP
+                # neighbor_power: string NOT MVP
+
+            required:
+                # - name # Name might actually be optional in case somebody wants to test out a city but not save it
+                - center
+                - inner
+                - middle
+                - outer
+                - nearby
+        Tile:
+            properties:
+                terrain: Terrain
+                feature: Feature
+                resource: Resource
+                improvement: Improvement
+                district: District
+                wonder: Wonder
+            required:
+                # If i dont find the specific tile elements i will assume empty
+        Terrain:
+            properties:
+                name: string
+                hill: boolean
+            required:
+                - name
+            enum:
+                - grassland
+                - plains
+                - desert
+                - tundra
+                - snow
+                - coast
+                - lake
+                - ocean
+        Feature:
+            properties:
+                name: string
+                river: boolean
+            required:
+                - name
+            enum:
+                - woods
+                - rainforest
+                - marsh
+                - floodplains
+                - oasis
+                - mountain
+                - cliffs
+                - reef
+                - ice
+                - cataract
+                - volcano
+                - volcanic_soil
+                - geothermal
+        Resource:
+            properties:
+                name: string
+            required:
+                - name
+            enum:
+                - bananas
+                - copper
+                - cattle
+                - crabs
+                - deer
+                - fish
+                - maize
+                - rice
+                - sheep
+                - stone
+                - wheat
+                - amber
+                - cinnamon
+                - citrus
+                - cloves
+                - cocoa
+                - coffee
+                - cosmetics
+                - cotton
+                - dyes
+                - diamonds
+                - furs
+                - gold_ore
+                - gypsum
+                - honey
+                - insense
+                - ivory
+                - jade
+                - jeans
+                - marble
+                - murcury
+                - olives
+                - pearls
+                - perfume
+                - salt
+                - silk
+                - silver
+                - spices
+                - sugar
+                - tea
+                - tobacco
+                - toys
+                - truffles
+                - turtles
+                - whales
+                - wine
+                - horses
+                - iron
+                - niter
+                - coal
+                - oil
+                - aluminum
+                - uranium
+        Improvement:
+            properties:
+                name: string
+            required:
+                - name
+            enum:
+                - farm
+                - mine
+                - quarry
+                - plantation
+                - camp
+                - pasture
+                - fishing_boats
+                - lumber_mill
+                - fort
+                - airstrip
+                - seaside_resort
+                - geothermal_plant
+                - wind_farm
+                - solar_farm
+                - offshore_wind_farm
+                - ski_resort
+                - oil_well
+                - offshore_oil_well
+                - missle_silo
+                - mountain_tunnel
+                - railroad
+                - seastead
+                - alcazar
+                - batey
+                - cahokia_mounds
+                - colossal_heads
+                - mahavihara
+                - moai
+                - monistary
+                - nazca_line
+                - trading_dome
+                - chateau
+                - chemamull
+                - golf_course
+                - great_wall
+                - hacienda
+                - ice_hocky_rink
+                - kampung
+                - kurgan
+                - mekewap
+                - mission
+                - nubian_pyramid
+                - open_air_museum
+                - outback_station
+                - pa
+                - pairirdaeza
+                - polder
+                - qhapaq_nan
+                - rock_hewn_church
+                - roman_fort
+                - sphinx
+                - stepwell
+                - terrace_farms
+                - ziggurat
+                - city_park
+                - fishery
+        District:
+            properties:
+                name: string
+                buildings: string[]
+                powered: boolean
+            required:
+                - name
+            enum:
+                city_center:
+                    granary
+                    monument
+                    water_mill
+                    sewer
+                    # ancient_walls NOT MVP
+                    # mideival_walls NOT MVP
+                    # renaissance_walls NOT MVP
+                campus:
+                    library
+                    university
+                    research_lab
+                theater_square:
+                    amphitheater
+                    art_museum
+                    archaeological_museum
+                    broadcast_center
+                holy_site:
+                    shrine
+                    temple
+                    # worship buildings NOT MVP
+                encampment:
+                    barracks
+                    stable
+                    armory
+                    military_academy
+                commercial_hub:
+                    market
+                    bank
+                    stock_exchange
+                harbor:
+                    lighthouse
+                    shipyard
+                    seaport
+                industrial_zone:
+                    workshop
+                    factory
+                    coal_power_plant
+                    oil_power_plant
+                    nuclear_power_plant
+                entertainment_complex:
+                    arena
+                    zoo
+                    stadium
+                water_park:
+                    ferris_wheel
+                    aquarium
+                    aquatics_center
+                aqueduct:
+                neighborhood:
+                    food_market
+                    shopping_mall
+                canal:
+                dam:
+                    hydroelectric_dam
+                aerodrome:
+                    hanger
+                    airport
+                spaceport:
+                govermment_plaza:
+                    ancestral_hall
+                    audience_chamber
+                    warlords_throne
+                    foreign_ministry
+                    grand_masters_chapel
+                    intelligence_agency
+                    queens_bibliotheque
+                    national_history_museum
+                    royal_society
+                    war_department
+                diplomatic_quarter:
+                    consulate
+                    chancery
+        # Wonder: NOT MVP
+        #     properties:
+        #         name: string
+        #     required:
+        #         - name
+        #     enum:
+
