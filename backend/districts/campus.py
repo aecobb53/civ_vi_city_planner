@@ -1,9 +1,9 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
 import math
-from features.mountain import Mountain
-from features.rainforest import Rainforest
-from features.geothermal_fissure import GeothermalFissure
-from features.reef import Reef
+from backend.features.mountain import Mountain
+from backend.features.rainforest import Rainforest
+from backend.features.geothermal_fissure import GeothermalFissure
+from backend.features.reef import Reef
 
 class Campus(CommonTile):
 

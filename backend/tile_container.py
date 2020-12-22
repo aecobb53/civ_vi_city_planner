@@ -1,4 +1,4 @@
-# from common_tile import CommonTile
+# from backend.common_tile import CommonTile
 # from terrain.grassland import Grassland
 # from terrain.plains import Plains
 # from features.woods import Woods
@@ -8,12 +8,12 @@
 # from resources.bananas import Bananas
 # from improvements.plantation import Plantation
 
-from common_tile import CommonTile
-from terrain import *
-from features import *
-from improvements import *
-from districts import *
-from resources import *
+from backend.common_tile import CommonTile
+from backend.terrain import *
+from backend.features import *
+from backend.improvements import *
+from backend.districts import *
+from backend.resources import *
 
 
 class Tile(CommonTile):

@@ -1,4 +1,4 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
 import math
 # from features.mountain import Mountain
 # from features.rainforest import Rainforest

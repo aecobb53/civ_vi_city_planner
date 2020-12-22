@@ -33,7 +33,7 @@ start_container () {
             COMPOSE_EXIT_CODE=$?
             ;;
         dev)
-            echo "Spinning up a ${service} service in a DEV env for ${APPNAME} program"
+            echo "Spinning up a dev env for ${APPNAME} program"
             docker-compose -f docker-compose-development.yml run --rm $2
             COMPOSE_EXIT_CODE=$?
             ;;

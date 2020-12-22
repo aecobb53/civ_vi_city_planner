@@ -1,6 +1,6 @@
-from common_tile import CommonTile
-from features.reef import Reef
-from improvements.fishing_boats import FishingBoats
+from backend.common_tile import CommonTile
+from backend.features.reef import Reef
+from backend.improvements.fishing_boats import FishingBoats
 
 class Seastead(CommonTile):
 
