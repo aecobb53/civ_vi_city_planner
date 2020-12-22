@@ -105,10 +105,20 @@ components:
                     nearby: 
                         type: Tile[]
                         enum:
-                # locked NOT MVP
+                # locked boolean NOT MVP
                 # era: string NOT MVP
-                # Trader: Trader NOT MVP
-                # Governer: Governer NOT MVP
+                #     enum:
+                #         - Era:0 Ancient
+                #         - Era:1 Classical
+                #         - Era:2 Medieval
+                #         - Era:3 Renaissance
+                #         - Era:4 Industrial
+                #         - Era:5 Modern
+                #         - Era:6 Atomic
+                #         - Era:7 Information
+                #         - Era:8 Future
+                # Trader: boolean Trader NOT MVP. eventually whats the other city to calculate trader yield
+                # Governer: Governer NOT MVP. eventually what governer and their abilities
                 # amenities: string NOT MVP
                 # neighbor_power: string NOT MVP
 
