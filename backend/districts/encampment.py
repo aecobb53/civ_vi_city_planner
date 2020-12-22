@@ -1,18 +1,16 @@
 from backend.common_tile import CommonTile
 import math
-from features.mountain import Mountain
-from features.rainforest import Rainforest
-from features.geothermal_fissure import GeothermalFissure
-from features.reef import Reef
 
-class Campus(CommonTile):
+
+class Encampment(CommonTile):
 
     def __init__(self):
         super().__init__()
         self.default_building_list = [
-            'library',
-            'university',
-            'research_lab',
+            'barracks',
+            'stable',
+            'armory',
+            'military_academy',
         ]
         self._building_list = None
         self._library = None
@@ -20,6 +18,10 @@ class Campus(CommonTile):
         self._research_lab = None
         self._powered = None
         self._power = None
+        self.specialist_production_yield = 2
+        self.specialist_gold_yield = 2
+        self.specialist_power_bonus = 1
+        self.appeal = -1
 
     # building_list
     @property
@@ -34,87 +36,122 @@ class Campus(CommonTile):
             self._building_list = []
         self._building_list.append(value)
 
-    # library
+    # barracks
     @property
-    def library(self):
-        if self._library == None:
+    def barracks(self):
+        if self._barracks is None:
             return None
-        return self._library
+        return self._barracks
 
-    @library.setter
-    def library(self, value):
-        if value == True:
-            self.science = self.science + 2
-            self.citizen_slot = self.citizen_slot + 1
-            self.update_building_list('library')
-            self._library = True
-
-    # university
-    @property
-    def university(self):
-        if self._university == None:
-            return None
-        return self._university
-
-    @university.setter
-    def university(self, value):
-        if value == True:
-            self.science = self.science + 4
+    @barracks.setter
+    def barracks(self, value):
+        if value:
+            self.production = self.production + 1
             self.houseing = self.houseing + 1
             self.citizen_slot = self.citizen_slot + 1
-            self.update_building_list('university')
-            self._university = True
+            self.update_building_list('barracks')
+            self._barracks = True
 
-    # research_lab
+    @barracks.deleter
+    def barracks(self):
+        if self._barracks:
+            self.production = self.production - 1
+            self.houseing = self.houseing - 1
+            self.citizen_slot = self.citizen_slot - 1
+            self.update_building_list('barracks')
+            self._barracks = None
+            
+    # stable
     @property
-    def research_lab(self):
-        if self._research_lab == None:
+    def stable(self):
+        if self._stable is None:
             return None
-        return self._research_lab
+        return self._stable
 
-    @research_lab.setter
-    def research_lab(self, value):
-        if value == True:
-            self.science = self.science + 3
-            if self.powered:
-                self.science = self.science + 5
+    @stable.setter
+    def stable(self, value):
+        if value:
+            self.production = self.production + 1
             self.houseing = self.houseing + 1
             self.citizen_slot = self.citizen_slot + 1
-            self.update_building_list('research_lab')
-            self._research_lab = True
+            self.update_building_list('stable')
+            self._stable = True
 
-    # power
+    @stable.deleter
+    def stable(self):
+        if self._stable:
+            self.production = self.production - 1
+            self.houseing = self.houseing - 1
+            self.citizen_slot = self.citizen_slot - 1
+            self.remove_building_list('stable')
+            self._stable = None
+            
+    # armory
+    @property
+    def armory(self):
+        if self._armory is None:
+            return None
+        return self._armory
+
+    @armory.setter
+    def armory(self, value):
+        if value:
+            self.production = self.production + 3
+            self.houseing = self.houseing + 1
+            self.citizen_slot = self.citizen_slot + 1
+            self.update_building_list('armory')
+            self._armory = True
+            
+    # military_academy
+    @property
+    def military_academy(self):
+        if self._military_academy is None:
+            return None
+        return self._military_academy
+
+    @military_academy.setter
+    def military_academy(self, value):
+        if value:
+            self.production = self.production + 3
+            self.houseing = self.houseing + 1
+            self.citizen_slot = self.citizen_slot + 1
+            self.specialist_production_yield += self.specialist_power_bonus
+            self.update_building_list('military_academy')
+            self._military_academy = True
+
+    # power - Whats the power draw
     @property
     def power(self):
-        if self._power == None:
+        if self._power is None:
             return 0
-        self._power
+        return self._power
 
     @power.setter
     def power(self, value):
-        self._power = value
+        pass
+        # self._power = value
 
-    # powered
+    # powered - Does the city need power?
     @property
     def powered(self):
-        if self._powered == None:
+        if self._powered is None:
             return False
-        self._powered
+        return self._powered
 
     @powered.setter
     def powered(self, value):
-        self._power = 3
-        self._powered = value
+        # self.power = 3
+        # self._powered = value
+        pass
 
     def set_buildings(
         self,
         final_improvement=None,
         powered=None):
 
-        if final_improvement == None:
-            self.powered = True
-            # print(self.powered)
-            final_improvement = 'research_lab'
+        if final_improvement is None:
+            powered = True
+            final_improvement = 'military_academy'
         try:
             final_improvement = int(final_improvement)
         except:
@@ -132,21 +169,6 @@ class Campus(CommonTile):
             else:
                 setattr(self, building, True)
 
-    def calculate_adjacency(self, tile_obj, target_index, adj_list):
-        target_object = getattr(tile_obj, target_index)
-
-        adj_mountain = 0
-        adj_rainforest = 0
-        adj_geo_reef = 0
-        for adj_obj in adj_list:
-            if adj_obj is None:
-                continue
-            if isinstance(adj_obj.feature, Mountain):
-                adj_mountain += 1
-            if isinstance(adj_obj.feature, Rainforest):
-                adj_rainforest += 1
-            if isinstance(adj_obj.feature, GeothermalFissure) or isinstance(adj_obj.feature, Reef):
-                adj_geo_reef += 1
-        target_object.science = target_object.science + adj_mountain
-        target_object.science = target_object.science + math.floor(adj_rainforest / 2)
-        target_object.science = target_object.science + adj_geo_reef
+    def calculate_specialist_yield(self):
+        self.production = self.production + self.citizen_slot * self.specialist_production_yield
+        self.gold = self.gold + self.citizen_slot * self.specialist_gold_yield

@@ -1,5 +1,6 @@
 from backend.common_tile import CommonTile
 import math
+
 from backend.features.mountain import Mountain
 from backend.features.rainforest import Rainforest
 from backend.features.geothermal_fissure import GeothermalFissure
@@ -45,7 +46,7 @@ class Campus(CommonTile):
 
     @library.setter
     def library(self, value):
-        if value == True:
+        if value:
             self.science = self.science + 2
             self.citizen_slot = self.citizen_slot + 1
             self.update_building_list('library')
@@ -60,7 +61,7 @@ class Campus(CommonTile):
 
     @university.setter
     def university(self, value):
-        if value == True:
+        if value:
             self.science = self.science + 4
             self.houseing = self.houseing + 1
             self.citizen_slot = self.citizen_slot + 1
@@ -76,12 +77,13 @@ class Campus(CommonTile):
 
     @research_lab.setter
     def research_lab(self, value):
-        if value == True:
+        if value:
             self.science = self.science + 3
             self.houseing = self.houseing + 1
             if self.powered:
                 self.science = self.science + 5
                 self.houseing = self.houseing + 1
+                self.specialist_yield += self.specialist_power_bonus
             self.citizen_slot = self.citizen_slot + 1
             self.update_building_list('research_lab')
             self._research_lab = True
@@ -154,8 +156,4 @@ class Campus(CommonTile):
         target_object.science = target_object.science + adj_geo_reef
 
     def calculate_specialist_yield(self):
-        if self.powered:
-            self.science = self.science + self.citizen_slot * \
-                (self.specialist_yield + self.specialist_power_bonus)
-        else:
-            self.science = self.science + self.citizen_slot * self.specialist_yield
+        self.science = self.science + self.citizen_slot * self.specialist_yield

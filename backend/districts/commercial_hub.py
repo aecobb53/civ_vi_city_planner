@@ -1,25 +1,27 @@
 from backend.common_tile import CommonTile
 import math
-from features.mountain import Mountain
-from features.rainforest import Rainforest
-from features.geothermal_fissure import GeothermalFissure
-from features.reef import Reef
 
-class Campus(CommonTile):
+from backend.districts.harbor import Harbor
+from backend.features.river import River
+
+
+class CommercialHub(CommonTile):
 
     def __init__(self):
         super().__init__()
         self.default_building_list = [
-            'library',
-            'university',
-            'research_lab',
+            'market',
+            'bank',
+            'stock_exchange',
         ]
         self._building_list = None
-        self._library = None
-        self._university = None
-        self._research_lab = None
+        self._market = None
+        self._bank = None
+        self._stock_exchange = None
         self._powered = None
         self._power = None
+        self.specialist_yield = 4
+        self.specialist_power_bonus = 2
 
     # building_list
     @property
@@ -34,76 +36,76 @@ class Campus(CommonTile):
             self._building_list = []
         self._building_list.append(value)
 
-    # library
+    # market
     @property
-    def library(self):
-        if self._library == None:
+    def market(self):
+        if self._market is None:
             return None
-        return self._library
+        return self._market
 
-    @library.setter
-    def library(self, value):
-        if value == True:
-            self.science = self.science + 2
+    @market.setter
+    def market(self, value):
+        if value:
+            self.gold = self.gold + 3
             self.citizen_slot = self.citizen_slot + 1
-            self.update_building_list('library')
-            self._library = True
+            self.update_building_list('market')
+            self._market = True
 
-    # university
+    # bank
     @property
-    def university(self):
-        if self._university == None:
+    def bank(self):
+        if self._bank is None:
             return None
-        return self._university
+        return self._bank
 
-    @university.setter
-    def university(self, value):
-        if value == True:
-            self.science = self.science + 4
-            self.houseing = self.houseing + 1
+    @bank.setter
+    def bank(self, value):
+        if value:
+            self.gold = self.gold + 5
             self.citizen_slot = self.citizen_slot + 1
-            self.update_building_list('university')
-            self._university = True
+            self.update_building_list('bank')
+            self._bank = True
 
-    # research_lab
+    # stock_exchange
     @property
-    def research_lab(self):
-        if self._research_lab == None:
+    def stock_exchange(self):
+        if self._stock_exchange is None:
             return None
-        return self._research_lab
+        return self._stock_exchange
 
-    @research_lab.setter
-    def research_lab(self, value):
-        if value == True:
-            self.science = self.science + 3
+    @stock_exchange.setter
+    def stock_exchange(self, value):
+        if value:
+            self.gold = self.gold + 7
+            self.citizen_slot = self.citizen_slot + 1
             if self.powered:
-                self.science = self.science + 5
-            self.houseing = self.houseing + 1
-            self.citizen_slot = self.citizen_slot + 1
-            self.update_building_list('research_lab')
-            self._research_lab = True
+                self.gold = self.gold + 7
+                self.citizen_slot = self.citizen_slot + 1
+                self.specialist_yield += self.specialist_power_bonus
+            self.update_building_list('stock_exchange')
+            self._stock_exchange = True
 
-    # power
+    # power - Whats the power draw
     @property
     def power(self):
-        if self._power == None:
+        if self._power is None:
             return 0
-        self._power
+        return self._power
 
     @power.setter
     def power(self, value):
         self._power = value
 
-    # powered
+    # powered - Does the city need power?
     @property
     def powered(self):
-        if self._powered == None:
+        if self._powered is None:
             return False
-        self._powered
+        return self._powered
 
     @powered.setter
     def powered(self, value):
-        self._power = 3
+        self.power = 3
         self._powered = value
 
     def set_buildings(
@@ -111,9 +113,8 @@ class Campus(CommonTile):
         final_improvement=None,
         powered=None):
 
-        if final_improvement == None:
-            self.powered = True
-            # print(self.powered)
+        if final_improvement is None:
+            powered = True
             final_improvement = 'research_lab'
         try:
             final_improvement = int(final_improvement)
@@ -135,18 +136,19 @@ class Campus(CommonTile):
     def calculate_adjacency(self, tile_obj, target_index, adj_list):
         target_object = getattr(tile_obj, target_index)
 
-        adj_mountain = 0
-        adj_rainforest = 0
-        adj_geo_reef = 0
+        adj_harbor = 0
+        adj_districts = 0
         for adj_obj in adj_list:
             if adj_obj is None:
                 continue
-            if isinstance(adj_obj.feature, Mountain):
-                adj_mountain += 1
-            if isinstance(adj_obj.feature, Rainforest):
-                adj_rainforest += 1
-            if isinstance(adj_obj.feature, GeothermalFissure) or isinstance(adj_obj.feature, Reef):
-                adj_geo_reef += 1
-        target_object.science = target_object.science + adj_mountain
-        target_object.science = target_object.science + math.floor(adj_rainforest / 2)
-        target_object.science = target_object.science + adj_geo_reef
+            if adj_obj.district is not None:
+                adj_district += 1 # TODO TEST THIS!! HERE
+            if isinstance(adj_obj.feature, Harbor):
+                adj_harbor += 1
+            if isinstance(adj_obj.feature, River):
+                adj_harbor += 1
+        target_object.gold = target_object.gold + (adj_harbor * 2)
+        target_object.gold = target_object.gold + math.floor(adj_district / 2)
+
+    def calculate_specialist_yield(self):
+        self.gold = self.gold + self.citizen_slot * self.specialist_yield

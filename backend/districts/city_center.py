@@ -53,7 +53,7 @@ class CityCenter(CommonTile):
 
     @monument.setter
     def monument(self, value):
-        if value is True:
+        if value:
             self.culture = self.culture + 2
             self.update_building_list('monument')
             self._monument = True
@@ -67,7 +67,7 @@ class CityCenter(CommonTile):
 
     @granary.setter
     def granary(self, value):
-        if value is True:
+        if value:
             self.food = self.food  + 1
             self.housing = self.houseing  + 2
             self.update_building_list('granary')
@@ -82,7 +82,7 @@ class CityCenter(CommonTile):
 
     @water_mill.setter
     def water_mill(self, value):
-        if value is True:
+        if value:
             self.food = self.food + 1
             self.production = self.production + 1
             self.update_building_list('water_mill')
@@ -106,7 +106,7 @@ class CityCenter(CommonTile):
 
     @sewer.setter
     def sewer(self, value):
-        if value is True:
+        if value:
             self.houseing = self.houseing + 2
             self.update_building_list('sewer')
             self._sewer = True
@@ -120,7 +120,7 @@ class CityCenter(CommonTile):
 
     @flood_barrier.setter
     def flood_barrier(self, value):
-        if value is True:
+        if value:
             self.update_building_list('flood_barrier')
             self._flood_barrier = True
 
@@ -133,7 +133,7 @@ class CityCenter(CommonTile):
 
     @ancient_walls.setter
     def ancient_walls(self, value):
-        if value is True:
+        if value:
             self.update_building_list('ancient_walls')
             self._ancient_walls = True
 
@@ -146,7 +146,7 @@ class CityCenter(CommonTile):
 
     @medival_walls.setter
     def medival_walls(self, value):
-        if value is True:
+        if value:
             self.update_building_list('medival_walls')
             self._medival_walls = True
 
@@ -159,31 +159,32 @@ class CityCenter(CommonTile):
 
     @renaissance_walls.setter
     def renaissance_walls(self, value):
-        if value is True:
+        if value:
             self.update_building_list('renaissance_walls')
             self._renaissance_walls = True
 
-    # power
+    # power - Whats the power draw
     @property
     def power(self):
         if self._power is None:
             return 0
-        self._power
+        return self._power
 
     @power.setter
     def power(self, value):
-        # self._power = value
         pass
+        # self._power = value
 
-    # powered
+    # powered - Does the city need power?
     @property
     def powered(self):
         if self._powered is None:
             return False
-        self._powered
+        return self._powered
 
     @powered.setter
     def powered(self, value):
+        # self.power = 3
         # self._powered = value
         pass
 
