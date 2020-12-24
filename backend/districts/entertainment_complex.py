@@ -1,23 +1,20 @@
 from backend.common_tile import CommonTile
 import math
-from backend.features.mountain import Mountain
-from backend.features.rainforest import Rainforest
-from backend.features.geothermal_fissure import GeothermalFissure
-from backend.features.reef import Reef
 
-class Campus(CommonTile):
+
+class EntertainmentComplex(CommonTile):
 
     def __init__(self):
         super().__init__()
         self.default_building_list = [
-            'library',
-            'university',
-            'research_lab',
+            'arena',
+            'zoo',
+            'stadium',
         ]
         self._building_list = None
-        self._library = None
-        self._university = None
-        self._research_lab = None
+        self._arena = None
+        self._zoo = None
+        self._stadium = None
         self._powered = None
         self._power = None
         self.specialist_yield = 2
@@ -36,56 +33,50 @@ class Campus(CommonTile):
             self._building_list = []
         self._building_list.append(value)
 
-    # library
+    # arena
     @property
-    def library(self):
-        if self._library == None:
+    def arena(self):
+        if self._arena is None:
             return None
-        return self._library
+        return self._arena
 
-    @library.setter
-    def library(self, value):
-        if value == True:
-            self.science = self.science + 2
-            self.citizen_slot = self.citizen_slot + 1
-            self.update_building_list('library')
-            self._library = True
+    @arena.setter
+    def arena(self, value):
+        if value:
+            self.amenities = self.amenities + 1
+            self.update_building_list('arena')
+            self._arena = True
 
-    # university
+    # zoo
     @property
-    def university(self):
-        if self._university == None:
+    def zoo(self):
+        if self._zoo is None:
             return None
-        return self._university
+        return self._zoo
 
-    @university.setter
-    def university(self, value):
-        if value == True:
-            self.science = self.science + 4
-            self.houseing = self.houseing + 1
-            self.citizen_slot = self.citizen_slot + 1
-            self.update_building_list('university')
-            self._university = True
+    @zoo.setter
+    def zoo(self, value):
+        if value:
+            self.amenities = self.amenities + 1
+            self.update_building_list('zoo')
+            self._zoo = True
 
-    # research_lab
+    # stadium
     @property
-    def research_lab(self):
-        if self._research_lab == None:
+    def stadium(self):
+        if self._stadium is None:
             return None
-        return self._research_lab
+        return self._stadium
 
-    @research_lab.setter
-    def research_lab(self, value):
-        if value == True:
-            self.science = self.science + 3
-            self.houseing = self.houseing + 1
+    @stadium.setter
+    def stadium(self, value):
+        if value:
+            self.amenities = self.amenities + 1
             if self.powered:
-                self.science = self.science + 5
-                self.houseing = self.houseing + 1
-                self.specialist_yield  + self.specialist_power_bonus
-            self.citizen_slot = self.citizen_slot + 1
-            self.update_building_list('research_lab')
-            self._research_lab = True
+                self.amenities = self.amenities + 2
+            self.update_building_list('stadium')
+            self._stadium = True
+
 
     # power - Whats the power draw
     @property
@@ -107,7 +98,7 @@ class Campus(CommonTile):
 
     @powered.setter
     def powered(self, value):
-        self.power = 3
+        self.power = 2
         self._powered = value
 
     def set_buildings(
@@ -117,7 +108,7 @@ class Campus(CommonTile):
 
         if final_improvement is None:
             powered = True
-            final_improvement = 'research_lab'
+            final_improvement = 'stadium'
         try:
             final_improvement = int(final_improvement)
         except:
@@ -134,25 +125,3 @@ class Campus(CommonTile):
                 break
             else:
                 setattr(self, building, True)
-
-    def calculate_adjacency(self, tile_obj, target_index, adj_list):
-        target_object = getattr(tile_obj, target_index)
-
-        adj_mountain = 0
-        adj_rainforest = 0
-        adj_geo_reef = 0
-        for adj_obj in adj_list:
-            if adj_obj is None:
-                continue
-            if isinstance(adj_obj.feature, Mountain):
-                adj_mountain += 1
-            if isinstance(adj_obj.feature, Rainforest):
-                adj_rainforest += 1
-            if isinstance(adj_obj.feature, GeothermalFissure) or isinstance(adj_obj.feature, Reef):
-                adj_geo_reef += 1
-        target_object.science = target_object.science + adj_mountain
-        target_object.science = target_object.science + math.floor(adj_rainforest / 2)
-        target_object.science = target_object.science + adj_geo_reef
-
-    def calculate_specialist_yield(self):
-        self.science = self.science + self.citizen_slot * self.specialist_yield

@@ -21,7 +21,7 @@ class Encampment(CommonTile):
         self.specialist_production_yield = 2
         self.specialist_gold_yield = 2
         self.specialist_power_bonus = 1
-        self.appeal = -1
+        self.appeal = self.appeal - 1
 
     # building_list
     @property

@@ -4,7 +4,7 @@ services:
     functional:
         build: 
             context: .
-            dockerfile: functional/Dockerfile
+            dockerfile: features/Dockerfile
         image: civ_functional
         # command: behave features/data_validator.feature
         # command: behave features/main.feature:6
@@ -21,7 +21,7 @@ services:
     unit:
         build: 
             context: .
-            dockerfile: functional/Dockerfile
+            dockerfile: features/Dockerfile
         image: civ_unit
         command: pytest --cov=. .
         # command: pytest --cov=. tests/test_data_validator.py
@@ -37,8 +37,9 @@ services:
     lint:
         build: 
             context: .
-            dockerfile: functional/Dockerfile
+            dockerfile: features/Dockerfile
         image: civ_lint
+        # command: sh
         command: pycodestyle --show-source
         # command: pycodestyle dev_tools/main_tool.py --show-source
         # command: pycodestyle dev_tools/main_tool.py --show-source --show-pep8
@@ -49,3 +50,18 @@ services:
         environment:
             - ENVIRONMENT=test
             - SERVICE=lint
+
+    sh:
+        build: 
+            context: .
+            dockerfile: features/Dockerfile
+        image: civ_lint
+        # command: sh; pytest -h
+        command: sh
+        volumes:
+            - .:/usr/src
+        ports:
+            - 8023:8000
+        environment:
+            - ENVIRONMENT=test
+            - SERVICE=bash
