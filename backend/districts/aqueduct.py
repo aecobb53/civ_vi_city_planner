@@ -12,7 +12,7 @@ class Aqueduct(CommonTile):
         super().__init__()
         self.default_building_list = []
         self._building_list = None
-        self.houseing = self.houseing + 2
+        self.housing = self.housing + 2
 
     def set_buildings(
         self,
@@ -35,7 +35,7 @@ class Aqueduct(CommonTile):
                 continue
             if isinstance(adj_obj.terrain, (Coast, Ocean)) or isinstance(adj_obj, River):
                 return None
-        self.houseing = self.houseing + 4
+        self.housing = self.housing + 4
 
     def calculate_specialist_yield(self):
         pass

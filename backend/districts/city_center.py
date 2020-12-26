@@ -69,7 +69,7 @@ class CityCenter(CommonTile):
     def granary(self, value):
         if value:
             self.food = self.food  + 1
-            self.houseing = self.houseing  + 2
+            self.housing = self.housing  + 2
             self.update_building_list('granary')
             self._granary = True
 
@@ -107,7 +107,7 @@ class CityCenter(CommonTile):
     @sewer.setter
     def sewer(self, value):
         if value:
-            self.houseing = self.houseing + 2
+            self.housing = self.housing + 2
             self.maintenance = self.maintenance + 2
             self.update_building_list('sewer')
             self._sewer = True

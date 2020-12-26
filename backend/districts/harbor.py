@@ -49,7 +49,7 @@ class Harbor(CommonTile):
         if value:
             self.food = self.food + 1
             self.gold = self.gold + 1
-            self.houseing = self.houseing + 1
+            self.housing = self.housing + 1
             self.citizen_slot = self.citizen_slot + 1
             self.update_building_list('lighthouse')
             self._lighthouse = True
@@ -81,7 +81,7 @@ class Harbor(CommonTile):
         if value:
             self.food = self.food + 2
             self.gold = self.gold + 2
-            self.houseing = self.houseing + 1
+            self.housing = self.housing + 1
             self.citizen_slot = self.citizen_slot + 1
             self.specialist_food_yield += 1
             self.update_building_list('seaport')

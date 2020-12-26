@@ -15,7 +15,7 @@ testdata = [
     ('culture', 0),
     ('faith', 0),
     ('population', 0),
-    ('houseing', 0),
+    ('housing', 0),
     ('citizen_slot', 0),
     ('power', 0),
     ('powered', False),
@@ -35,7 +35,7 @@ def test_init(setup_district, resource, value):
 testdata = [
     ('production', 2),
     ('gold', 2),
-    ('houseing', 1),
+    ('housing', 1),
     ('citizen_slot', 1),
     ('power', 0),
     ('powered', False),
@@ -59,7 +59,7 @@ def test_barracks(setup_district, resource, value):
 testdata = [
     ('production', 2),
     ('gold', 2),
-    ('houseing', 1),
+    ('housing', 1),
     ('citizen_slot', 1),
     ('power', 0),
     ('powered', False),
@@ -83,7 +83,7 @@ def test_stable(setup_district, resource, value):
 testdata = [
     ('production', 6),
     ('gold', 4),
-    ('houseing', 1),
+    ('housing', 1),
     ('citizen_slot', 2),
     ('power', 0),
     ('powered', False),
@@ -108,7 +108,7 @@ def test_armory(setup_district, resource, value):
 testdata = [
     ('production', 13),
     ('gold', 6),
-    ('houseing', 2),
+    ('housing', 2),
     ('citizen_slot', 3),
     ('power', 0),
     ('powered', False),
@@ -139,7 +139,7 @@ testdata = [
     ('culture', 0),
     ('faith', 0),
     ('population', 0),
-    ('houseing', 2),
+    ('housing', 2),
     ('citizen_slot', 3),
     ('power', 0),
     ('powered', False),

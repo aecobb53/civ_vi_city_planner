@@ -15,7 +15,7 @@ testdata = [
     ('culture', 0),
     ('faith', 0),
     ('population', 0),
-    ('houseing', 3),
+    ('housing', 3),
     ('citizen_slot', 0),
     ('power', 0),
     ('powered', False),
@@ -31,7 +31,7 @@ def test_init(setup_district, resource, value):
 # Hydroelectric Dam
 testdata = [
     ('maintenance', 1),
-    ('houseing', 3),
+    ('housing', 3),
     ('power', 0),
     ('powered', True),
     ('maintenance', 1),
@@ -56,7 +56,7 @@ testdata = [
     ('culture', 0),
     ('faith', 0),
     ('population', 0),
-    ('houseing', 3),
+    ('housing', 3),
     ('citizen_slot', 0),
     ('power', 0),
     ('powered', True),

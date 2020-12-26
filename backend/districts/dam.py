@@ -14,7 +14,7 @@ class Dam(CommonTile):
         self._hydroelectric_dam = None
         self._powered = None
         self._power = None
-        self.houseing = self.houseing + 3
+        self.housing = self.housing + 3
         self.appeal = 1
 
     # building_list

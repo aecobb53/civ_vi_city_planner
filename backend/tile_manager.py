@@ -123,7 +123,7 @@ class TileManager:
             'faith',
             'tourism',
             'population',
-            'houseing',
+            'housing',
             'amenities',
             'power',
             'appeal',

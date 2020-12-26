@@ -149,7 +149,7 @@ class Neighborhood(CommonTile):
     def calculate_adjacency(self, tile_obj, target_index, adj_list):
         target_object = getattr(tile_obj, target_index)
 
-        target_object.houseing = target_object.houseing
+        target_object.housing = target_object.housing
         if target_object.appeal >= 4:
             target_object += 6
         if target_object.appeal >= 2 and target_object.appeal < 4:

@@ -65,7 +65,7 @@ class Campus(CommonTile):
     def university(self, value):
         if value:
             self.science = self.science + 4
-            self.houseing = self.houseing + 1
+            self.housing = self.housing + 1
             self.citizen_slot = self.citizen_slot + 1
             self.maintenance = self.maintenance + 2
             self.update_building_list('university')

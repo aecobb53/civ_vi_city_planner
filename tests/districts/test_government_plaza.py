@@ -15,7 +15,7 @@ testdata = [
     ('culture', 0),
     ('faith', 0),
     ('population', 0),
-    ('houseing', 0),
+    ('housing', 0),
     ('citizen_slot', 0),
     ('power', 0),
     ('powered', False),
@@ -224,7 +224,7 @@ def test_war_department(setup_district, resource, value):
 # # Library
 # testdata = [
 #     ('science', 4),
-#     ('houseing', 0),
+#     ('housing', 0),
 #     ('citizen_slot', 1),
 #     ('power', 0),
 #     ('powered', False),
@@ -260,7 +260,7 @@ def test_war_department(setup_district, resource, value):
 # # University
 # testdata = [
 #     ('science', 10),
-#     ('houseing', 1),
+#     ('housing', 1),
 #     ('citizen_slot', 2),
 #     ('power', 0),
 #     ('powered', False),
@@ -283,7 +283,7 @@ def test_war_department(setup_district, resource, value):
 # # Unpowered Research Lab
 # testdata = [
 #     ('science', 15),
-#     ('houseing', 1),
+#     ('housing', 1),
 #     ('citizen_slot', 3),
 #     ('power', 0),
 #     ('powered', False),
@@ -307,7 +307,7 @@ def test_war_department(setup_district, resource, value):
 # # Powered Research Lab
 # testdata = [
 #     ('science', 23),
-#     ('houseing', 1),
+#     ('housing', 1),
 #     ('citizen_slot', 3),
 #     ('power', 3),
 #     ('powered', True),
@@ -337,7 +337,7 @@ def test_war_department(setup_district, resource, value):
 #     ('culture', 0),
 #     ('faith', 0),
 #     ('population', 0),
-#     ('houseing', 1),
+#     ('housing', 1),
 #     ('citizen_slot', 3),
 #     ('power', 3),
 #     ('powered', True),

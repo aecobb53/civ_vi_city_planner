@@ -14,7 +14,7 @@ class CommonTile:
         self._faith = None
         self._tourism = None
         self._population = None
-        self._houseing = None
+        self._housing = None
         self._citizen_slot = None
         self._amenities = None
         self._power = None
@@ -136,16 +136,16 @@ class CommonTile:
     def population(self, value):
         self._population = value
 
-    # houseing        
+    # housing        
     @property
-    def houseing(self):
-        if self._houseing == None:
+    def housing(self):
+        if self._housing == None:
             return 0
-        return self._houseing
+        return self._housing
 
-    @houseing.setter
-    def houseing(self, value):
-        self._houseing = value
+    @housing.setter
+    def housing(self, value):
+        self._housing = value
 
     # citizen_slot
     @property

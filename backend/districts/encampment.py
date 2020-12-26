@@ -54,7 +54,7 @@ class Encampment(CommonTile):
     def barracks(self, value):
         if value:
             self.production = self.production + 1
-            self.houseing = self.houseing + 1
+            self.housing = self.housing + 1
             self.citizen_slot = self.citizen_slot + 1
             self.maintenance = self.maintenance + 1
             self.update_building_list('barracks')
@@ -66,7 +66,7 @@ class Encampment(CommonTile):
     def barracks(self):
         if self._barracks:
             self.production = self.production - 1
-            self.houseing = self.houseing - 1
+            self.housing = self.housing - 1
             self.citizen_slot = self.citizen_slot - 1
             self.maintenance = self.maintenance - 1
             self.remove_building_list('barracks')
@@ -83,7 +83,7 @@ class Encampment(CommonTile):
     def stable(self, value):
         if value:
             self.production = self.production + 1
-            self.houseing = self.houseing + 1
+            self.housing = self.housing + 1
             self.citizen_slot = self.citizen_slot + 1
             self.maintenance = self.maintenance + 1
             self.update_building_list('stable')
@@ -95,7 +95,7 @@ class Encampment(CommonTile):
     def stable(self):
         if self._stable:
             self.production = self.production - 1
-            self.houseing = self.houseing - 1
+            self.housing = self.housing - 1
             self.citizen_slot = self.citizen_slot - 1
             self.maintenance = self.maintenance - 1
             self.remove_building_list('stable')
@@ -128,7 +128,7 @@ class Encampment(CommonTile):
     def military_academy(self, value):
         if value:
             self.production = self.production + 3
-            self.houseing = self.houseing + 1
+            self.housing = self.housing + 1
             self.citizen_slot = self.citizen_slot + 1
             self.specialist_production_yield += self.specialist_power_bonus
             self.maintenance = self.maintenance + 2
