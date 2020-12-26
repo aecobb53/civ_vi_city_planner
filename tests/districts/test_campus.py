@@ -38,7 +38,9 @@ testdata = [
     ('power', 0),
     ('powered', False),
     ('maintenance', 2),
-    ('building_list', ['library']),
+    ('building_list', [
+        'library',
+    ]),
     ('library', True),
     ('university', False),
     ('research_lab', False),
@@ -58,6 +60,10 @@ testdata = [
     ('power', 0),
     ('powered', False),
     ('maintenance', 4),
+    ('building_list', [
+        'library',
+        'university',
+    ]),
     ('library', True),
     ('university', True),
     ('research_lab', False),
@@ -77,6 +83,11 @@ testdata = [
     ('power', 0),
     ('powered', False),
     ('maintenance', 7),
+    ('building_list', [
+        'library',
+        'university',
+        'research_lab',
+    ]),
     ('library', True),
     ('university', True),
     ('research_lab', True),
@@ -96,6 +107,11 @@ testdata = [
     ('power', 3),
     ('powered', True),
     ('maintenance', 7),
+    ('building_list', [
+        'library',
+        'university',
+        'research_lab',
+    ]),
     ('library', True),
     ('university', True),
     ('research_lab', True),
@@ -105,6 +121,28 @@ def test_powered_research_lab(setup_district, resource, value):
     campus = setup_district
     campus.set_buildings('research_lab', True)
     campus.calculate_specialist_yield()
+    assert getattr(campus, resource) == value
+
+# Int check
+testdata = [
+    ('science', 4),
+    ('houseing', 0),
+    ('citizen_slot', 1),
+    ('power', 0),
+    ('powered', False),
+    ('maintenance', 2),
+    ('building_list', [
+        'library',
+    ]),
+    ('library', True),
+    ('university', False),
+    ('research_lab', False),
+]
+@pytest.mark.parametrize("resource, value", testdata)
+def test_final_check(setup_district, resource, value):
+    campus = setup_district
+    campus.set_buildings()
+    campus.calculate_specialist_yield(1)
     assert getattr(campus, resource) == value
 
 # Final check
@@ -121,6 +159,11 @@ testdata = [
     ('power', 3),
     ('powered', True),
     ('maintenance', 7),
+    ('building_list', [
+        'library',
+        'university',
+        'research_lab',
+    ]),
     ('library', True),
     ('university', True),
     ('research_lab', True),
