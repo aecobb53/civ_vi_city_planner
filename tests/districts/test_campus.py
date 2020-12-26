@@ -20,6 +20,7 @@ testdata = [
     ('power', 0),
     ('powered', False),
     ('maintenance', 1),
+    ('building_list', None),
     ('library', False),
     ('university', False),
     ('research_lab', False),
