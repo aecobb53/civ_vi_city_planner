@@ -27,13 +27,13 @@ class Harbor(CommonTile):
     # building_list
     @property
     def building_list(self):
-        if self._building_list == None:
+        if self._building_list is None:
             return None
         return self._building_list
 
     # @building_list.setter
     def update_building_list(self, value):
-        if self._building_list == None:
+        if self._building_list is None:
             self._building_list = []
         self._building_list.append(value)
 
@@ -41,7 +41,7 @@ class Harbor(CommonTile):
     @property
     def lighthouse(self):
         if self._lighthouse is None:
-            return None
+            return False
         return self._lighthouse
 
     @lighthouse.setter
@@ -58,13 +58,14 @@ class Harbor(CommonTile):
     @property
     def shipyard(self):
         if self._shipyard is None:
-            return None
+            return False
         return self._shipyard
 
     @shipyard.setter
     def shipyard(self, value):
         if value:
             self.citizen_slot = self.citizen_slot + 1
+            self.maintenance = self.maintenance + 2
             self.update_building_list('shipyard')
             self._shipyard = True
 
@@ -72,7 +73,7 @@ class Harbor(CommonTile):
     @property
     def seaport(self):
         if self._seaport is None:
-            return None
+            return False
         return self._seaport
 
     @seaport.setter
@@ -162,4 +163,4 @@ class Harbor(CommonTile):
 
     def calculate_specialist_yield(self):
         self.gold = self.gold + self.citizen_slot * self.specialist_gold_yield
-        self.gold = self.gold + self.citizen_slot * self.specialist_food_yield
+        self.food = self.food + self.citizen_slot * self.specialist_food_yield

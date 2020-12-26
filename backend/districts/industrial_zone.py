@@ -1,12 +1,12 @@
 from backend.common_tile import CommonTile
 import math
 
-from backend.district.aqueduct import Aqueduct
-from backend.district.dam import Dam
-from backend.district.canal import Canal
-from backend.improvement.quarry import Quarry
-from backend.improvement.mine import Mine
-from backend.improvement.lumber_mill import LumberMill
+from backend.districts.aqueduct import Aqueduct
+from backend.districts.dam import Dam
+from backend.districts.canal import Canal
+from backend.improvements.quarry import Quarry
+from backend.improvements.mine import Mine
+from backend.improvements.lumber_mill import LumberMill
 
 class IndustrialZone(CommonTile):
 
@@ -27,6 +27,7 @@ class IndustrialZone(CommonTile):
         self._nuclear_power_plant = None
         self._powered = None
         self._power = None
+        self.maintenance = self.maintenance + 1
         self.specialist_yield = 2
         self.specialist_power_bonus = 1
         self.appeal = self.appeal - 1
@@ -34,21 +35,26 @@ class IndustrialZone(CommonTile):
     # building_list
     @property
     def building_list(self):
-        if self._building_list == None:
+        if self._building_list is None:
             return None
         return self._building_list
 
     # @building_list.setter
     def update_building_list(self, value):
-        if self._building_list == None:
+        if self._building_list is None:
             self._building_list = []
         self._building_list.append(value)
+
+    def remove_building_list(self, value):
+        if self._building_list == None:
+            return None
+        self._building_list.remove(value)
 
     # workshop
     @property
     def workshop(self):
         if self._workshop is None:
-            return None
+            return False
         return self._workshop
 
     @workshop.setter
@@ -56,6 +62,7 @@ class IndustrialZone(CommonTile):
         if value:
             self.production = self.production + 3
             self.citizen_slot = self.citizen_slot + 1
+            self.maintenance = self.maintenance + 1
             self.update_building_list('workshop')
             self._workshop = True
 
@@ -63,7 +70,7 @@ class IndustrialZone(CommonTile):
     @property
     def factory(self):
         if self._factory is None:
-            return None
+            return False
         return self._factory
 
     @factory.setter
@@ -71,17 +78,17 @@ class IndustrialZone(CommonTile):
         if value:
             self.production = self.production + 3
             self.citizen_slot = self.citizen_slot + 1
+            self.maintenance = self.maintenance + 2
             self.update_building_list('factory')
             self._factory = True
             if self.powered:
                 self.production = self.production + 3
-                self.citizen_slot = self.citizen_slot + 1
 
     # coal_power_plant
     @property
     def coal_power_plant(self):
         if self._coal_power_plant is None:
-            return None
+            return False
         return self._coal_power_plant
 
     @coal_power_plant.setter
@@ -89,45 +96,59 @@ class IndustrialZone(CommonTile):
         if value:
             self.citizen_slot = self.citizen_slot + 1
             self.specialist_yield += self.specialist_power_bonus
+            self.maintenance = self.maintenance + 3
             self.update_building_list('coal_power_plant')
             self._coal_power_plant = True
+            if self.oil_power_plant:
+                del self.oil_power_plant
+            if self.nuclear_power_plant:
+                del self.nuclear_power_plant
 
     @coal_power_plant.deleter
     def coal_power_plant(self):
         if self.coal_power_plant:
             self.citizen_slot = self.citizen_slot - 1
             self.specialist_yield -= self.specialist_power_bonus
-            self.update_building_list('coal_power_plant')
-            self._coal_power_plant = True
+            self.maintenance = self.maintenance - 3
+            self.remove_building_list('coal_power_plant')
+            self._coal_power_plant = False
 
     # oil_power_plant
     @property
     def oil_power_plant(self):
         if self._oil_power_plant is None:
-            return None
+            return False
         return self._oil_power_plant
 
     @oil_power_plant.setter
     def oil_power_plant(self, value):
         if value:
+            self.production = self.production + 3
             self.citizen_slot = self.citizen_slot + 1
             self.specialist_yield += self.specialist_power_bonus
+            self.maintenance = self.maintenance + 3
             self.update_building_list('oil_power_plant')
             self._oil_power_plant = True
+            if self.coal_power_plant:
+                del self.coal_power_plant
+            if self.nuclear_power_plant:
+                del self.nuclear_power_plant
 
     @oil_power_plant.deleter
     def oil_power_plant(self):
         if self.oil_power_plant:
+            self.production = self.production - 3
             self.citizen_slot = self.citizen_slot - 1
             self.specialist_yield -= self.specialist_power_bonus
-            self.update_building_list('oil_power_plant')
-            self._oil_power_plant = True
+            self.maintenance = self.maintenance - 3
+            self.remove_building_list('oil_power_plant')
+            self._oil_power_plant = False
 
     # nuclear_power_plant
     @property
     def nuclear_power_plant(self):
         if self._nuclear_power_plant is None:
-            return None
+            return False
         return self._nuclear_power_plant
 
     @nuclear_power_plant.setter
@@ -137,8 +158,13 @@ class IndustrialZone(CommonTile):
             self.science = self.science + 3
             self.citizen_slot = self.citizen_slot + 1
             self.specialist_yield += self.specialist_power_bonus
+            self.maintenance = self.maintenance + 3
             self.update_building_list('nuclear_power_plant')
             self._nuclear_power_plant = True
+            if self.coal_power_plant:
+                del self.coal_power_plant
+            if self.oil_power_plant:
+                del self.oil_power_plant
 
     @nuclear_power_plant.deleter
     def nuclear_power_plant(self):
@@ -147,8 +173,9 @@ class IndustrialZone(CommonTile):
             self.science = self.science - 3
             self.citizen_slot = self.citizen_slot - 1
             self.specialist_yield -= self.specialist_power_bonus
-            self.update_building_list('nuclear_power_plant')
-            self._nuclear_power_plant = True
+            self.maintenance = self.maintenance - 3
+            self.remove_building_list('nuclear_power_plant')
+            self._nuclear_power_plant = False
 
     # power - Whats the power draw
     @property
@@ -181,6 +208,10 @@ class IndustrialZone(CommonTile):
         if final_improvement is None:
             powered = True
             final_improvement = 'nuclear_power_plant'
+        if final_improvement == 'factory' and powered is None:
+            powered = True
+        if 'power_plant' in final_improvement:
+            powered = True
         try:
             final_improvement = int(final_improvement)
         except:
@@ -214,7 +245,7 @@ class IndustrialZone(CommonTile):
             if isinstance(adj_obj.improvement, Quarry):
                 adj_resource += 1
             if adj_obj.resource is not None:
-                if adj_obj.resource.resource_type = ='strategic':
+                if adj_obj.resource.resource_type == 'strategic':
                     adj_resource += 1
             if isinstance(adj_obj.improvement, Mine) or isinstance(adj_obj.improvement, LumberMill):
                 adj_district += 1

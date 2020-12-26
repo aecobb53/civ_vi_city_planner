@@ -20,6 +20,7 @@ testdata = [
     ('power', 0),
     ('powered', False),
     ('maintenance', 1),
+    ('building_list', None),
     ('shrine', False),
     ('temple', False),
 ]
@@ -35,6 +36,9 @@ testdata = [
     ('power', 0),
     ('powered', False),
     ('maintenance', 2),
+    ('building_list', [
+        'shrine',
+    ]),
     ('shrine', True),
     ('temple', False),
 ]
@@ -52,6 +56,10 @@ testdata = [
     ('power', 0),
     ('powered', False),
     ('maintenance', 4),
+    ('building_list', [
+        'shrine',
+        'temple',
+    ]),
     ('shrine', True),
     ('temple', True),
 ]
@@ -76,6 +84,10 @@ testdata = [
     ('power', 0),
     ('powered', False),
     ('maintenance', 4),
+    ('building_list', [
+        'shrine',
+        'temple',
+    ]),
     ('shrine', True),
     ('temple', True),
 ]

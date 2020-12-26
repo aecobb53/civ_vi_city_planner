@@ -38,7 +38,7 @@ class TheaterSquare(CommonTile):
         if self._building_list is None:
             self._building_list = []
         self._building_list.append(value)
-        
+
     def remove_building_list(self, value):
         if self._building_list == None:
             return None

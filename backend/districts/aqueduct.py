@@ -26,6 +26,6 @@ class Aqueduct(CommonTile):
         for adj_obj in adj_list:
             if adj_obj is None:
                 continue
-            if isinstance(adj_obj.terrain, (Coast, Ocean)) or isinstance(adj_obj, River:
+            if isinstance(adj_obj.terrain, (Coast, Ocean)) or isinstance(adj_obj, River):
                 return None
         self.houseing = self.houseing + 4

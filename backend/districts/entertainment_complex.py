@@ -17,19 +17,21 @@ class EntertainmentComplex(CommonTile):
         self._stadium = None
         self._powered = None
         self._power = None
+        self.amenities = self.amenities + 1
+        self.maintenance = self.maintenance + 1
         self.specialist_yield = 2
         self.specialist_power_bonus = 1
 
     # building_list
     @property
     def building_list(self):
-        if self._building_list == None:
+        if self._building_list is None:
             return None
         return self._building_list
 
     # @building_list.setter
     def update_building_list(self, value):
-        if self._building_list == None:
+        if self._building_list is None:
             self._building_list = []
         self._building_list.append(value)
 
@@ -37,13 +39,14 @@ class EntertainmentComplex(CommonTile):
     @property
     def arena(self):
         if self._arena is None:
-            return None
+            return False
         return self._arena
 
     @arena.setter
     def arena(self, value):
         if value:
             self.amenities = self.amenities + 1
+            self.maintenance = self.maintenance + 1
             self.update_building_list('arena')
             self._arena = True
 
@@ -51,13 +54,14 @@ class EntertainmentComplex(CommonTile):
     @property
     def zoo(self):
         if self._zoo is None:
-            return None
+            return False
         return self._zoo
 
     @zoo.setter
     def zoo(self, value):
         if value:
             self.amenities = self.amenities + 1
+            self.maintenance = self.maintenance + 2
             self.update_building_list('zoo')
             self._zoo = True
 
@@ -65,13 +69,14 @@ class EntertainmentComplex(CommonTile):
     @property
     def stadium(self):
         if self._stadium is None:
-            return None
+            return False
         return self._stadium
 
     @stadium.setter
     def stadium(self, value):
         if value:
             self.amenities = self.amenities + 1
+            self.maintenance = self.maintenance + 3
             if self.powered:
                 self.amenities = self.amenities + 2
             self.update_building_list('stadium')
@@ -125,3 +130,8 @@ class EntertainmentComplex(CommonTile):
                 break
             else:
                 setattr(self, building, True)
+    def calculate_adjacency(self, tile_obj, target_index, adj_list):
+        pass
+
+    def calculate_specialist_yield(self):
+        pass

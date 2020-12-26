@@ -38,6 +38,11 @@ class Encampment(CommonTile):
             self._building_list = []
         self._building_list.append(value)
 
+    def remove_building_list(self, value):
+        if self._building_list == None:
+            return None
+        self._building_list.remove(value)
+
     # barracks
     @property
     def barracks(self):
@@ -64,7 +69,7 @@ class Encampment(CommonTile):
             self.houseing = self.houseing - 1
             self.citizen_slot = self.citizen_slot - 1
             self.maintenance = self.maintenance - 1
-            self.update_building_list('barracks')
+            self.remove_building_list('barracks')
             self._barracks = None
             
     # stable
