@@ -41,6 +41,7 @@ services:
         image: civ_lint
         # command: sh
         command: pycodestyle --show-source
+        # command: pycodestyle --show-source --benchmark
         # command: pycodestyle dev_tools/main_tool.py --show-source
         # command: pycodestyle dev_tools/main_tool.py --show-source --show-pep8
         volumes:
@@ -50,18 +51,3 @@ services:
         environment:
             - ENVIRONMENT=test
             - SERVICE=lint
-
-    sh:
-        build: 
-            context: .
-            dockerfile: features/Dockerfile
-        image: civ_lint
-        # command: sh; pytest -h
-        command: sh
-        volumes:
-            - .:/usr/src
-        ports:
-            - 8023:8000
-        environment:
-            - ENVIRONMENT=test
-            - SERVICE=bash

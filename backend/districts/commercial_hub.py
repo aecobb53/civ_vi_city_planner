@@ -26,13 +26,13 @@ class CommercialHub(CommonTile):
     # building_list
     @property
     def building_list(self):
-        if self._building_list == None:
+        if self._building_list is None:
             return None
         return self._building_list
 
     # @building_list.setter
     def update_building_list(self, value):
-        if self._building_list == None:
+        if self._building_list is None:
             self._building_list = []
         self._building_list.append(value)
 
@@ -40,7 +40,7 @@ class CommercialHub(CommonTile):
     @property
     def market(self):
         if self._market is None:
-            return None
+            return False
         return self._market
 
     @market.setter
@@ -55,7 +55,7 @@ class CommercialHub(CommonTile):
     @property
     def bank(self):
         if self._bank is None:
-            return None
+            return False
         return self._bank
 
     @bank.setter
@@ -70,17 +70,16 @@ class CommercialHub(CommonTile):
     @property
     def stock_exchange(self):
         if self._stock_exchange is None:
-            return None
+            return False
         return self._stock_exchange
 
     @stock_exchange.setter
     def stock_exchange(self, value):
         if value:
-            self.gold = self.gold + 7
+            self.gold = self.gold + 4
             self.citizen_slot = self.citizen_slot + 1
             if self.powered:
                 self.gold = self.gold + 7
-                self.citizen_slot = self.citizen_slot + 1
                 self.specialist_yield += self.specialist_power_bonus
             self.update_building_list('stock_exchange')
             self._stock_exchange = True

@@ -2,7 +2,7 @@ from backend.common_tile import CommonTile
 import math
 
 from backend.features.mountain import Mountain
-from backend.features.rainforest import Woods
+from backend.features.woods import Woods
 
 
 class HolySite(CommonTile):
@@ -18,18 +18,19 @@ class HolySite(CommonTile):
         self._temple = None
         self._powered = None
         self._power = None
+        self.maintenance = self.maintenance + 1
         self.specialist_yield = 2
 
     # building_list
     @property
     def building_list(self):
-        if self._building_list == None:
+        if self._building_list is None:
             return None
         return self._building_list
 
     # @building_list.setter
     def update_building_list(self, value):
-        if self._building_list == None:
+        if self._building_list is None:
             self._building_list = []
         self._building_list.append(value)
 
@@ -37,7 +38,7 @@ class HolySite(CommonTile):
     @property
     def shrine(self):
         if self._shrine is None:
-            return None
+            return False
         return self._shrine
 
     @shrine.setter
@@ -45,6 +46,7 @@ class HolySite(CommonTile):
         if value:
             self.faith = self.faith + 2
             self.citizen_slot = self.citizen_slot + 1
+            self.maintenance = self.maintenance + 1
             self.update_building_list('shrine')
             self._shrine = value
 
@@ -52,7 +54,7 @@ class HolySite(CommonTile):
     @property
     def temple(self):
         if self._temple is None:
-            return None
+            return False
         return self._temple
 
     @temple.setter
@@ -60,6 +62,7 @@ class HolySite(CommonTile):
         if value:
             self.faith = self.faith + 4
             self.citizen_slot = self.citizen_slot + 1
+            self.maintenance = self.maintenance + 2
             self.update_building_list('temple')
             self._temple = value
 
@@ -134,10 +137,10 @@ class HolySite(CommonTile):
                 adj_mountain += 1
             if isinstance(adj_obj.feature, GeothermalFissure) or isinstance(adj_obj.feature, Reef):
                 adj_geo_reef += 1
-        target_object.science = target_object.science + adj_natural_wonder * 2
-        target_object.science = target_object.science + adj_mountain
-        target_object.culture = target_object.culture + math.floor(adj_district / 2)
+        target_object.faith = target_object.faith + adj_natural_wonder * 2
+        target_object.faith = target_object.faith + adj_mountain
+        target_object.faith = target_object.faith + math.floor(adj_district / 2)
 
 
     def calculate_specialist_yield(self):
-        self.science = self.science + self.citizen_slot * self.specialist_yield
+        self.faith = self.faith + self.citizen_slot * self.specialist_yield

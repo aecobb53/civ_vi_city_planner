@@ -40,5 +40,23 @@ services:
             - 8305:8000
         volumes:
             - mongodb_data_container:/data/db
+
+    sh:
+        build: 
+            context: .
+            dockerfile: features/Dockerfile
+        image: civ_lint
+        # command: sh; pytest -h
+        command: bash
+        volumes:
+            - .:/usr/src
+        ports:
+            - 8023:8000
+        environment:
+            - ENVIRONMENT=test
+            - SERVICE=bash
+
 volumes:
     mongodb_data_container:
+
+

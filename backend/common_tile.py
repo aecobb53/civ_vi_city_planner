@@ -20,6 +20,7 @@ class CommonTile:
         self._power = None
         self._powered = None
         self._appeal = None
+        self._maintenance = None
         self._bonus = None
         self._strategic = None
         self._luxury = None
@@ -150,7 +151,7 @@ class CommonTile:
     @property
     def citizen_slot(self):
         if self._citizen_slot == None:
-            return 1
+            return 0
         return self._citizen_slot
 
     @citizen_slot.setter
@@ -183,7 +184,7 @@ class CommonTile:
     @property
     def powered(self):
         if self._powered == None:
-            return 0
+            return False
         return self._powered
 
     @powered.setter
@@ -200,6 +201,17 @@ class CommonTile:
     @appeal.setter
     def appeal(self, value):
         self._appeal = value
+
+    # maintenance
+    @property
+    def maintenance(self):
+        if self._maintenance is None:
+            return 0
+        return self._maintenance
+    
+    @maintenance.setter
+    def maintenance(self, value):
+        self._maintenance = value
 
     # bonus        
     @property

@@ -21,6 +21,7 @@ class TheaterSquare(CommonTile):
         self._broadcast_center = None
         self._powered = None
         self._power = None
+        self.maintenance = self.maintenance + 1
         self.specialist_yield = 2
         self.specialist_power_bonus = 1
         self.appeal = 1
@@ -28,21 +29,26 @@ class TheaterSquare(CommonTile):
     # building_list
     @property
     def building_list(self):
-        if self._building_list == None:
+        if self._building_list is None:
             return None
         return self._building_list
 
     # @building_list.setter
     def update_building_list(self, value):
-        if self._building_list == None:
+        if self._building_list is None:
             self._building_list = []
         self._building_list.append(value)
+        
+    def remove_building_list(self, value):
+        if self._building_list == None:
+            return None
+        self._building_list.remove(value)
 
     # amphitheater
     @property
     def amphitheater(self):
         if self._amphitheater is None:
-            return None
+            return False
         return self._amphitheater
 
     @amphitheater.setter
@@ -50,6 +56,7 @@ class TheaterSquare(CommonTile):
         if value:
             self.culture = self.culture + 2
             self.citizen_slot = self.citizen_slot + 1
+            self.maintenance = self.maintenance + 1
             self.update_building_list('amphitheater')
             self._amphitheater = True
 
@@ -57,7 +64,7 @@ class TheaterSquare(CommonTile):
     @property
     def archaeological_museum(self):
         if self._archaeological_museum is None:
-            return None
+            return False
         return self._archaeological_museum
 
     @archaeological_museum.setter
@@ -65,14 +72,18 @@ class TheaterSquare(CommonTile):
         if value:
             self.culture = self.culture + 2
             self.citizen_slot = self.citizen_slot + 1
+            self.maintenance = self.maintenance + 2
             self.update_building_list('archaeological_museum')
             self._archaeological_museum = True
+            if self.art_museum:
+                del self.art_museum
 
     @archaeological_museum.deleter
     def archaeological_museum(self):
         if self._archaeological_museum:
             self.culture = self.culture - 2
             self.citizen_slot = self.citizen_slot - 1
+            self.maintenance = self.maintenance - 2
             self.remove_building_list('archaeological_museum')
             self._archaeological_museum = False
 
@@ -80,7 +91,7 @@ class TheaterSquare(CommonTile):
     @property
     def art_museum(self):
         if self._art_museum is None:
-            return None
+            return False
         return self._art_museum
 
     @art_museum.setter
@@ -88,14 +99,18 @@ class TheaterSquare(CommonTile):
         if value:
             self.culture = self.culture + 2
             self.citizen_slot = self.citizen_slot + 1
+            self.maintenance = self.maintenance + 2
             self.update_building_list('art_museum')
             self._art_museum = True
+            if self.archaeological_museum:
+                del self.archaeological_museum
 
     @art_museum.deleter
     def art_museum(self):
         if self._art_museum:
             self.culture = self.culture - 2
             self.citizen_slot = self.citizen_slot - 1
+            self.maintenance = self.maintenance - 2
             self.remove_building_list('art_museum')
             self._art_museum = False
 
@@ -103,17 +118,17 @@ class TheaterSquare(CommonTile):
     @property
     def broadcast_center(self):
         if self._broadcast_center is None:
-            return None
+            return False
         return self._broadcast_center
 
     @broadcast_center.setter
     def broadcast_center(self, value):
         if value:
-            self.culture = self.culture + 4
+            self.culture = self.culture + 2
             self.citizen_slot = self.citizen_slot + 1
+            self.maintenance = self.maintenance + 3
             if self.powered:
                 self.culture = self.culture + 4
-                self.citizen_slot = self.citizen_slot + 1
                 self.specialist_yield += self.specialist_power_bonus
             self.update_building_list('broadcast_center')
             self._broadcast_center = True
@@ -160,6 +175,10 @@ class TheaterSquare(CommonTile):
             self.powered = True
 
         for building in self.default_building_list:
+            # if final_improvement == 'art_museum' and building == 'archaeological_museum':
+            #     continue
+            # if final_improvement == 'broadcast_center' and building == 'art_museum':
+            #     continue
             if building == final_improvement:
                 setattr(self, building, True)
                 break
@@ -190,4 +209,4 @@ class TheaterSquare(CommonTile):
         target_object.culture = target_object.culture + math.floor(adj_district / 2)
 
     def calculate_specialist_yield(self):
-        self.science = self.science + self.citizen_slot * self.specialist_yield
+        self.culture = self.culture + self.citizen_slot * self.specialist_yield
