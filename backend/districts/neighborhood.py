@@ -1,91 +1,102 @@
 from backend.common_tile import CommonTile
 import math
-from backend.features.mountain import Mountain
-from backend.features.rainforest import Rainforest
-from backend.features.geothermal_fissure import GeothermalFissure
-from backend.features.reef import Reef
 
-class Campus(CommonTile):
+# from backend.districts.water_park import WaterPark
+# from backend.districts.entertainment_complex import EntertainmentComplex
+
+class Neighborhood(CommonTile):
 
     def __init__(self):
         super().__init__()
         self.default_building_list = [
-            'library',
-            'university',
-            'research_lab',
+            'food_market',
+            'shopping_mall',
         ]
         self._building_list = None
-        self._library = None
-        self._university = None
-        self._research_lab = None
+        self._food_market = None
+        self._shopping_mall = None
         self._powered = None
         self._power = None
-        self.specialist_yield = 2
-        self.specialist_power_bonus = 1
 
     # building_list
     @property
     def building_list(self):
-        if self._building_list == None:
+        if self._building_list is None:
             return None
         return self._building_list
 
     # @building_list.setter
     def update_building_list(self, value):
-        if self._building_list == None:
+        if self._building_list is None:
             self._building_list = []
         self._building_list.append(value)
 
-    # library
-    @property
-    def library(self):
-        if self._library == None:
+    def remove_building_list(self, value):
+        if self._building_list == None:
             return None
-        return self._library
+        self._building_list.remove(value)
 
-    @library.setter
-    def library(self, value):
-        if value == True:
-            self.science = self.science + 2
-            self.citizen_slot = self.citizen_slot + 1
-            self.update_building_list('library')
-            self._library = True
-
-    # university
+    # food_market
     @property
-    def university(self):
-        if self._university == None:
-            return None
-        return self._university
+    def food_market(self):
+        if self._food_market is None:
+            return False
+        return self._food_market
 
-    @university.setter
-    def university(self, value):
-        if value == True:
-            self.science = self.science + 4
-            self.houseing = self.houseing + 1
-            self.citizen_slot = self.citizen_slot + 1
-            self.update_building_list('university')
-            self._university = True
-
-    # research_lab
-    @property
-    def research_lab(self):
-        if self._research_lab == None:
-            return None
-        return self._research_lab
-
-    @research_lab.setter
-    def research_lab(self, value):
-        if value == True:
-            self.science = self.science + 3
-            self.houseing = self.houseing + 1
+    @food_market.setter
+    def food_market(self, value):
+        if value:
+            self.food = self.food + 4
+            self.maintenance = self.maintenance + 1
             if self.powered:
-                self.science = self.science + 5
-                self.houseing = self.houseing + 1
-                self.specialist_yield  + self.specialist_power_bonus
-            self.citizen_slot = self.citizen_slot + 1
-            self.update_building_list('research_lab')
-            self._research_lab = True
+                self.food = self.food + 2
+            if self.shopping_mall:
+                del self.shopping_mall
+            self.update_building_list('food_market')
+            self._food_market = True
+
+    @food_market.deleter
+    def food_market(self):
+        if self.food_market:
+            self.food = self.food - 4
+            self.maintenance = self.maintenance - 1
+            if self.powered:
+                self.food = self.food - 2
+            self.remove_building_list('food_market')
+            self._food_market = None
+
+    # shopping_mall
+    @property
+    def shopping_mall(self):
+        if self._shopping_mall is None:
+            return False
+        return self._shopping_mall
+
+    @shopping_mall.setter
+    def shopping_mall(self, value):
+        if value:
+            self.gold = self.gold + 2
+            self.amenities = self.amenities + 1
+            self.maintenance = self.maintenance + 1
+            if self.powered:
+                self.gold = self.gold + 2
+                self.amenities = self.amenities + 1
+            if self.food_market:
+                del self.food_market
+            self.update_building_list('shopping_mall')
+            self._shopping_mall = True
+
+    @shopping_mall.deleter
+    def shopping_mall(self):
+        if self.shopping_mall:
+            self.gold = self.gold - 2
+            self.amenities = self.amenities - 1
+            self.maintenance = self.maintenance - 1
+            if self.powered:
+                self.gold = self.gold - 2
+                self.amenities = self.amenities - 1
+            self.remove_building_list('shopping_mall')
+            self._shopping_mall = None
 
     # power - Whats the power draw
     @property
@@ -107,7 +118,7 @@ class Campus(CommonTile):
 
     @powered.setter
     def powered(self, value):
-        self.power = 3
+        self.power = 1
         self._powered = value
 
     def set_buildings(
@@ -115,9 +126,9 @@ class Campus(CommonTile):
         final_improvement=None,
         powered=None):
 
-        if final_improvement is None:
-            powered = True
-            final_improvement = 'research_lab'
+        if final_improvement == None:
+            self.powered = True
+            final_improvement = 'shopping_mall'
         try:
             final_improvement = int(final_improvement)
         except:
@@ -138,21 +149,18 @@ class Campus(CommonTile):
     def calculate_adjacency(self, tile_obj, target_index, adj_list):
         target_object = getattr(tile_obj, target_index)
 
-        adj_mountain = 0
-        adj_rainforest = 0
-        adj_geo_reef = 0
-        for adj_obj in adj_list:
-            if adj_obj is None:
-                continue
-            if isinstance(adj_obj.feature, Mountain):
-                adj_mountain += 1
-            if isinstance(adj_obj.feature, Rainforest):
-                adj_rainforest += 1
-            if isinstance(adj_obj.feature, GeothermalFissure) or isinstance(adj_obj.feature, Reef):
-                adj_geo_reef += 1
-        target_object.science = target_object.science + adj_mountain
-        target_object.science = target_object.science + math.floor(adj_rainforest / 2)
-        target_object.science = target_object.science + adj_geo_reef
+        target_object.houseing = target_object.houseing
+        if target_object.appeal >= 4:
+            target_object += 6
+        if target_object.appeal >= 2 and target_object.appeal < 4:
+            target_object += 5
+        if target_object.appeal >= -1 and target_object.appeal < 2:
+            target_object += 4
+        if target_object.appeal >= -3 and target_object.appeal < -1:
+            target_object += 3
+        if target_object.appeal <= -4:
+            target_object += 2
 
     def calculate_specialist_yield(self):
-        self.science = self.science + self.citizen_slot * self.specialist_yield
+        # self.culture = self.culture + self.citizen_slot * self.specialist_yield
+        pass

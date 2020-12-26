@@ -1,9 +1,9 @@
-from backend.districts.campus import Campus
+from backend.districts.entertainment_complex import EntertainmentComplex
 import pytest
 
 @pytest.fixture(scope="function")
 def setup_district():
-    dist = Campus()
+    dist = EntertainmentComplex()
     return dist
 
 # Init
@@ -16,110 +16,103 @@ testdata = [
     ('faith', 0),
     ('population', 0),
     ('houseing', 0),
+    ('amenities', 1),
     ('citizen_slot', 0),
     ('power', 0),
     ('powered', False),
     ('maintenance', 1),
     ('building_list', None),
-    ('library', False),
-    ('university', False),
-    ('research_lab', False),
+    ('arena', False),
+    ('zoo', False),
+    ('stadium', False),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
 def test_init(setup_district, resource, value):
     test_district = setup_district
     assert getattr(test_district, resource) == value
 
-# Library
+# Arena
 testdata = [
-    ('science', 4),
-    ('houseing', 0),
-    ('citizen_slot', 1),
+    ('amenities', 2),
     ('power', 0),
     ('powered', False),
     ('maintenance', 2),
     ('building_list', [
-        'library',
+        'arena',
     ]),
-    ('library', True),
-    ('university', False),
-    ('research_lab', False),
+    ('arena', True),
+    ('zoo', False),
+    ('stadium', False),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
-def test_library(setup_district, resource, value):
+def test_arena(setup_district, resource, value):
     test_district = setup_district
-    test_district.set_buildings('library')
+    test_district.set_buildings('arena')
     test_district.calculate_specialist_yield()
     assert getattr(test_district, resource) == value
 
-# University
+# Zoo
 testdata = [
-    ('science', 10),
-    ('houseing', 1),
-    ('citizen_slot', 2),
+    ('amenities', 3),
     ('power', 0),
     ('powered', False),
     ('maintenance', 4),
     ('building_list', [
-        'library',
-        'university',
+        'arena',
+        'zoo',
     ]),
-    ('library', True),
-    ('university', True),
-    ('research_lab', False),
+    ('arena', True),
+    ('zoo', True),
+    ('stadium', False),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
-def test_university(setup_district, resource, value):
+def test_zoo(setup_district, resource, value):
     test_district = setup_district
-    test_district.set_buildings('university')
+    test_district.set_buildings('zoo')
     test_district.calculate_specialist_yield()
     assert getattr(test_district, resource) == value
 
-# Unpowered Research Lab
+# Unpowered Stadium
 testdata = [
-    ('science', 15),
-    ('houseing', 1),
-    ('citizen_slot', 3),
+    ('amenities', 4),
     ('power', 0),
     ('powered', False),
     ('maintenance', 7),
     ('building_list', [
-        'library',
-        'university',
-        'research_lab',
+        'arena',
+        'zoo',
+        'stadium',
     ]),
-    ('library', True),
-    ('university', True),
-    ('research_lab', True),
+    ('arena', True),
+    ('zoo', True),
+    ('stadium', True),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
-def test_unpowered_research_lab(setup_district, resource, value):
+def test_unpowered_stadium(setup_district, resource, value):
     test_district = setup_district
-    test_district.set_buildings('research_lab', False)
+    test_district.set_buildings('stadium', False)
     test_district.calculate_specialist_yield()
     assert getattr(test_district, resource) == value
 
-# Powered Research Lab
+# Powered Stadium
 testdata = [
-    ('science', 23),
-    ('houseing', 1),
-    ('citizen_slot', 3),
-    ('power', 3),
+    ('amenities', 6),
+    ('power', 2),
     ('powered', True),
     ('maintenance', 7),
     ('building_list', [
-        'library',
-        'university',
-        'research_lab',
+        'arena',
+        'zoo',
+        'stadium',
     ]),
-    ('library', True),
-    ('university', True),
-    ('research_lab', True),
+    ('arena', True),
+    ('zoo', True),
+    ('stadium', True),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
-def test_powered_research_lab(setup_district, resource, value):
+def test_unpowered_stadium(setup_district, resource, value):
     test_district = setup_district
-    test_district.set_buildings('research_lab', True)
+    test_district.set_buildings('stadium', True)
     test_district.calculate_specialist_yield()
     assert getattr(test_district, resource) == value
 
@@ -128,23 +121,24 @@ testdata = [
     ('food', 0),
     ('production', 0),
     ('gold', 0),
-    ('science', 23),
+    ('science', 0),
     ('culture', 0),
     ('faith', 0),
     ('population', 0),
-    ('houseing', 1),
-    ('citizen_slot', 3),
-    ('power', 3),
+    ('houseing', 0),
+    ('amenities', 6),
+    ('citizen_slot', 0),
+    ('power', 2),
     ('powered', True),
     ('maintenance', 7),
     ('building_list', [
-        'library',
-        'university',
-        'research_lab',
+        'arena',
+        'zoo',
+        'stadium',
     ]),
-    ('library', True),
-    ('university', True),
-    ('research_lab', True),
+    ('arena', True),
+    ('zoo', True),
+    ('stadium', True),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
 def test_final_check(setup_district, resource, value):

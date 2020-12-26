@@ -23,9 +23,24 @@ services:
             context: .
             dockerfile: features/Dockerfile
         image: civ_unit
-        command: pytest --cov=. .
+        command: pytest --cov-report html
+        # command: pytest --cov=. .
         # command: pytest --cov=. tests/test_data_validator.py
         # command: pytest --cov=. tests/test_application.py
+        volumes:
+            - .:/usr/src
+        ports:
+            - 8021:8000
+        environment:
+            - ENVIRONMENT=test
+            - SERVICE=unit
+
+    coverage:
+        build: 
+            context: .
+            dockerfile: features/Dockerfile
+        image: civ_unit
+        command: pytest
         volumes:
             - .:/usr/src
         ports:

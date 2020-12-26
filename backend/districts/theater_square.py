@@ -175,10 +175,6 @@ class TheaterSquare(CommonTile):
             self.powered = True
 
         for building in self.default_building_list:
-            # if final_improvement == 'art_museum' and building == 'archaeological_museum':
-            #     continue
-            # if final_improvement == 'broadcast_center' and building == 'art_museum':
-            #     continue
             if building == final_improvement:
                 setattr(self, building, True)
                 break

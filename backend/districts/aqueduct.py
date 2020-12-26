@@ -20,6 +20,13 @@ class Aqueduct(CommonTile):
         powered=None):
         pass
 
+    # building_list
+    @property
+    def building_list(self):
+        if self._building_list is None:
+            return None
+        return self._building_list
+
     def calculate_adjacency(self, tile_obj, target_index, adj_list):
         target_object = getattr(tile_obj, target_index)
 
@@ -29,3 +36,6 @@ class Aqueduct(CommonTile):
             if isinstance(adj_obj.terrain, (Coast, Ocean)) or isinstance(adj_obj, River):
                 return None
         self.houseing = self.houseing + 4
+
+    def calculate_specialist_yield(self):
+        pass
