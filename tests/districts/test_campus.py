@@ -38,6 +38,7 @@ testdata = [
     ('power', 0),
     ('powered', False),
     ('maintenance', 2),
+    ('building_list', ['library']),
     ('library', True),
     ('university', False),
     ('research_lab', False),
