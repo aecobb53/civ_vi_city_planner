@@ -48,7 +48,7 @@ class CityCenter(CommonTile):
     @property
     def monument(self):
         if self._monument is None:
-            return None
+            return False
         return self._monument
 
     @monument.setter
@@ -62,14 +62,14 @@ class CityCenter(CommonTile):
     @property
     def granary(self):
         if self._granary is None:
-            return None
+            return False
         return self._granary
 
     @granary.setter
     def granary(self, value):
         if value:
             self.food = self.food  + 1
-            self.housing = self.houseing  + 2
+            self.houseing = self.houseing  + 2
             self.update_building_list('granary')
             self._granary = True
 
@@ -77,7 +77,7 @@ class CityCenter(CommonTile):
     @property
     def water_mill(self):
         if self._water_mill is None:
-            return None
+            return False
         return self._water_mill
 
     @water_mill.setter
@@ -101,13 +101,14 @@ class CityCenter(CommonTile):
     @property
     def sewer(self):
         if self._sewer is None:
-            return None
+            return False
         return self._sewer
 
     @sewer.setter
     def sewer(self, value):
         if value:
             self.houseing = self.houseing + 2
+            self.maintenance = self.maintenance + 2
             self.update_building_list('sewer')
             self._sewer = True
 
@@ -115,7 +116,7 @@ class CityCenter(CommonTile):
     @property
     def flood_barrier(self):
         if self._flood_barrier is None:
-            return None
+            return False
         return self._flood_barrier
 
     @flood_barrier.setter
@@ -128,7 +129,7 @@ class CityCenter(CommonTile):
     @property
     def ancient_walls(self):
         if self._ancient_walls is None:
-            return None
+            return False
         return self._ancient_walls
 
     @ancient_walls.setter
@@ -141,7 +142,7 @@ class CityCenter(CommonTile):
     @property
     def medival_walls(self):
         if self._medival_walls is None:
-            return None
+            return False
         return self._medival_walls
 
     @medival_walls.setter
@@ -154,7 +155,7 @@ class CityCenter(CommonTile):
     @property
     def renaissance_walls(self):
         if self._renaissance_walls is None:
-            return None
+            return False
         return self._renaissance_walls
 
     @renaissance_walls.setter
@@ -167,7 +168,7 @@ class CityCenter(CommonTile):
     @property
     def power(self):
         if self._power is None:
-            return 0
+            return False
         return self._power
 
     @power.setter
@@ -213,3 +214,6 @@ class CityCenter(CommonTile):
         if not target_object.river:
             if self.water_mill:
                 del self.water_mill
+
+    def calculate_specialist_yield(self):
+        pass

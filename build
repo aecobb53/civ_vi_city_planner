@@ -81,7 +81,6 @@ start_container () {
                     echo 'All tests succeeded!'
                 fi
 
-
             else
                 docker-compose -f docker-compose-test.yml run --rm $2
                 COMPOSE_EXIT_CODE=$?
