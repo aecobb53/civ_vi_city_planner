@@ -7,6 +7,6 @@ class Rainforest(CommonTile):
         super().__init__()
         self.food = 1
         self.acceptable_terrain = [
-            'plains'
+            'plains',
+            'plainsh',
         ]
-        self.hills = True

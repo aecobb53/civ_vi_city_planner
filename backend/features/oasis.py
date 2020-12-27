@@ -8,5 +8,5 @@ class Oasis(CommonTile):
         self.food = 3
         self.gold = 1
         self.acceptable_terrain = [
-            'desert'
+            'desert',
         ]

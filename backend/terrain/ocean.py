@@ -7,4 +7,5 @@ class Ocean(CommonTile):
         hills=None
     ):
         super().__init__()
-        self.food = 1
+        self.food = self.food + 1
+        self.hills = False

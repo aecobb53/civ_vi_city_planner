@@ -6,10 +6,9 @@ class Volcano(CommonTile):
     def __init__(self):
         super().__init__()
         self.acceptable_terrain = [
+            'desert',
             'grassland',
             'plains',
-            'desert',
-            'tundra',
             'snow',
+            'tundra',
         ]
-        self.hills = True

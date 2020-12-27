@@ -8,5 +8,5 @@ class Reef(CommonTile):
         self.food = 1
         self.production = 1
         self.acceptable_terrain = [
-            'coast'
+            'coast',
         ]
