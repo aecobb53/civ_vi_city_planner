@@ -8,11 +8,12 @@ class Maize(CommonTile):
         self.resource_type = 'bonus'
         self.terrain = [
             'grasssland',
-            'plains'
+            'plains',
         ]
+        self.features = None
         # self.features = [
         #     'floodplains'
         # ]
         self.improvement = [
-            'farm'
+            'farm',
         ]

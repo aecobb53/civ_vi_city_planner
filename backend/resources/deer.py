@@ -6,14 +6,16 @@ class Deer(CommonTile):
         super().__init__()
         self.production = 1
         self.resource_type = 'bonus'
-        self.terrain = [
-            'grassland',
-            'plains',
-            'tundra',
-        ]
-        # self.features = [
-        #     'woods'
+        self.terrain = None
+        self.features = None
+        # self.terrain = [
+        #     'grassland',
+        #     'plains',
+        #     'tundra',
         # ]
+        # # self.features = [
+        # #     'woods'
+        # # ]
         self.improvement = [
             'camp'
         ]

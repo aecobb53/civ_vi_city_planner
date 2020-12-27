@@ -9,6 +9,7 @@ class Cattle(CommonTile):
         self.terrain = [
             'grassland',
         ]
+        self.features = None
         self.improvement = [
-            'pasture'
+            'pasture',
         ]

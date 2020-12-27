@@ -8,11 +8,12 @@ class Wheat(CommonTile):
         self.resource_type = 'bonus'
         self.terrain = [
             'plains',
-            'desert',
+            # 'desert',
         ]
+        self.features = None
         # self.features = [
         #     'floodplains'
         # ]
         self.improvement = [
-            'plantation'
+            'plantation',
         ]

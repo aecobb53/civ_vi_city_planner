@@ -7,13 +7,13 @@ class Copper(CommonTile):
         self.gold = 2
         self.resource_type = 'bonus'
         self.terrain = [
-            'grassland',
-            'plains',
-            'desert',
-            'tundra',
-            'snow',
+            'grasslandh',
+            'plainsh',
+            'deserth',
+            'tundrah',
+            'snowh',
         ]
-        self.hills = True
+        self.features = None
         self.improvement = [
             'mine'
         ]

@@ -7,9 +7,10 @@ class Stone(CommonTile):
         self.production = 1
         self.resource_type = 'bonus'
         self.terrain = [
-            'grassland'
+            'grassland',
+            'grasslandh',
         ]
-        self.hills = True
+        self.features = None
         self.improvement = [
-            'mine'
+            'mine',
         ]

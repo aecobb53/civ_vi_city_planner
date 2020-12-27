@@ -6,9 +6,10 @@ class Bananas(CommonTile):
         super().__init__()
         self.food = 1
         self.resource_type = 'bonus'
+        self.terrain = None
         self.features = [
-            'rainforest'
+            'rainforest',
         ]
         self.improvement = [
-            'plantation'
+            'plantation',
         ]

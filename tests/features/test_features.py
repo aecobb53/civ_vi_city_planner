@@ -15,15 +15,6 @@ from backend.features.volcano import Volcano
 from backend.features.woods import Woods
 import pytest
 
-# testdata = [
-#     ('food', 0),
-#     ('production', 0),
-#     ('gold', 0),
-#     ('acceptable_terrain', [
-
-#     ]),
-# ]
-
 
 # Cataract Init
 testdata = [

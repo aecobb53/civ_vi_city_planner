@@ -10,6 +10,7 @@ class Crabs(CommonTile):
             'coast',
             'lake',
         ]
+        self.features = None
         self.improvement = [
-            'fishing_boats'
+            'fishing_boats',
         ]
