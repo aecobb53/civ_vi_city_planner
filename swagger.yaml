@@ -8,21 +8,25 @@ servers:
     - url: http://0.0.0.0
       description: For now im just testing on localhost
 
-parths:
+paths:
     /city_plan:
         get:
             summary: Returns the optimal city layout
+            operationId: GetCityPlan
             parameters:
-                - id: cityID
+                - in: path
+                  name: cityID
                   required: true
                   description: uuid for the city
+                  schema:
+                    type: string
             responses:
                 '200':
                     description: OK
                     content:
                         application/json:
-                            schemas:
-                                $ref" '#/components/schemas/City'
+                            schema:
+                                $ref: '#/components/schemas/City'
                 '400':
                     description: cityid not found in database
                 # '401': NOT MVP
@@ -31,6 +35,7 @@ parths:
                     description: I'm a teapot
         post:
             summary: Update a city
+            operationId: UpdateCityPlan
             requestBody:
                 required: true
                 content:
@@ -41,70 +46,46 @@ parths:
                 '201':
                     description: Created
                     content:
-                        application/json: cityID
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/City'
                 '406':
                     description: There is a tile missmatch like adding whales to a mountain tile
                     content:
-                        application/json: error message
+                        application/json:
+                            schema:
+                                type: object
 
 components:
     schemas:
         City:
+            type: object
             properties:
-                name: string,
+                name:
+                    type: string
                 tiles:
-                    center: 
-                        type: Tile[]
-                        enum:
-                            - cc
-                    inner: 
-                        type: Tile[]
-                        enum:
-                            - i0
-                            - i1
-                            - i2
-                            - i3
-                            - i4
-                            - i5
-                    middle: 
-                        type: Tile[]
-                        enum:
-                            - m0
-                            - m1
-                            - m2
-                            - m3
-                            - m4
-                            - m5
-                            - m6
-                            - m7
-                            - m8
-                            - m9
-                            - m10
-                            - m11
-                    outer: 
-                        type: Tile[]
-                        enum:
-                            - o0
-                            - o1
-                            - o2
-                            - o3
-                            - o4
-                            - o5
-                            - o6
-                            - o7
-                            - o8
-                            - o9
-                            - o10
-                            - o11
-                            - o12
-                            - o13
-                            - o14
-                            - o15
-                            - o16
-                            - o17
-                    nearby: 
-                        type: Tile[]
-                        enum:
+                    type: object
+                    properties:
+                        center:
+                            type: array
+                            items:
+                                $ref: '#/components/schemas/Tile'
+                        inner:
+                            type: array
+                            items:
+                                $ref: '#/components/schemas/Tile'
+                        middle:
+                            type: array
+                            items:
+                                $ref: '#/components/schemas/Tile'
+                        outer:
+                            type: array
+                            items:
+                                $ref: '#/components/schemas/Tile'
+                        nearby:
+                            type: array
+                            items:
+                                $ref: '#/components/schemas/Tile'
                 # locked boolean NOT MVP
                 # era: string NOT MVP
                 #     enum:
@@ -131,20 +112,30 @@ components:
                 - nearby
         Tile:
             properties:
-                terrain: Terrain
-                feature: Feature
-                resource: Resource
-                improvement: Improvement
-                district: District
-                wonder: Wonder
-            required:
+                terrain:
+                    $ref: '#/components/schemas/Terrain'
+                feature:
+                    $ref: '#/components/schemas/Feature'
+                resource:
+                    $ref: '#/components/schemas/Resource'
+                improvement:
+                    $ref: '#/components/schemas/Improvement'
+                district:
+                    $ref: '#/components/schemas/District'
+                # wonder:
+                #     $ref: '#/components/schemas/Wonder'
+            # required:
                 # If i dont find the specific tile elements i will assume empty
         Terrain:
             properties:
-                name: string
-                hill: boolean
+                name:
+                    $ref: '#/components/schemas/TerrainType'
+                hill: 
+                    type: boolean
             required:
                 - name
+        TerrainType:
+            type: string
             enum:
                 - grassland
                 - plains
@@ -156,10 +147,14 @@ components:
                 - ocean
         Feature:
             properties:
-                name: string
-                river: boolean
+                name: 
+                    $ref: '#/components/schemas/FeatureType'
+                river: 
+                    type: boolean
             required:
                 - name
+        FeatureType:
+            type: string
             enum:
                 - woods
                 - rainforest
@@ -175,10 +170,7 @@ components:
                 - volcanic_soil
                 - geothermal
         Resource:
-            properties:
-                name: string
-            required:
-                - name
+            type: string
             enum:
                 - bananas
                 - copper
@@ -234,10 +226,7 @@ components:
                 - aluminum
                 - uranium
         Improvement:
-            properties:
-                name: string
-            required:
-                - name
+            type: string
             enum:
                 - farm
                 - mine
@@ -297,85 +286,111 @@ components:
                 - fishery
         District:
             properties:
-                name: string
-                buildings: string[]
-                powered: boolean
+                name:
+                    type: string
+                buildings:
+                    oneOf:
+                      - $ref: '#/components/schemas/CityCenter'
+                      - $ref: '#/components/schemas/Campus'
+                powered: 
+                    type: boolean
             required:
                 - name
-            enum:
-                city_center:
-                    granary
-                    monument
-                    water_mill
-                    sewer
-                    # ancient_walls NOT MVP
-                    # mideival_walls NOT MVP
-                    # renaissance_walls NOT MVP
-                campus:
-                    library
-                    university
-                    research_lab
-                theater_square:
-                    amphitheater
-                    art_museum
-                    archaeological_museum
-                    broadcast_center
-                holy_site:
-                    shrine
-                    temple
-                    # worship buildings NOT MVP
-                encampment:
-                    barracks
-                    stable
-                    armory
-                    military_academy
-                commercial_hub:
-                    market
-                    bank
-                    stock_exchange
-                harbor:
-                    lighthouse
-                    shipyard
-                    seaport
-                industrial_zone:
-                    workshop
-                    factory
-                    coal_power_plant
-                    oil_power_plant
-                    nuclear_power_plant
-                entertainment_complex:
-                    arena
-                    zoo
-                    stadium
-                water_park:
-                    ferris_wheel
-                    aquarium
-                    aquatics_center
-                aqueduct:
-                neighborhood:
-                    food_market
-                    shopping_mall
-                canal:
-                dam:
-                    hydroelectric_dam
-                aerodrome:
-                    hanger
-                    airport
-                spaceport:
-                govermment_plaza:
-                    ancestral_hall
-                    audience_chamber
-                    warlords_throne
-                    foreign_ministry
-                    grand_masters_chapel
-                    intelligence_agency
-                    queens_bibliotheque
-                    national_history_museum
-                    royal_society
-                    war_department
-                diplomatic_quarter:
-                    consulate
-                    chancery
+        DistrictBuildings:
+            type: object
+            required:
+                - name
+            properties:
+                name:
+                    type: string
+            discriminator:
+                propertyName: name
+        CityCenter:
+            allOf:
+              - $ref: '#/components/schemas/DistrictBuildings'
+              - type: object
+                properties:
+                    buildings:
+                        type: array
+                        items:
+                            enum:
+                                - granary
+                                - monument
+                                - water_mill
+                                - sewer
+        Campus:
+            allOf:
+              - $ref: '#/components/schemas/DistrictBuildings'
+              - type: object
+                properties:
+                    buildings:
+                        type: array
+                        items:
+                            enum:
+                                - library
+                                - university
+                                - research_lab
+                # theater_square:
+                #     amphitheater
+                #     art_museum
+                #     archaeological_museum
+                #     broadcast_center
+                # holy_site:
+                #     shrine
+                #     temple
+                #     # worship buildings NOT MVP
+                # encampment:
+                #     barracks
+                #     stable
+                #     armory
+                #     military_academy
+                # commercial_hub:
+                #     market
+                #     bank
+                #     stock_exchange
+                # harbor:
+                #     lighthouse
+                #     shipyard
+                #     seaport
+                # industrial_zone:
+                #     workshop
+                #     factory
+                #     coal_power_plant
+                #     oil_power_plant
+                #     nuclear_power_plant
+                # entertainment_complex:
+                #     arena
+                #     zoo
+                #     stadium
+                # water_park:
+                #     ferris_wheel
+                #     aquarium
+                #     aquatics_center
+                # aqueduct:
+                # neighborhood:
+                #     food_market
+                #     shopping_mall
+                # canal:
+                # dam:
+                #     hydroelectric_dam
+                # aerodrome:
+                #     hanger
+                #     airport
+                # spaceport:
+                # govermment_plaza:
+                #     ancestral_hall
+                #     audience_chamber
+                #     warlords_throne
+                #     foreign_ministry
+                #     grand_masters_chapel
+                #     intelligence_agency
+                #     queens_bibliotheque
+                #     national_history_museum
+                #     royal_society
+                #     war_department
+                # diplomatic_quarter:
+                #     consulate
+                #     chancery
         # Wonder: NOT MVP
         #     properties:
         #         name: string
