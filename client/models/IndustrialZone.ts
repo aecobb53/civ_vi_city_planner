@@ -14,35 +14,35 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    CityCenterAllOf,
-    CityCenterAllOfFromJSON,
-    CityCenterAllOfFromJSONTyped,
-    CityCenterAllOfToJSON,
     District,
     DistrictFromJSON,
     DistrictFromJSONTyped,
     DistrictToJSON,
+    IndustrialZoneAllOf,
+    IndustrialZoneAllOfFromJSON,
+    IndustrialZoneAllOfFromJSONTyped,
+    IndustrialZoneAllOfToJSON,
 } from './';
 
 /**
  * 
  * @export
- * @interface CityCenter
+ * @interface IndustrialZone
  */
-export interface CityCenter extends District {
+export interface IndustrialZone extends District {
     /**
      * 
      * @type {Array<string>}
-     * @memberof CityCenter
+     * @memberof IndustrialZone
      */
-    buildings?: Array<CityCenterBuildingsEnum>;
+    buildings?: Array<IndustrialZoneBuildingsEnum>;
 }
 
-export function CityCenterFromJSON(json: any): CityCenter {
-    return CityCenterFromJSONTyped(json, false);
+export function IndustrialZoneFromJSON(json: any): IndustrialZone {
+    return IndustrialZoneFromJSONTyped(json, false);
 }
 
-export function CityCenterFromJSONTyped(json: any, ignoreDiscriminator: boolean): CityCenter {
+export function IndustrialZoneFromJSONTyped(json: any, ignoreDiscriminator: boolean): IndustrialZone {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -52,7 +52,7 @@ export function CityCenterFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function CityCenterToJSON(value?: CityCenter | null): any {
+export function IndustrialZoneToJSON(value?: IndustrialZone | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -69,11 +69,12 @@ export function CityCenterToJSON(value?: CityCenter | null): any {
 * @export
 * @enum {string}
 */
-export enum CityCenterBuildingsEnum {
-    Granary = 'granary',
-    Monument = 'monument',
-    WaterMill = 'water_mill',
-    Sewer = 'sewer'
+export enum IndustrialZoneBuildingsEnum {
+    Workshop = 'workshop',
+    Factory = 'factory',
+    CoalPowerPlant = 'coal_power_plant',
+    OilPowerPlant = 'oil_power_plant',
+    NuclearPowerPlant = 'nuclear_power_plant'
 }
 
 

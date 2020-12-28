@@ -13,46 +13,35 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import {
-    CampusAllOf,
-    CampusAllOfFromJSON,
-    CampusAllOfFromJSONTyped,
-    CampusAllOfToJSON,
-    District,
-    DistrictFromJSON,
-    DistrictFromJSONTyped,
-    DistrictToJSON,
-} from './';
-
 /**
  * 
  * @export
- * @interface Campus
+ * @interface EntertainmentComplexAllOf
  */
-export interface Campus extends District {
+export interface EntertainmentComplexAllOf {
     /**
      * 
      * @type {Array<string>}
-     * @memberof Campus
+     * @memberof EntertainmentComplexAllOf
      */
-    buildings?: Array<CampusBuildingsEnum>;
+    buildings?: Array<EntertainmentComplexAllOfBuildingsEnum>;
 }
 
-export function CampusFromJSON(json: any): Campus {
-    return CampusFromJSONTyped(json, false);
+export function EntertainmentComplexAllOfFromJSON(json: any): EntertainmentComplexAllOf {
+    return EntertainmentComplexAllOfFromJSONTyped(json, false);
 }
 
-export function CampusFromJSONTyped(json: any, ignoreDiscriminator: boolean): Campus {
+export function EntertainmentComplexAllOfFromJSONTyped(json: any, ignoreDiscriminator: boolean): EntertainmentComplexAllOf {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
-        ...DistrictFromJSONTyped(json, ignoreDiscriminator),
+        
         'buildings': !exists(json, 'buildings') ? undefined : json['buildings'],
     };
 }
 
-export function CampusToJSON(value?: Campus | null): any {
+export function EntertainmentComplexAllOfToJSON(value?: EntertainmentComplexAllOf | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -60,7 +49,7 @@ export function CampusToJSON(value?: Campus | null): any {
         return null;
     }
     return {
-        ...DistrictToJSON(value),
+        
         'buildings': value.buildings,
     };
 }
@@ -69,10 +58,10 @@ export function CampusToJSON(value?: Campus | null): any {
 * @export
 * @enum {string}
 */
-export enum CampusBuildingsEnum {
-    Library = 'library',
-    University = 'university',
-    ResearchLab = 'research_lab'
+export enum EntertainmentComplexAllOfBuildingsEnum {
+    Arena = 'arena',
+    Zoo = 'zoo',
+    Stadium = 'stadium'
 }
 
 

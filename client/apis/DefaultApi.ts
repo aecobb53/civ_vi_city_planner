@@ -20,25 +20,25 @@ import {
     CityToJSON,
 } from '../models';
 
-export interface DefaultApiCityPlanGetRequest {
+export interface DefaultApiGetCityPlanRequest {
     cityID: string;
 }
 
-export interface DefaultApiCityPlanPostRequest {
+export interface DefaultApiUpdateCityPlanRequest {
     city: City;
 }
 
 /**
- * no description
+ * 
  */
 export class DefaultApi extends runtime.BaseAPI {
 
     /**
      * Returns the optimal city layout
      */
-    async cityPlanGetRaw(requestParameters: DefaultApiCityPlanGetRequest): Promise<runtime.ApiResponse<City>> {
+    async getCityPlanRaw(requestParameters: DefaultApiGetCityPlanRequest): Promise<runtime.ApiResponse<City>> {
         if (requestParameters.cityID === null || requestParameters.cityID === undefined) {
-            throw new runtime.RequiredError('cityID','Required parameter requestParameters.cityID was null or undefined when calling cityPlanGet.');
+            throw new runtime.RequiredError('cityID','Required parameter requestParameters.cityID was null or undefined when calling getCityPlan.');
         }
 
         const queryParameters: runtime.HTTPQuery = {};
@@ -58,17 +58,17 @@ export class DefaultApi extends runtime.BaseAPI {
     /**
      * Returns the optimal city layout
      */
-    async cityPlanGet(requestParameters: DefaultApiCityPlanGetRequest): Promise<City> {
-        const response = await this.cityPlanGetRaw(requestParameters);
+    async getCityPlan(requestParameters: DefaultApiGetCityPlanRequest): Promise<City> {
+        const response = await this.getCityPlanRaw(requestParameters);
         return await response.value();
     }
 
     /**
      * Update a city
      */
-    async cityPlanPostRaw(requestParameters: DefaultApiCityPlanPostRequest): Promise<runtime.ApiResponse<City>> {
+    async updateCityPlanRaw(requestParameters: DefaultApiUpdateCityPlanRequest): Promise<runtime.ApiResponse<City>> {
         if (requestParameters.city === null || requestParameters.city === undefined) {
-            throw new runtime.RequiredError('city','Required parameter requestParameters.city was null or undefined when calling cityPlanPost.');
+            throw new runtime.RequiredError('city','Required parameter requestParameters.city was null or undefined when calling updateCityPlan.');
         }
 
         const queryParameters: runtime.HTTPQuery = {};
@@ -91,8 +91,8 @@ export class DefaultApi extends runtime.BaseAPI {
     /**
      * Update a city
      */
-    async cityPlanPost(requestParameters: DefaultApiCityPlanPostRequest): Promise<City> {
-        const response = await this.cityPlanPostRaw(requestParameters);
+    async updateCityPlan(requestParameters: DefaultApiUpdateCityPlanRequest): Promise<City> {
+        const response = await this.updateCityPlanRaw(requestParameters);
         return await response.value();
     }
 

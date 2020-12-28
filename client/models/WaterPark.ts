@@ -14,35 +14,35 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    CityCenterAllOf,
-    CityCenterAllOfFromJSON,
-    CityCenterAllOfFromJSONTyped,
-    CityCenterAllOfToJSON,
     District,
     DistrictFromJSON,
     DistrictFromJSONTyped,
     DistrictToJSON,
+    WaterParkAllOf,
+    WaterParkAllOfFromJSON,
+    WaterParkAllOfFromJSONTyped,
+    WaterParkAllOfToJSON,
 } from './';
 
 /**
  * 
  * @export
- * @interface CityCenter
+ * @interface WaterPark
  */
-export interface CityCenter extends District {
+export interface WaterPark extends District {
     /**
      * 
      * @type {Array<string>}
-     * @memberof CityCenter
+     * @memberof WaterPark
      */
-    buildings?: Array<CityCenterBuildingsEnum>;
+    buildings?: Array<WaterParkBuildingsEnum>;
 }
 
-export function CityCenterFromJSON(json: any): CityCenter {
-    return CityCenterFromJSONTyped(json, false);
+export function WaterParkFromJSON(json: any): WaterPark {
+    return WaterParkFromJSONTyped(json, false);
 }
 
-export function CityCenterFromJSONTyped(json: any, ignoreDiscriminator: boolean): CityCenter {
+export function WaterParkFromJSONTyped(json: any, ignoreDiscriminator: boolean): WaterPark {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -52,7 +52,7 @@ export function CityCenterFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function CityCenterToJSON(value?: CityCenter | null): any {
+export function WaterParkToJSON(value?: WaterPark | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -69,11 +69,10 @@ export function CityCenterToJSON(value?: CityCenter | null): any {
 * @export
 * @enum {string}
 */
-export enum CityCenterBuildingsEnum {
-    Granary = 'granary',
-    Monument = 'monument',
-    WaterMill = 'water_mill',
-    Sewer = 'sewer'
+export enum WaterParkBuildingsEnum {
+    FerrisWheel = 'ferris_wheel',
+    Aquarium = 'aquarium',
+    AquaticsCenter = 'aquatics_center'
 }
 
 

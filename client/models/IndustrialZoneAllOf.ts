@@ -13,46 +13,35 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import {
-    CampusAllOf,
-    CampusAllOfFromJSON,
-    CampusAllOfFromJSONTyped,
-    CampusAllOfToJSON,
-    District,
-    DistrictFromJSON,
-    DistrictFromJSONTyped,
-    DistrictToJSON,
-} from './';
-
 /**
  * 
  * @export
- * @interface Campus
+ * @interface IndustrialZoneAllOf
  */
-export interface Campus extends District {
+export interface IndustrialZoneAllOf {
     /**
      * 
      * @type {Array<string>}
-     * @memberof Campus
+     * @memberof IndustrialZoneAllOf
      */
-    buildings?: Array<CampusBuildingsEnum>;
+    buildings?: Array<IndustrialZoneAllOfBuildingsEnum>;
 }
 
-export function CampusFromJSON(json: any): Campus {
-    return CampusFromJSONTyped(json, false);
+export function IndustrialZoneAllOfFromJSON(json: any): IndustrialZoneAllOf {
+    return IndustrialZoneAllOfFromJSONTyped(json, false);
 }
 
-export function CampusFromJSONTyped(json: any, ignoreDiscriminator: boolean): Campus {
+export function IndustrialZoneAllOfFromJSONTyped(json: any, ignoreDiscriminator: boolean): IndustrialZoneAllOf {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
-        ...DistrictFromJSONTyped(json, ignoreDiscriminator),
+        
         'buildings': !exists(json, 'buildings') ? undefined : json['buildings'],
     };
 }
 
-export function CampusToJSON(value?: Campus | null): any {
+export function IndustrialZoneAllOfToJSON(value?: IndustrialZoneAllOf | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -60,7 +49,7 @@ export function CampusToJSON(value?: Campus | null): any {
         return null;
     }
     return {
-        ...DistrictToJSON(value),
+        
         'buildings': value.buildings,
     };
 }
@@ -69,10 +58,12 @@ export function CampusToJSON(value?: Campus | null): any {
 * @export
 * @enum {string}
 */
-export enum CampusBuildingsEnum {
-    Library = 'library',
-    University = 'university',
-    ResearchLab = 'research_lab'
+export enum IndustrialZoneAllOfBuildingsEnum {
+    Workshop = 'workshop',
+    Factory = 'factory',
+    CoalPowerPlant = 'coal_power_plant',
+    OilPowerPlant = 'oil_power_plant',
+    NuclearPowerPlant = 'nuclear_power_plant'
 }
 
 

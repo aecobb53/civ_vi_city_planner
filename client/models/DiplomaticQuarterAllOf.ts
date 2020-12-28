@@ -13,46 +13,35 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import {
-    CampusAllOf,
-    CampusAllOfFromJSON,
-    CampusAllOfFromJSONTyped,
-    CampusAllOfToJSON,
-    District,
-    DistrictFromJSON,
-    DistrictFromJSONTyped,
-    DistrictToJSON,
-} from './';
-
 /**
  * 
  * @export
- * @interface Campus
+ * @interface DiplomaticQuarterAllOf
  */
-export interface Campus extends District {
+export interface DiplomaticQuarterAllOf {
     /**
      * 
      * @type {Array<string>}
-     * @memberof Campus
+     * @memberof DiplomaticQuarterAllOf
      */
-    buildings?: Array<CampusBuildingsEnum>;
+    buildings?: Array<DiplomaticQuarterAllOfBuildingsEnum>;
 }
 
-export function CampusFromJSON(json: any): Campus {
-    return CampusFromJSONTyped(json, false);
+export function DiplomaticQuarterAllOfFromJSON(json: any): DiplomaticQuarterAllOf {
+    return DiplomaticQuarterAllOfFromJSONTyped(json, false);
 }
 
-export function CampusFromJSONTyped(json: any, ignoreDiscriminator: boolean): Campus {
+export function DiplomaticQuarterAllOfFromJSONTyped(json: any, ignoreDiscriminator: boolean): DiplomaticQuarterAllOf {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
-        ...DistrictFromJSONTyped(json, ignoreDiscriminator),
+        
         'buildings': !exists(json, 'buildings') ? undefined : json['buildings'],
     };
 }
 
-export function CampusToJSON(value?: Campus | null): any {
+export function DiplomaticQuarterAllOfToJSON(value?: DiplomaticQuarterAllOf | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -60,7 +49,7 @@ export function CampusToJSON(value?: Campus | null): any {
         return null;
     }
     return {
-        ...DistrictToJSON(value),
+        
         'buildings': value.buildings,
     };
 }
@@ -69,10 +58,9 @@ export function CampusToJSON(value?: Campus | null): any {
 * @export
 * @enum {string}
 */
-export enum CampusBuildingsEnum {
-    Library = 'library',
-    University = 'university',
-    ResearchLab = 'research_lab'
+export enum DiplomaticQuarterAllOfBuildingsEnum {
+    Consulate = 'consulate',
+    Chancery = 'chancery'
 }
 
 

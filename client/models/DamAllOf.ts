@@ -13,46 +13,35 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import {
-    CampusAllOf,
-    CampusAllOfFromJSON,
-    CampusAllOfFromJSONTyped,
-    CampusAllOfToJSON,
-    District,
-    DistrictFromJSON,
-    DistrictFromJSONTyped,
-    DistrictToJSON,
-} from './';
-
 /**
  * 
  * @export
- * @interface Campus
+ * @interface DamAllOf
  */
-export interface Campus extends District {
+export interface DamAllOf {
     /**
      * 
      * @type {Array<string>}
-     * @memberof Campus
+     * @memberof DamAllOf
      */
-    buildings?: Array<CampusBuildingsEnum>;
+    buildings?: Array<DamAllOfBuildingsEnum>;
 }
 
-export function CampusFromJSON(json: any): Campus {
-    return CampusFromJSONTyped(json, false);
+export function DamAllOfFromJSON(json: any): DamAllOf {
+    return DamAllOfFromJSONTyped(json, false);
 }
 
-export function CampusFromJSONTyped(json: any, ignoreDiscriminator: boolean): Campus {
+export function DamAllOfFromJSONTyped(json: any, ignoreDiscriminator: boolean): DamAllOf {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
-        ...DistrictFromJSONTyped(json, ignoreDiscriminator),
+        
         'buildings': !exists(json, 'buildings') ? undefined : json['buildings'],
     };
 }
 
-export function CampusToJSON(value?: Campus | null): any {
+export function DamAllOfToJSON(value?: DamAllOf | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -60,7 +49,7 @@ export function CampusToJSON(value?: Campus | null): any {
         return null;
     }
     return {
-        ...DistrictToJSON(value),
+        
         'buildings': value.buildings,
     };
 }
@@ -69,10 +58,8 @@ export function CampusToJSON(value?: Campus | null): any {
 * @export
 * @enum {string}
 */
-export enum CampusBuildingsEnum {
-    Library = 'library',
-    University = 'university',
-    ResearchLab = 'research_lab'
+export enum DamAllOfBuildingsEnum {
+    HydroelectricDam = 'hydroelectric_dam'
 }
 
 

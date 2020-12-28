@@ -13,46 +13,35 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import {
-    CampusAllOf,
-    CampusAllOfFromJSON,
-    CampusAllOfFromJSONTyped,
-    CampusAllOfToJSON,
-    District,
-    DistrictFromJSON,
-    DistrictFromJSONTyped,
-    DistrictToJSON,
-} from './';
-
 /**
  * 
  * @export
- * @interface Campus
+ * @interface NeighborhoodAllOf
  */
-export interface Campus extends District {
+export interface NeighborhoodAllOf {
     /**
      * 
      * @type {Array<string>}
-     * @memberof Campus
+     * @memberof NeighborhoodAllOf
      */
-    buildings?: Array<CampusBuildingsEnum>;
+    buildings?: Array<NeighborhoodAllOfBuildingsEnum>;
 }
 
-export function CampusFromJSON(json: any): Campus {
-    return CampusFromJSONTyped(json, false);
+export function NeighborhoodAllOfFromJSON(json: any): NeighborhoodAllOf {
+    return NeighborhoodAllOfFromJSONTyped(json, false);
 }
 
-export function CampusFromJSONTyped(json: any, ignoreDiscriminator: boolean): Campus {
+export function NeighborhoodAllOfFromJSONTyped(json: any, ignoreDiscriminator: boolean): NeighborhoodAllOf {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
-        ...DistrictFromJSONTyped(json, ignoreDiscriminator),
+        
         'buildings': !exists(json, 'buildings') ? undefined : json['buildings'],
     };
 }
 
-export function CampusToJSON(value?: Campus | null): any {
+export function NeighborhoodAllOfToJSON(value?: NeighborhoodAllOf | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -60,7 +49,7 @@ export function CampusToJSON(value?: Campus | null): any {
         return null;
     }
     return {
-        ...DistrictToJSON(value),
+        
         'buildings': value.buildings,
     };
 }
@@ -69,10 +58,9 @@ export function CampusToJSON(value?: Campus | null): any {
 * @export
 * @enum {string}
 */
-export enum CampusBuildingsEnum {
-    Library = 'library',
-    University = 'university',
-    ResearchLab = 'research_lab'
+export enum NeighborhoodAllOfBuildingsEnum {
+    FoodMarket = 'food_market',
+    ShoppingMall = 'shopping_mall'
 }
 
 

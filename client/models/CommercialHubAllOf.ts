@@ -13,46 +13,35 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import {
-    CampusAllOf,
-    CampusAllOfFromJSON,
-    CampusAllOfFromJSONTyped,
-    CampusAllOfToJSON,
-    District,
-    DistrictFromJSON,
-    DistrictFromJSONTyped,
-    DistrictToJSON,
-} from './';
-
 /**
  * 
  * @export
- * @interface Campus
+ * @interface CommercialHubAllOf
  */
-export interface Campus extends District {
+export interface CommercialHubAllOf {
     /**
      * 
      * @type {Array<string>}
-     * @memberof Campus
+     * @memberof CommercialHubAllOf
      */
-    buildings?: Array<CampusBuildingsEnum>;
+    buildings?: Array<CommercialHubAllOfBuildingsEnum>;
 }
 
-export function CampusFromJSON(json: any): Campus {
-    return CampusFromJSONTyped(json, false);
+export function CommercialHubAllOfFromJSON(json: any): CommercialHubAllOf {
+    return CommercialHubAllOfFromJSONTyped(json, false);
 }
 
-export function CampusFromJSONTyped(json: any, ignoreDiscriminator: boolean): Campus {
+export function CommercialHubAllOfFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommercialHubAllOf {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
-        ...DistrictFromJSONTyped(json, ignoreDiscriminator),
+        
         'buildings': !exists(json, 'buildings') ? undefined : json['buildings'],
     };
 }
 
-export function CampusToJSON(value?: Campus | null): any {
+export function CommercialHubAllOfToJSON(value?: CommercialHubAllOf | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -60,7 +49,7 @@ export function CampusToJSON(value?: Campus | null): any {
         return null;
     }
     return {
-        ...DistrictToJSON(value),
+        
         'buildings': value.buildings,
     };
 }
@@ -69,10 +58,10 @@ export function CampusToJSON(value?: Campus | null): any {
 * @export
 * @enum {string}
 */
-export enum CampusBuildingsEnum {
-    Library = 'library',
-    University = 'university',
-    ResearchLab = 'research_lab'
+export enum CommercialHubAllOfBuildingsEnum {
+    Market = 'market',
+    Bank = 'bank',
+    StockExchange = 'stock_exchange'
 }
 
 

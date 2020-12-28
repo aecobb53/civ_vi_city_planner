@@ -14,26 +14,94 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    District,
-    DistrictFromJSON,
-    DistrictFromJSONTyped,
-    DistrictToJSON,
+    Aerodome,
+    AerodomeFromJSON,
+    AerodomeFromJSONTyped,
+    AerodomeToJSON,
+    Aqueduct,
+    AqueductFromJSON,
+    AqueductFromJSONTyped,
+    AqueductToJSON,
+    Campus,
+    CampusFromJSON,
+    CampusFromJSONTyped,
+    CampusToJSON,
+    Canal,
+    CanalFromJSON,
+    CanalFromJSONTyped,
+    CanalToJSON,
+    CityCenter,
+    CityCenterFromJSON,
+    CityCenterFromJSONTyped,
+    CityCenterToJSON,
+    CommercialHub,
+    CommercialHubFromJSON,
+    CommercialHubFromJSONTyped,
+    CommercialHubToJSON,
+    Dam,
+    DamFromJSON,
+    DamFromJSONTyped,
+    DamToJSON,
+    DiplomaticQuarter,
+    DiplomaticQuarterFromJSON,
+    DiplomaticQuarterFromJSONTyped,
+    DiplomaticQuarterToJSON,
+    Encampment,
+    EncampmentFromJSON,
+    EncampmentFromJSONTyped,
+    EncampmentToJSON,
+    EntertainmentComplex,
+    EntertainmentComplexFromJSON,
+    EntertainmentComplexFromJSONTyped,
+    EntertainmentComplexToJSON,
     Feature,
     FeatureFromJSON,
     FeatureFromJSONTyped,
     FeatureToJSON,
+    GovernmentPlaza,
+    GovernmentPlazaFromJSON,
+    GovernmentPlazaFromJSONTyped,
+    GovernmentPlazaToJSON,
+    Harbor,
+    HarborFromJSON,
+    HarborFromJSONTyped,
+    HarborToJSON,
+    HolySite,
+    HolySiteFromJSON,
+    HolySiteFromJSONTyped,
+    HolySiteToJSON,
     Improvement,
     ImprovementFromJSON,
     ImprovementFromJSONTyped,
     ImprovementToJSON,
+    IndustrialZone,
+    IndustrialZoneFromJSON,
+    IndustrialZoneFromJSONTyped,
+    IndustrialZoneToJSON,
+    Neighborhood,
+    NeighborhoodFromJSON,
+    NeighborhoodFromJSONTyped,
+    NeighborhoodToJSON,
     Resource,
     ResourceFromJSON,
     ResourceFromJSONTyped,
     ResourceToJSON,
+    Spaceport,
+    SpaceportFromJSON,
+    SpaceportFromJSONTyped,
+    SpaceportToJSON,
     Terrain,
     TerrainFromJSON,
     TerrainFromJSONTyped,
     TerrainToJSON,
+    TheaterSquare,
+    TheaterSquareFromJSON,
+    TheaterSquareFromJSONTyped,
+    TheaterSquareToJSON,
+    WaterPark,
+    WaterParkFromJSON,
+    WaterParkFromJSONTyped,
+    WaterParkToJSON,
 } from './';
 
 /**
@@ -68,10 +136,10 @@ export interface Tile {
     improvement?: Improvement;
     /**
      * 
-     * @type {District}
+     * @type {CityCenter | Campus | TheaterSquare | HolySite | Encampment | CommercialHub | Harbor | IndustrialZone | EntertainmentComplex | WaterPark | Aqueduct | Neighborhood | Canal | Dam | Aerodome | Spaceport | GovernmentPlaza | DiplomaticQuarter}
      * @memberof Tile
      */
-    district?: District;
+    district?: CityCenter | Campus | TheaterSquare | HolySite | Encampment | CommercialHub | Harbor | IndustrialZone | EntertainmentComplex | WaterPark | Aqueduct | Neighborhood | Canal | Dam | Aerodome | Spaceport | GovernmentPlaza | DiplomaticQuarter;
 }
 
 export function TileFromJSON(json: any): Tile {
@@ -88,7 +156,7 @@ export function TileFromJSONTyped(json: any, ignoreDiscriminator: boolean): Tile
         'feature': !exists(json, 'feature') ? undefined : FeatureFromJSON(json['feature']),
         'resource': !exists(json, 'resource') ? undefined : ResourceFromJSON(json['resource']),
         'improvement': !exists(json, 'improvement') ? undefined : ImprovementFromJSON(json['improvement']),
-        'district': !exists(json, 'district') ? undefined : DistrictFromJSON(json['district']),
+        'district': !exists(json, 'district') ? undefined : CityCenter | Campus | TheaterSquare | HolySite | Encampment | CommercialHub | Harbor | IndustrialZone | EntertainmentComplex | WaterPark | Aqueduct | Neighborhood | Canal | Dam | Aerodome | Spaceport | GovernmentPlaza | DiplomaticQuarterFromJSON(json['district']),
     };
 }
 
@@ -105,7 +173,7 @@ export function TileToJSON(value?: Tile | null): any {
         'feature': FeatureToJSON(value.feature),
         'resource': ResourceToJSON(value.resource),
         'improvement': ImprovementToJSON(value.improvement),
-        'district': DistrictToJSON(value.district),
+        'district': CityCenter | Campus | TheaterSquare | HolySite | Encampment | CommercialHub | Harbor | IndustrialZone | EntertainmentComplex | WaterPark | Aqueduct | Neighborhood | Canal | Dam | Aerodome | Spaceport | GovernmentPlaza | DiplomaticQuarterToJSON(value.district),
     };
 }
 

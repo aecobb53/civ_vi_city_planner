@@ -14,10 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    CityCenterAllOf,
-    CityCenterAllOfFromJSON,
-    CityCenterAllOfFromJSONTyped,
-    CityCenterAllOfToJSON,
+    CommercialHubAllOf,
+    CommercialHubAllOfFromJSON,
+    CommercialHubAllOfFromJSONTyped,
+    CommercialHubAllOfToJSON,
     District,
     DistrictFromJSON,
     DistrictFromJSONTyped,
@@ -27,22 +27,22 @@ import {
 /**
  * 
  * @export
- * @interface CityCenter
+ * @interface CommercialHub
  */
-export interface CityCenter extends District {
+export interface CommercialHub extends District {
     /**
      * 
      * @type {Array<string>}
-     * @memberof CityCenter
+     * @memberof CommercialHub
      */
-    buildings?: Array<CityCenterBuildingsEnum>;
+    buildings?: Array<CommercialHubBuildingsEnum>;
 }
 
-export function CityCenterFromJSON(json: any): CityCenter {
-    return CityCenterFromJSONTyped(json, false);
+export function CommercialHubFromJSON(json: any): CommercialHub {
+    return CommercialHubFromJSONTyped(json, false);
 }
 
-export function CityCenterFromJSONTyped(json: any, ignoreDiscriminator: boolean): CityCenter {
+export function CommercialHubFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommercialHub {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -52,7 +52,7 @@ export function CityCenterFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function CityCenterToJSON(value?: CityCenter | null): any {
+export function CommercialHubToJSON(value?: CommercialHub | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -69,11 +69,10 @@ export function CityCenterToJSON(value?: CityCenter | null): any {
 * @export
 * @enum {string}
 */
-export enum CityCenterBuildingsEnum {
-    Granary = 'granary',
-    Monument = 'monument',
-    WaterMill = 'water_mill',
-    Sewer = 'sewer'
+export enum CommercialHubBuildingsEnum {
+    Market = 'market',
+    Bank = 'bank',
+    StockExchange = 'stock_exchange'
 }
 
 

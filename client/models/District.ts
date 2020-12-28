@@ -14,14 +14,24 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    Campus,
-    CampusFromJSON,
-    CampusFromJSONTyped,
-    CampusToJSON,
-    CityCenter,
-    CityCenterFromJSON,
-    CityCenterFromJSONTyped,
-    CityCenterToJSON,
+     CityCenterFromJSONTyped,
+     CampusFromJSONTyped,
+     TheaterSquareFromJSONTyped,
+     HolySiteFromJSONTyped,
+     EncampmentFromJSONTyped,
+     CommercialHubFromJSONTyped,
+     HarborFromJSONTyped,
+     IndustrialZoneFromJSONTyped,
+     EntertainmentComplexFromJSONTyped,
+     WaterParkFromJSONTyped,
+     AqueductFromJSONTyped,
+     NeighborhoodFromJSONTyped,
+     CanalFromJSONTyped,
+     DamFromJSONTyped,
+     AerodomeFromJSONTyped,
+     SpaceportFromJSONTyped,
+     GovernmentPlazaFromJSONTyped,
+     DiplomaticQuarterFromJSONTyped
 } from './';
 
 /**
@@ -38,12 +48,6 @@ export interface District {
     name: string;
     /**
      * 
-     * @type {CityCenter | Campus}
-     * @memberof District
-     */
-    buildings?: CityCenter | Campus;
-    /**
-     * 
      * @type {boolean}
      * @memberof District
      */
@@ -58,10 +62,65 @@ export function DistrictFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     if ((json === undefined) || (json === null)) {
         return json;
     }
+    if (!ignoreDiscriminator) {
+        if (json['name'] === 'CityCenter') {
+            return CityCenterFromJSONTyped(json, true);
+        }
+        if (json['name'] === 'Campus') {
+            return CampusFromJSONTyped(json, true);
+        }
+        if (json['name'] === 'TheaterSquare') {
+            return TheaterSquareFromJSONTyped(json, true);
+        }
+        if (json['name'] === 'HolySite') {
+            return HolySiteFromJSONTyped(json, true);
+        }
+        if (json['name'] === 'Encampment') {
+            return EncampmentFromJSONTyped(json, true);
+        }
+        if (json['name'] === 'CommercialHub') {
+            return CommercialHubFromJSONTyped(json, true);
+        }
+        if (json['name'] === 'Harbor') {
+            return HarborFromJSONTyped(json, true);
+        }
+        if (json['name'] === 'IndustrialZone') {
+            return IndustrialZoneFromJSONTyped(json, true);
+        }
+        if (json['name'] === 'EntertainmentComplex') {
+            return EntertainmentComplexFromJSONTyped(json, true);
+        }
+        if (json['name'] === 'WaterPark') {
+            return WaterParkFromJSONTyped(json, true);
+        }
+        if (json['name'] === 'Aqueduct') {
+            return AqueductFromJSONTyped(json, true);
+        }
+        if (json['name'] === 'Neighborhood') {
+            return NeighborhoodFromJSONTyped(json, true);
+        }
+        if (json['name'] === 'Canal') {
+            return CanalFromJSONTyped(json, true);
+        }
+        if (json['name'] === 'Dam') {
+            return DamFromJSONTyped(json, true);
+        }
+        if (json['name'] === 'Aerodome') {
+            return AerodomeFromJSONTyped(json, true);
+        }
+        if (json['name'] === 'Spaceport') {
+            return SpaceportFromJSONTyped(json, true);
+        }
+        if (json['name'] === 'GovernmentPlaza') {
+            return GovernmentPlazaFromJSONTyped(json, true);
+        }
+        if (json['name'] === 'DiplomaticQuarter') {
+            return DiplomaticQuarterFromJSONTyped(json, true);
+        }
+    }
     return {
         
         'name': json['name'],
-        'buildings': !exists(json, 'buildings') ? undefined : CityCenter | CampusFromJSON(json['buildings']),
         'powered': !exists(json, 'powered') ? undefined : json['powered'],
     };
 }
@@ -76,7 +135,6 @@ export function DistrictToJSON(value?: District | null): any {
     return {
         
         'name': value.name,
-        'buildings': CityCenter | CampusToJSON(value.buildings),
         'powered': value.powered,
     };
 }

@@ -14,35 +14,35 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    CityCenterAllOf,
-    CityCenterAllOfFromJSON,
-    CityCenterAllOfFromJSONTyped,
-    CityCenterAllOfToJSON,
     District,
     DistrictFromJSON,
     DistrictFromJSONTyped,
     DistrictToJSON,
+    TheaterSquareAllOf,
+    TheaterSquareAllOfFromJSON,
+    TheaterSquareAllOfFromJSONTyped,
+    TheaterSquareAllOfToJSON,
 } from './';
 
 /**
  * 
  * @export
- * @interface CityCenter
+ * @interface TheaterSquare
  */
-export interface CityCenter extends District {
+export interface TheaterSquare extends District {
     /**
      * 
      * @type {Array<string>}
-     * @memberof CityCenter
+     * @memberof TheaterSquare
      */
-    buildings?: Array<CityCenterBuildingsEnum>;
+    buildings?: Array<TheaterSquareBuildingsEnum>;
 }
 
-export function CityCenterFromJSON(json: any): CityCenter {
-    return CityCenterFromJSONTyped(json, false);
+export function TheaterSquareFromJSON(json: any): TheaterSquare {
+    return TheaterSquareFromJSONTyped(json, false);
 }
 
-export function CityCenterFromJSONTyped(json: any, ignoreDiscriminator: boolean): CityCenter {
+export function TheaterSquareFromJSONTyped(json: any, ignoreDiscriminator: boolean): TheaterSquare {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -52,7 +52,7 @@ export function CityCenterFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function CityCenterToJSON(value?: CityCenter | null): any {
+export function TheaterSquareToJSON(value?: TheaterSquare | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -69,11 +69,11 @@ export function CityCenterToJSON(value?: CityCenter | null): any {
 * @export
 * @enum {string}
 */
-export enum CityCenterBuildingsEnum {
-    Granary = 'granary',
-    Monument = 'monument',
-    WaterMill = 'water_mill',
-    Sewer = 'sewer'
+export enum TheaterSquareBuildingsEnum {
+    Amphitheater = 'amphitheater',
+    ArtMuseum = 'art_museum',
+    ArchaeologicalMuseum = 'archaeological_museum',
+    BroadcastCenter = 'broadcast_center'
 }
 
 

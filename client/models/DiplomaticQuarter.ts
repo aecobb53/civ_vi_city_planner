@@ -14,10 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    CityCenterAllOf,
-    CityCenterAllOfFromJSON,
-    CityCenterAllOfFromJSONTyped,
-    CityCenterAllOfToJSON,
+    DiplomaticQuarterAllOf,
+    DiplomaticQuarterAllOfFromJSON,
+    DiplomaticQuarterAllOfFromJSONTyped,
+    DiplomaticQuarterAllOfToJSON,
     District,
     DistrictFromJSON,
     DistrictFromJSONTyped,
@@ -27,22 +27,22 @@ import {
 /**
  * 
  * @export
- * @interface CityCenter
+ * @interface DiplomaticQuarter
  */
-export interface CityCenter extends District {
+export interface DiplomaticQuarter extends District {
     /**
      * 
      * @type {Array<string>}
-     * @memberof CityCenter
+     * @memberof DiplomaticQuarter
      */
-    buildings?: Array<CityCenterBuildingsEnum>;
+    buildings?: Array<DiplomaticQuarterBuildingsEnum>;
 }
 
-export function CityCenterFromJSON(json: any): CityCenter {
-    return CityCenterFromJSONTyped(json, false);
+export function DiplomaticQuarterFromJSON(json: any): DiplomaticQuarter {
+    return DiplomaticQuarterFromJSONTyped(json, false);
 }
 
-export function CityCenterFromJSONTyped(json: any, ignoreDiscriminator: boolean): CityCenter {
+export function DiplomaticQuarterFromJSONTyped(json: any, ignoreDiscriminator: boolean): DiplomaticQuarter {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -52,7 +52,7 @@ export function CityCenterFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function CityCenterToJSON(value?: CityCenter | null): any {
+export function DiplomaticQuarterToJSON(value?: DiplomaticQuarter | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -69,11 +69,9 @@ export function CityCenterToJSON(value?: CityCenter | null): any {
 * @export
 * @enum {string}
 */
-export enum CityCenterBuildingsEnum {
-    Granary = 'granary',
-    Monument = 'monument',
-    WaterMill = 'water_mill',
-    Sewer = 'sewer'
+export enum DiplomaticQuarterBuildingsEnum {
+    Consulate = 'consulate',
+    Chancery = 'chancery'
 }
 
 

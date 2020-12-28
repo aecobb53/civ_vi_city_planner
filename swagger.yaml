@@ -121,7 +121,27 @@ components:
                 improvement:
                     $ref: '#/components/schemas/Improvement'
                 district:
-                    $ref: '#/components/schemas/District'
+                    oneOf:
+                      - $ref: '#/components/schemas/CityCenter'
+                      - $ref: '#/components/schemas/Campus'
+                      - $ref: '#/components/schemas/TheaterSquare'
+                      - $ref: '#/components/schemas/HolySite'
+                      - $ref: '#/components/schemas/Encampment'
+                      - $ref: '#/components/schemas/CommercialHub'
+                      - $ref: '#/components/schemas/Harbor'
+                      - $ref: '#/components/schemas/IndustrialZone'
+                      - $ref: '#/components/schemas/EntertainmentComplex'
+                      - $ref: '#/components/schemas/WaterPark'
+                      - $ref: '#/components/schemas/Aqueduct'
+                      - $ref: '#/components/schemas/Neighborhood'
+                      - $ref: '#/components/schemas/Canal'
+                      - $ref: '#/components/schemas/Dam'
+                      - $ref: '#/components/schemas/Aerodome'
+                      - $ref: '#/components/schemas/Spaceport'
+                      - $ref: '#/components/schemas/GovernmentPlaza'
+                      - $ref: '#/components/schemas/DiplomaticQuarter'
+                    discriminator:
+                        propertyName: name
                 # wonder:
                 #     $ref: '#/components/schemas/Wonder'
             # required:
@@ -288,26 +308,15 @@ components:
             properties:
                 name:
                     type: string
-                buildings:
-                    oneOf:
-                      - $ref: '#/components/schemas/CityCenter'
-                      - $ref: '#/components/schemas/Campus'
                 powered: 
                     type: boolean
-            required:
-                - name
-        DistrictBuildings:
-            type: object
-            required:
-                - name
-            properties:
-                name:
-                    type: string
             discriminator:
                 propertyName: name
+            required:
+                - name
         CityCenter:
             allOf:
-              - $ref: '#/components/schemas/DistrictBuildings'
+              - $ref: '#/components/schemas/District'
               - type: object
                 properties:
                     buildings:
@@ -320,7 +329,7 @@ components:
                                 - sewer
         Campus:
             allOf:
-              - $ref: '#/components/schemas/DistrictBuildings'
+              - $ref: '#/components/schemas/District'
               - type: object
                 properties:
                     buildings:
@@ -330,67 +339,194 @@ components:
                                 - library
                                 - university
                                 - research_lab
-                # theater_square:
-                #     amphitheater
-                #     art_museum
-                #     archaeological_museum
-                #     broadcast_center
-                # holy_site:
-                #     shrine
-                #     temple
-                #     # worship buildings NOT MVP
-                # encampment:
-                #     barracks
-                #     stable
-                #     armory
-                #     military_academy
-                # commercial_hub:
-                #     market
-                #     bank
-                #     stock_exchange
-                # harbor:
-                #     lighthouse
-                #     shipyard
-                #     seaport
-                # industrial_zone:
-                #     workshop
-                #     factory
-                #     coal_power_plant
-                #     oil_power_plant
-                #     nuclear_power_plant
-                # entertainment_complex:
-                #     arena
-                #     zoo
-                #     stadium
-                # water_park:
-                #     ferris_wheel
-                #     aquarium
-                #     aquatics_center
-                # aqueduct:
-                # neighborhood:
-                #     food_market
-                #     shopping_mall
-                # canal:
-                # dam:
-                #     hydroelectric_dam
-                # aerodrome:
-                #     hanger
-                #     airport
-                # spaceport:
-                # govermment_plaza:
-                #     ancestral_hall
-                #     audience_chamber
-                #     warlords_throne
-                #     foreign_ministry
-                #     grand_masters_chapel
-                #     intelligence_agency
-                #     queens_bibliotheque
-                #     national_history_museum
-                #     royal_society
-                #     war_department
-                # diplomatic_quarter:
-                #     consulate
-                #     chancery
+        TheaterSquare:
+            allOf:
+              - $ref: '#/components/schemas/District'
+              - type: object
+                properties:
+                    buildings:
+                        type: array
+                        items:
+                            enum:
+                                - amphitheater
+                                - art_museum
+                                - archaeological_museum
+                                - broadcast_center
+        HolySite:
+            allOf:
+              - $ref: '#/components/schemas/District'
+              - type: object
+                properties:
+                    buildings:
+                        type: array
+                        items:
+                            enum:
+                                - shrine
+                                - temple
+                                # worship buildings NOT MVP
+        Encampment:
+            allOf:
+              - $ref: '#/components/schemas/District'
+              - type: object
+                properties:
+                    buildings:
+                        type: array
+                        items:
+                            enum:
+                                - barracks
+                                - stable
+                                - armory
+                                - military_academy
+        CommercialHub:
+            allOf:
+              - $ref: '#/components/schemas/District'
+              - type: object
+                properties:
+                    buildings:
+                        type: array
+                        items:
+                            enum:
+                                - market
+                                - bank
+                                - stock_exchange
+        Harbor:
+            allOf:
+              - $ref: '#/components/schemas/District'
+              - type: object
+                properties:
+                    buildings:
+                        type: array
+                        items:
+                            enum:
+                                - lighthouse
+                                - shipyard
+                                - seaport
+        IndustrialZone:
+            allOf:
+              - $ref: '#/components/schemas/District'
+              - type: object
+                properties:
+                    buildings:
+                        type: array
+                        items:
+                            enum:
+                                - workshop
+                                - factory
+                                - coal_power_plant
+                                - oil_power_plant
+                                - nuclear_power_plant
+        EntertainmentComplex:
+            allOf:
+              - $ref: '#/components/schemas/District'
+              - type: object
+                properties:
+                    buildings:
+                        type: array
+                        items:
+                            enum:
+                                - arena
+                                - zoo
+                                - stadium
+        WaterPark:
+            allOf:
+              - $ref: '#/components/schemas/District'
+              - type: object
+                properties:
+                    buildings:
+                        type: array
+                        items:
+                            enum:
+                                - ferris_wheel
+                                - aquarium
+                                - aquatics_center
+        Aqueduct:
+            allOf:
+              - $ref: '#/components/schemas/District'
+              - type: object
+                properties:
+                    buildings:
+                        type: array
+                        items:
+                            type: string
+        Neighborhood:
+            allOf:
+              - $ref: '#/components/schemas/District'
+              - type: object
+                properties:
+                    buildings:
+                        type: array
+                        items:
+                            enum:
+                                - food_market
+                                - shopping_mall
+        Canal:
+            allOf:
+              - $ref: '#/components/schemas/District'
+              - type: object
+                properties:
+                    buildings:
+                        type: array
+                        items:
+                            type: string
+        Dam:
+            allOf:
+              - $ref: '#/components/schemas/District'
+              - type: object
+                properties:
+                    buildings:
+                        type: array
+                        items:
+                            enum:
+                                - hydroelectric_dam
+        Aerodome:
+            allOf:
+              - $ref: '#/components/schemas/District'
+              - type: object
+                properties:
+                    buildings:
+                        type: array
+                        items:
+                            enum:
+                                - hanger
+        Spaceport:
+            allOf:
+              - $ref: '#/components/schemas/District'
+              - type: object
+                properties:
+                    buildings:
+                        type: array
+                        items:
+                            type: string
+        GovernmentPlaza:
+            allOf:
+              - $ref: '#/components/schemas/District'
+              - type: object
+                properties:
+                    buildings:
+                        type: array
+                        items:
+                            enum:
+                                - ancestral_hall
+                                - audience_chamber
+                                - warlords_throne
+                                - foreign_ministry
+                                - grand_masters_chapel
+                                - intelligence_agency
+                                - queens_bibliotheque
+                                - national_history_museum
+                                - royal_society
+                                - war_department
+        DiplomaticQuarter:
+            allOf:
+              - $ref: '#/components/schemas/District'
+              - type: object
+                properties:
+                    buildings:
+                        type: array
+                        items:
+                            enum:
+                                - consulate
+                                - chancery
         # Wonder: NOT MVP
         #     properties:
         #         name: string

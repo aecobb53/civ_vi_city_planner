@@ -14,35 +14,35 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    CityCenterAllOf,
-    CityCenterAllOfFromJSON,
-    CityCenterAllOfFromJSONTyped,
-    CityCenterAllOfToJSON,
     District,
     DistrictFromJSON,
     DistrictFromJSONTyped,
     DistrictToJSON,
+    EntertainmentComplexAllOf,
+    EntertainmentComplexAllOfFromJSON,
+    EntertainmentComplexAllOfFromJSONTyped,
+    EntertainmentComplexAllOfToJSON,
 } from './';
 
 /**
  * 
  * @export
- * @interface CityCenter
+ * @interface EntertainmentComplex
  */
-export interface CityCenter extends District {
+export interface EntertainmentComplex extends District {
     /**
      * 
      * @type {Array<string>}
-     * @memberof CityCenter
+     * @memberof EntertainmentComplex
      */
-    buildings?: Array<CityCenterBuildingsEnum>;
+    buildings?: Array<EntertainmentComplexBuildingsEnum>;
 }
 
-export function CityCenterFromJSON(json: any): CityCenter {
-    return CityCenterFromJSONTyped(json, false);
+export function EntertainmentComplexFromJSON(json: any): EntertainmentComplex {
+    return EntertainmentComplexFromJSONTyped(json, false);
 }
 
-export function CityCenterFromJSONTyped(json: any, ignoreDiscriminator: boolean): CityCenter {
+export function EntertainmentComplexFromJSONTyped(json: any, ignoreDiscriminator: boolean): EntertainmentComplex {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -52,7 +52,7 @@ export function CityCenterFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function CityCenterToJSON(value?: CityCenter | null): any {
+export function EntertainmentComplexToJSON(value?: EntertainmentComplex | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -69,11 +69,10 @@ export function CityCenterToJSON(value?: CityCenter | null): any {
 * @export
 * @enum {string}
 */
-export enum CityCenterBuildingsEnum {
-    Granary = 'granary',
-    Monument = 'monument',
-    WaterMill = 'water_mill',
-    Sewer = 'sewer'
+export enum EntertainmentComplexBuildingsEnum {
+    Arena = 'arena',
+    Zoo = 'zoo',
+    Stadium = 'stadium'
 }
 
 

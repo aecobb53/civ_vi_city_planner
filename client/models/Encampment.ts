@@ -14,35 +14,35 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    CityCenterAllOf,
-    CityCenterAllOfFromJSON,
-    CityCenterAllOfFromJSONTyped,
-    CityCenterAllOfToJSON,
     District,
     DistrictFromJSON,
     DistrictFromJSONTyped,
     DistrictToJSON,
+    EncampmentAllOf,
+    EncampmentAllOfFromJSON,
+    EncampmentAllOfFromJSONTyped,
+    EncampmentAllOfToJSON,
 } from './';
 
 /**
  * 
  * @export
- * @interface CityCenter
+ * @interface Encampment
  */
-export interface CityCenter extends District {
+export interface Encampment extends District {
     /**
      * 
      * @type {Array<string>}
-     * @memberof CityCenter
+     * @memberof Encampment
      */
-    buildings?: Array<CityCenterBuildingsEnum>;
+    buildings?: Array<EncampmentBuildingsEnum>;
 }
 
-export function CityCenterFromJSON(json: any): CityCenter {
-    return CityCenterFromJSONTyped(json, false);
+export function EncampmentFromJSON(json: any): Encampment {
+    return EncampmentFromJSONTyped(json, false);
 }
 
-export function CityCenterFromJSONTyped(json: any, ignoreDiscriminator: boolean): CityCenter {
+export function EncampmentFromJSONTyped(json: any, ignoreDiscriminator: boolean): Encampment {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -52,7 +52,7 @@ export function CityCenterFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function CityCenterToJSON(value?: CityCenter | null): any {
+export function EncampmentToJSON(value?: Encampment | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -69,11 +69,11 @@ export function CityCenterToJSON(value?: CityCenter | null): any {
 * @export
 * @enum {string}
 */
-export enum CityCenterBuildingsEnum {
-    Granary = 'granary',
-    Monument = 'monument',
-    WaterMill = 'water_mill',
-    Sewer = 'sewer'
+export enum EncampmentBuildingsEnum {
+    Barracks = 'barracks',
+    Stable = 'stable',
+    Armory = 'armory',
+    MilitaryAcademy = 'military_academy'
 }
 
 
