@@ -10,9 +10,10 @@ class Aluminum(CommonTile):
             'desert',
             'plains',
         ]
+        self.features = None
         # self.features = [
         #     'rainforest'
         # ]
         self.improvement = [
-            'mine'
+            'mine',
         ]

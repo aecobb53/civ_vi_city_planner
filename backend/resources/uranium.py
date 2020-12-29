@@ -12,9 +12,10 @@ class Uranium(CommonTile):
             'plains',
             'tundra',
         ]
+        self.features = None
         # self.features = [
         #     'rainforest'
         # ]
         self.improvement = [
-            'mine'
+            'mine',
         ]

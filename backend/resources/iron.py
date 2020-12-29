@@ -7,15 +7,15 @@ class Iron(CommonTile):
         self.science = 1
         self.resource_type = 'strategic'
         self.terrain = [
-            'desert',
-            'grassland',
-            'plains',
-            'tundra',
+            'deserth',
+            'grasslandh',
+            'plainsh',
+            'tundrah',
         ]
-        self.hills = True
+        self.features = None
         # self.features = [
         #     'rainforest'
         # ]
         self.improvement = [
-            'mine'
+            'mine',
         ]

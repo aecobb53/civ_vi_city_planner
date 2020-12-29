@@ -11,6 +11,7 @@ class Horses(CommonTile):
             'grassland',
             'plains'
         ]
+        self.features = None
         # self.features = [
         #     'rainforest'
         # ]
