@@ -99,7 +99,7 @@ class Dam(CommonTile):
             else:
                 setattr(self, building, True)
 
-    def calculate_adjacency(self, tile_obj, target_index, adj_list):
+    def calculate_adjacency(self, tile_obj, target_index, adj_list):  # pragma: no cover
         """
         I dont know if removing a dam from the orig object like this will actually work... 
         if it doesnt it needs to be taken care of in another method

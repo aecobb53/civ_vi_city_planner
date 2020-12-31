@@ -23,7 +23,7 @@ class Canal(CommonTile):
             return None
         return self._building_list
 
-    def calculate_adjacency(self, tile_obj, target_index, adj_list):
+    def calculate_adjacency(self, tile_obj, target_index, adj_list):  # pragma: no cover
         pass
 
     def calculate_specialist_yield(self):

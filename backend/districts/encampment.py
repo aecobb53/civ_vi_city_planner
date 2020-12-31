@@ -189,6 +189,9 @@ class Encampment(CommonTile):
             else:
                 setattr(self, building, True)
 
+    def calculate_adjacency(self, tile_obj, target_index, adj_list):  # pragma: no cover
+        pass
+
     def calculate_specialist_yield(self):
         self.production = self.production + self.citizen_slot * self.specialist_production_yield
         self.gold = self.gold + self.citizen_slot * self.specialist_gold_yield

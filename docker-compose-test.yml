@@ -66,3 +66,17 @@ services:
         environment:
             - ENVIRONMENT=test
             - SERVICE=lint
+
+    sh:
+        build: 
+            context: .
+            dockerfile: features/Dockerfile
+        image: civ_bash
+        command: bash
+        volumes:
+            - .:/usr/src
+        ports:
+            - 8023:8000
+        environment:
+            - ENVIRONMENT=test
+            - SERVICE=lint

@@ -24,7 +24,7 @@ class Farm(CommonTile):
         ]
         self.hills = True
 
-    def calculate_adjacency(self, tile_obj, target_index, adj_list):
+    def calculate_adjacency(self, tile_obj, target_index, adj_list):  # pragma: no cover
         target_object = getattr(tile_obj, target_index)
         adj_count = 0
         for adj_obj in adj_list:

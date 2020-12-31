@@ -7,11 +7,11 @@ class Mine(CommonTile):
         self.production = 1
         self.appeal = -1
         self.acceptable_terrain = [
-            'desert',
-            'grassland',
-            'plains',
-            'snow',
-            'tundra',
+            'deserth',
+            'grasslandh',
+            'plainsh',
+            'snowh',
+            'tundrah',
         ]
         self.resources = [
             'copper',
