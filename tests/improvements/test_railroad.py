@@ -1,9 +1,9 @@
-from backend.improvements.farm import Farm
+from backend.improvements.railroad import Railroad
 import pytest
 
 @pytest.fixture(scope="function")
 def setup_improvement():
-    imp = Farm()
+    imp = Railroad()
     return imp
 
 # Init

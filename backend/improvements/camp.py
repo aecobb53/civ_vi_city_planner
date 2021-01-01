@@ -6,6 +6,8 @@ class Camp(CommonTile):
         super().__init__()
         self.gold = 2
         self.housing = .5
+        self.acceptable_terrain = None
+        self.acceptable_features = None
         self.resources = [
             'deer',
             'furs',
@@ -14,7 +16,7 @@ class Camp(CommonTile):
             'honey',
         ]
 
-    def calculate_erah(self, tile_obj, target_index, adj_list):
+    def calculate_erah(self, tile_obj, target_index, adj_list):  # pragma: no cover
         target_object = getattr(tile_obj, target_index)
         if tile_obj.erah >= 3:
             target_object.food = target_object.food + 1

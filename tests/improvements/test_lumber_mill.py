@@ -1,15 +1,15 @@
-from backend.improvements.farm import Farm
+from backend.improvements.lumber_mill import LumberMill
 import pytest
 
 @pytest.fixture(scope="function")
 def setup_improvement():
-    imp = Farm()
+    imp = LumberMill()
     return imp
 
 # Init
 testdata = [
     ('food', 0),
-    ('production', 0),
+    ('production', 2),
     ('gold', 0),
     ('science', 0),
     ('culture', 0),
@@ -18,7 +18,10 @@ testdata = [
     ('appeal', 0),
     ('power', 0),
     ('acceptable_terrain', None),
-    ('acceptable_features', None),
+    ('acceptable_features', [
+        'woods',
+        'rainforest',
+    ]),
     ('resources', None),
 ]
 @pytest.mark.parametrize("resource, value", testdata)

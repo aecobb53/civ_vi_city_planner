@@ -13,8 +13,10 @@ class Seastead(CommonTile):
             'coast',
             'ocean',
         ]
+        self.acceptable_features = None
+        self.resources = None
 
-    def calculate_adjacency(self, tile_obj, target_index, adj_list):
+    def calculate_adjacency(self, tile_obj, target_index, adj_list):  # pragma: no cover
         target_object = getattr(tile_obj, target_index)
         adj_fishing_boat = 0
         adj_reef = 0

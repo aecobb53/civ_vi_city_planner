@@ -6,6 +6,8 @@ class OilWell(CommonTile):
         super().__init__()
         self.production = 2
         self.appeal = -1
+        self.acceptable_terrain = None
+        self.acceptable_features = None
         self.resources = [
             'oil',
         ]

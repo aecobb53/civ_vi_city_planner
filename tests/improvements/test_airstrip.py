@@ -15,7 +15,7 @@ testdata = [
     ('culture', 0),
     ('faith', 0),
     ('housing', 0),
-    ('appeal', 0),
+    ('appeal', -1),
     ('power', 0),
     ('acceptable_terrain', None),
     ('acceptable_features', None),

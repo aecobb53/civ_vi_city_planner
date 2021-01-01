@@ -13,3 +13,5 @@ class SolarFarm(CommonTile):
             'tundra',
             'desert',
         ]
+        self.acceptable_features = None
+        self.resources = None

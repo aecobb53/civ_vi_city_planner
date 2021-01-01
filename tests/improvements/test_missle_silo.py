@@ -1,9 +1,9 @@
-from backend.improvements.farm import Farm
+from backend.improvements.missle_silo import MissleSilo
 import pytest
 
 @pytest.fixture(scope="function")
 def setup_improvement():
-    imp = Farm()
+    imp = MissleSilo()
     return imp
 
 # Init
@@ -17,7 +17,13 @@ testdata = [
     ('housing', 0),
     ('appeal', 0),
     ('power', 0),
-    ('acceptable_terrain', None),
+    ('acceptable_terrain', [
+        'desert',
+        'grassland',
+        'plains',
+        'snow',
+        'tundra',
+    ]),
     ('acceptable_features', None),
     ('resources', None),
 ]

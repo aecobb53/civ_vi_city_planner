@@ -1,9 +1,9 @@
-from backend.improvements.farm import Farm
+from backend.improvements.seaside_resort import SeasideResort
 import pytest
 
 @pytest.fixture(scope="function")
 def setup_improvement():
-    imp = Farm()
+    imp = SeasideResort()
     return imp
 
 # Init
@@ -17,7 +17,11 @@ testdata = [
     ('housing', 0),
     ('appeal', 0),
     ('power', 0),
-    ('acceptable_terrain', None),
+    ('acceptable_terrain', [
+        'grassland',
+        'plains',
+        'desert',
+    ]),
     ('acceptable_features', None),
     ('resources', None),
 ]

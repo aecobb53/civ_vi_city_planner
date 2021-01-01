@@ -13,6 +13,7 @@ class Mine(CommonTile):
             'snowh',
             'tundrah',
         ]
+        self.acceptable_features = None
         self.resources = [
             'copper',
             'diamonds',
@@ -27,9 +28,9 @@ class Mine(CommonTile):
             'uranium',
             'amber',
         ]
-        self.hills = True
 
-    def calculate_erah(self, tile_obj, target_index, adj_list):
+
+    def calculate_erah(self, tile_obj, target_index, adj_list):  # pragma: no cover
         target_object = getattr(tile_obj, target_index)
         if tile_obj.erah >= 2:
             target_object.production = target_object.production + 1

@@ -11,3 +11,5 @@ class OffshoreWindFarm(CommonTile):
             'lake',
             'coast',
         ]
+        self.acceptable_features = None
+        self.resources = None

@@ -1,23 +1,27 @@
-from backend.improvements.farm import Farm
+from backend.improvements.seastead import Seastead
 import pytest
 
 @pytest.fixture(scope="function")
 def setup_improvement():
-    imp = Farm()
+    imp = Seastead()
     return imp
 
 # Init
 testdata = [
-    ('food', 0),
+    ('food', 2),
     ('production', 0),
     ('gold', 0),
     ('science', 0),
     ('culture', 0),
     ('faith', 0),
-    ('housing', 0),
+    ('housing', 2),
     ('appeal', 0),
     ('power', 0),
-    ('acceptable_terrain', None),
+    ('acceptable_terrain', [
+        'lake',
+        'coast',
+        'ocean',
+    ]),
     ('acceptable_features', None),
     ('resources', None),
 ]

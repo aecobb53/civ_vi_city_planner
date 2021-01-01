@@ -18,11 +18,11 @@ testdata = [
     ('appeal', -1),
     ('power', 0),
     ('acceptable_terrain', [
-        'desert',
-        'grassland',
-        'plains',
-        'snow',
-        'tundra',
+        'deserth',
+        'grasslandh',
+        'plainsh',
+        'snowh',
+        'tundrah',
     ]),
     ('acceptable_features', None),
     ('resources', [

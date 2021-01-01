@@ -1,9 +1,9 @@
-from backend.improvements.farm import Farm
+from backend.improvements.ski_resort import SkiResort
 import pytest
 
 @pytest.fixture(scope="function")
 def setup_improvement():
-    imp = Farm()
+    imp = SkiResort()
     return imp
 
 # Init
@@ -18,7 +18,9 @@ testdata = [
     ('appeal', 0),
     ('power', 0),
     ('acceptable_terrain', None),
-    ('acceptable_features', None),
+    ('acceptable_features', [
+        'mountains',
+    ]),
     ('resources', None),
 ]
 @pytest.mark.parametrize("resource, value", testdata)

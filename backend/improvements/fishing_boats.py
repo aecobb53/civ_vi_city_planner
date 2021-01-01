@@ -6,6 +6,8 @@ class FishingBoats(CommonTile):
         super().__init__()
         self.food = 1
         self.housing = .5
+        self.acceptable_terrain = None
+        self.acceptable_features = None
         self.resources = [
             'fish',
             'crabs',
@@ -15,7 +17,7 @@ class FishingBoats(CommonTile):
             'truffles',
         ]
 
-    def calculate_erah(self, tile_obj, target_index, adj_list):
+    def calculate_erah(self, tile_obj, target_index, adj_list):  # pragma: no cover
         target_object = getattr(tile_obj, target_index)
         if tile_obj.erah >= 3:
             target_object.gold = target_object.gold + 2

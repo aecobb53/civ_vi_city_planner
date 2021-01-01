@@ -1,23 +1,28 @@
-from backend.improvements.farm import Farm
+from backend.improvements.solar_farm import SolarFarm
 import pytest
 
 @pytest.fixture(scope="function")
 def setup_improvement():
-    imp = Farm()
+    imp = SolarFarm()
     return imp
 
 # Init
 testdata = [
     ('food', 0),
-    ('production', 0),
-    ('gold', 0),
+    ('production', 1),
+    ('gold', 1),
     ('science', 0),
     ('culture', 0),
     ('faith', 0),
     ('housing', 0),
     ('appeal', 0),
-    ('power', 0),
-    ('acceptable_terrain', None),
+    ('power', 2),
+    ('acceptable_terrain', [
+        'grassland',
+        'plains',
+        'tundra',
+        'desert',
+    ]),
     ('acceptable_features', None),
     ('resources', None),
 ]
