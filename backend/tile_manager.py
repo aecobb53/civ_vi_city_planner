@@ -69,7 +69,7 @@ class TileManager:
         self._luxury = None
         self._trader = None
 
-        for k,v in kwargs.items():
+        for k, v in kwargs.items():
             if not isinstance(v, list):
                 v = [v]
             setattr(self, k, v)
@@ -137,11 +137,10 @@ class TileManager:
             'improvement',
         ]
 
-
     # cc
     @property
     def cc(self):
-        if self._cc == None:
+        if self._cc is None:
             return None
         return self._cc
 
@@ -152,7 +151,7 @@ class TileManager:
     # i0
     @property
     def i0(self):
-        if self._i0 == None:
+        if self._i0 is None:
             return None
         return self._i0
 
@@ -163,7 +162,7 @@ class TileManager:
     # i1
     @property
     def i1(self):
-        if self._i1 == None:
+        if self._i1 is None:
             return None
         return self._i1
 
@@ -174,7 +173,7 @@ class TileManager:
     # i2
     @property
     def i2(self):
-        if self._i2 == None:
+        if self._i2 is None:
             return None
         return self._i2
 
@@ -185,7 +184,7 @@ class TileManager:
     # i3
     @property
     def i3(self):
-        if self._i3 == None:
+        if self._i3 is None:
             return None
         return self._i3
 
@@ -196,7 +195,7 @@ class TileManager:
     # i4
     @property
     def i4(self):
-        if self._i4 == None:
+        if self._i4 is None:
             return None
         return self._i4
 
@@ -207,7 +206,7 @@ class TileManager:
     # i5
     @property
     def i5(self):
-        if self._i5 == None:
+        if self._i5 is None:
             return None
         return self._i5
 
@@ -218,7 +217,7 @@ class TileManager:
     # m0
     @property
     def m0(self):
-        if self._m0 == None:
+        if self._m0 is None:
             return None
         return self._m0
 
@@ -229,7 +228,7 @@ class TileManager:
     # m1
     @property
     def m1(self):
-        if self._m1 == None:
+        if self._m1 is None:
             return None
         return self._m1
 
@@ -240,7 +239,7 @@ class TileManager:
     # m2
     @property
     def m2(self):
-        if self._m2 == None:
+        if self._m2 is None:
             return None
         return self._m2
 
@@ -251,7 +250,7 @@ class TileManager:
     # m3
     @property
     def m3(self):
-        if self._m3 == None:
+        if self._m3 is None:
             return None
         return self._m3
 
@@ -262,7 +261,7 @@ class TileManager:
     # m4
     @property
     def m4(self):
-        if self._m4 == None:
+        if self._m4 is None:
             return None
         return self._m4
 
@@ -273,7 +272,7 @@ class TileManager:
     # m5
     @property
     def m5(self):
-        if self._m5 == None:
+        if self._m5 is None:
             return None
         return self._m5
 
@@ -284,7 +283,7 @@ class TileManager:
     # m6
     @property
     def m6(self):
-        if self._m6 == None:
+        if self._m6 is None:
             return None
         return self._m6
 
@@ -295,7 +294,7 @@ class TileManager:
     # m7
     @property
     def m7(self):
-        if self._m7 == None:
+        if self._m7 is None:
             return None
         return self._m7
 
@@ -306,7 +305,7 @@ class TileManager:
     # m8
     @property
     def m8(self):
-        if self._m8 == None:
+        if self._m8 is None:
             return None
         return self._m8
 
@@ -317,7 +316,7 @@ class TileManager:
     # m9
     @property
     def m9(self):
-        if self._m9 == None:
+        if self._m9 is None:
             return None
         return self._m9
 
@@ -328,7 +327,7 @@ class TileManager:
     # m10
     @property
     def m10(self):
-        if self._m10 == None:
+        if self._m10 is None:
             return None
         return self._m10
 
@@ -339,7 +338,7 @@ class TileManager:
     # m11
     @property
     def m11(self):
-        if self._m11 == None:
+        if self._m11 is None:
             return None
         return self._m11
 
@@ -350,7 +349,7 @@ class TileManager:
     # o0
     @property
     def o0(self):
-        if self._o0 == None:
+        if self._o0 is None:
             return None
         return self._o0
 
@@ -361,7 +360,7 @@ class TileManager:
     # o1
     @property
     def o1(self):
-        if self._o1 == None:
+        if self._o1 is None:
             return None
         return self._o1
 
@@ -372,7 +371,7 @@ class TileManager:
     # o2
     @property
     def o2(self):
-        if self._o2 == None:
+        if self._o2 is None:
             return None
         return self._o2
 
@@ -383,7 +382,7 @@ class TileManager:
     # o3
     @property
     def o3(self):
-        if self._o3 == None:
+        if self._o3 is None:
             return None
         return self._o3
 
@@ -394,7 +393,7 @@ class TileManager:
     # o4
     @property
     def o4(self):
-        if self._o4 == None:
+        if self._o4 is None:
             return None
         return self._o4
 
@@ -405,7 +404,7 @@ class TileManager:
     # o5
     @property
     def o5(self):
-        if self._o5 == None:
+        if self._o5 is None:
             return None
         return self._o5
 
@@ -416,7 +415,7 @@ class TileManager:
     # o6
     @property
     def o6(self):
-        if self._o6 == None:
+        if self._o6 is None:
             return None
         return self._o6
 
@@ -427,7 +426,7 @@ class TileManager:
     # o7
     @property
     def o7(self):
-        if self._o7 == None:
+        if self._o7 is None:
             return None
         return self._o7
 
@@ -438,7 +437,7 @@ class TileManager:
     # o8
     @property
     def o8(self):
-        if self._o8 == None:
+        if self._o8 is None:
             return None
         return self._o8
 
@@ -449,7 +448,7 @@ class TileManager:
     # o9
     @property
     def o9(self):
-        if self._o9 == None:
+        if self._o9 is None:
             return None
         return self._o9
 
@@ -460,7 +459,7 @@ class TileManager:
     # o10
     @property
     def o10(self):
-        if self._o10 == None:
+        if self._o10 is None:
             return None
         return self._o10
 
@@ -471,7 +470,7 @@ class TileManager:
     # o11
     @property
     def o11(self):
-        if self._o11 == None:
+        if self._o11 is None:
             return None
         return self._o11
 
@@ -482,7 +481,7 @@ class TileManager:
     # o12
     @property
     def o12(self):
-        if self._o12 == None:
+        if self._o12 is None:
             return None
         return self._o12
 
@@ -493,7 +492,7 @@ class TileManager:
     # o13
     @property
     def o13(self):
-        if self._o13 == None:
+        if self._o13 is None:
             return None
         return self._o13
 
@@ -504,7 +503,7 @@ class TileManager:
     # o14
     @property
     def o14(self):
-        if self._o14 == None:
+        if self._o14 is None:
             return None
         return self._o14
 
@@ -515,7 +514,7 @@ class TileManager:
     # o15
     @property
     def o15(self):
-        if self._o15 == None:
+        if self._o15 is None:
             return None
         return self._o15
 
@@ -526,7 +525,7 @@ class TileManager:
     # o16
     @property
     def o16(self):
-        if self._o16 == None:
+        if self._o16 is None:
             return None
         return self._o16
 
@@ -537,7 +536,7 @@ class TileManager:
     # o17
     @property
     def o17(self):
-        if self._o17 == None:
+        if self._o17 is None:
             return None
         return self._o17
 
@@ -548,7 +547,7 @@ class TileManager:
     # erah
     @property
     def erah(self):
-        if self._erah == None:
+        if self._erah is None:
             return 8
         return self._erah
 
@@ -561,7 +560,7 @@ class TileManager:
     # govener
     @property
     def govener(self):
-        if self._govener == None:
+        if self._govener is None:
             return None
         return self._govener
 
@@ -572,7 +571,7 @@ class TileManager:
     # amenities
     @property
     def amenities(self):
-        if self._amenities == None:
+        if self._amenities is None:
             return None
         return self._amenities
 
@@ -583,7 +582,7 @@ class TileManager:
     # power
     @property
     def power(self):
-        if self._power == None:
+        if self._power is None:
             return None
         return self._power
 
@@ -594,7 +593,7 @@ class TileManager:
     # bonus
     @property
     def bonus(self):
-        if self._bonus == None:
+        if self._bonus is None:
             return None
         return self._bonus
 
@@ -605,7 +604,7 @@ class TileManager:
     # strategic
     @property
     def strategic(self):
-        if self._strategic == None:
+        if self._strategic is None:
             return None
         return self._strategic
 
@@ -616,7 +615,7 @@ class TileManager:
     # luxury
     @property
     def luxury(self):
-        if self._luxury == None:
+        if self._luxury is None:
             return None
         return self._luxury
 
@@ -627,7 +626,7 @@ class TileManager:
     # trader
     @property
     def trader(self):
-        if self._trader == None:
+        if self._trader is None:
             return None
         return self._trader
 
@@ -642,8 +641,6 @@ class TileManager:
             orig_yield = getattr(getattr(self, tile_index), resource)
             tile_yield = getattr(getattr(getattr(self, tile_index), tile_type), resource)
             new_yield = orig_yield + tile_yield
-            # if resource == 'food':
-                # print(orig_yield, tile_yield, new_yield)
             setattr(getattr(self, tile_index), resource, new_yield)
             return tile_yield
             # return getattr(getattr(getattr(self, tile_index), tile_type), resource)
@@ -694,12 +691,11 @@ class TileManager:
         except AttributeError:
             pass
 
-
     def calculate_tile_yield(self, tile_index):
         """
         This will run both the adjacency and era calculators to get a final tile yield.
         """
-        # if tile_index == None:
+        # if tile_index is None:
         #     print('for testing only running first few keys. Fix this later!!!!')
         #     search_list = list(self.adjacency_members.keys())[:7]
         #     # search_list = self.adjacency_members.keys()
@@ -714,7 +710,7 @@ class TileManager:
             print('has wonder')
             # self._calculate_wonder(tile_index)
             return None
-            
+
         if getattr(self, tile_index).district is not None:
             print('has district')
             self._calculate_district(tile_index)

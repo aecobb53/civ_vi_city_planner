@@ -6,6 +6,7 @@ from backend.features.rainforest import Rainforest
 from backend.features.geothermal_fissure import GeothermalFissure
 from backend.features.reef import Reef
 
+
 class Campus(CommonTile):
 
     def __init__(self):

@@ -141,6 +141,5 @@ class HolySite(CommonTile):
         target_object.faith = target_object.faith + adj_mountain
         target_object.faith = target_object.faith + math.floor(adj_district / 2)
 
-
     def calculate_specialist_yield(self):
         self.faith = self.faith + self.citizen_slot * self.specialist_yield

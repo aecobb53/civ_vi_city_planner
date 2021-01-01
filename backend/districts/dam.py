@@ -3,6 +3,7 @@ import math
 
 from backend.features.river import River
 
+
 class Dam(CommonTile):
 
     def __init__(self):
@@ -77,7 +78,7 @@ class Dam(CommonTile):
         final_improvement=None,
         powered=None):
 
-        if final_improvement == None:
+        if final_improvement is None:
             self.powered = True
             final_improvement = 'hydroelectric_dam'
         if final_improvement == 'hydroelectric_dam' and powered is None:
@@ -101,7 +102,7 @@ class Dam(CommonTile):
 
     def calculate_adjacency(self, tile_obj, target_index, adj_list):  # pragma: no cover
         """
-        I dont know if removing a dam from the orig object like this will actually work... 
+        I dont know if removing a dam from the orig object like this will actually work...
         if it doesnt it needs to be taken care of in another method
         """
         target_object = getattr(tile_obj, target_index)

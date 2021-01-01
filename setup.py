@@ -23,5 +23,6 @@ class SetupWeatherman:
             if not os.path.exists(directory):
                 os.makedirs(directory)
 
+
 if __name__ == '__main__':
     print('its the main app so its should run the full setup')

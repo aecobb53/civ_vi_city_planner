@@ -147,7 +147,7 @@ class Harbor(CommonTile):
             if adj_obj is None:
                 continue
             if adj_obj.district is not None:
-                adj_district += 1 # TODO TEST THIS!! HERE
+                adj_district += 1  # TODO TEST THIS!! HERE
             if isinstance(adj_obj.district, CityCenter):
                 adj.city_center += 1
             if isinstance(adj_obj.terrain, Coast) or isinstance(adj_obj.terrain, Ocean):
@@ -156,10 +156,7 @@ class Harbor(CommonTile):
         target_object.gold = target_object.gold + adj_sea
         target_object.gold = target_object.gold + math.floor(adj_district / 2)
         if self.seaport:
-            self.production = self.production + (\
-                (adj_city_center * 2) + \
-                adj_sea + \
-                math.floor(adj_district / 2))
+            self.production = self.production + ((adj_city_center * 2) + adj_sea + math.floor(adj_district / 2))
 
     def calculate_specialist_yield(self):
         self.gold = self.gold + self.citizen_slot * self.specialist_gold_yield

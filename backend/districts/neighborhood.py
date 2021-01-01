@@ -1,8 +1,6 @@
 from backend.common_tile import CommonTile
 import math
 
-# from backend.districts.water_park import WaterPark
-# from backend.districts.entertainment_complex import EntertainmentComplex
 
 class Neighborhood(CommonTile):
 
@@ -32,7 +30,7 @@ class Neighborhood(CommonTile):
         self._building_list.append(value)
 
     def remove_building_list(self, value):
-        if self._building_list == None:
+        if self._building_list is None:
             return None
         self._building_list.remove(value)
 
@@ -126,7 +124,7 @@ class Neighborhood(CommonTile):
         final_improvement=None,
         powered=None):
 
-        if final_improvement == None:
+        if final_improvement is None:
             self.powered = True
             final_improvement = 'shopping_mall'
         try:

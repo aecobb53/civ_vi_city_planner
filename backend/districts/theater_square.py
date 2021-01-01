@@ -4,6 +4,7 @@ import math
 from backend.districts.water_park import WaterPark
 from backend.districts.entertainment_complex import EntertainmentComplex
 
+
 class TheaterSquare(CommonTile):
 
     def __init__(self):
@@ -40,7 +41,7 @@ class TheaterSquare(CommonTile):
         self._building_list.append(value)
 
     def remove_building_list(self, value):
-        if self._building_list == None:
+        if self._building_list is None:
             return None
         self._building_list.remove(value)
 

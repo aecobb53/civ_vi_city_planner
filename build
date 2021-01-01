@@ -15,10 +15,10 @@ setup () {
 
 start_container () {
     COMPOSE_EXIT_CODE=2
-    echo $1 # env (prod, reg, dev, test)
-    echo $2 # Service
-    echo $3
-    echo $@
+    # echo $1 # env (prod, reg, dev, test)
+    # echo $2 # Service
+    # echo $3
+    # echo $@
 
     case "$1" in
         # prod

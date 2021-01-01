@@ -141,7 +141,7 @@ class CommercialHub(CommonTile):
             if adj_obj is None:
                 continue
             if adj_obj.district is not None:
-                adj_district += 1 # TODO TEST THIS!! HERE
+                adj_district += 1  # TODO TEST THIS!! HERE
             if isinstance(adj_obj.feature, Harbor):
                 adj_harbor += 1
             if isinstance(adj_obj.feature, River):

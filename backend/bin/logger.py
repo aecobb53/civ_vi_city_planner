@@ -216,7 +216,7 @@ class Logger:
             self.create_ch is None and \
             self.create_sh is None and \
             self.create_th is None:
-            
+
             self.create_fh = True
             self.create_ch = True
 

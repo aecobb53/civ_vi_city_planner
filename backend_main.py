@@ -23,6 +23,7 @@ class Backend:
     def __init__(self):
         pass
 
+
 app = FastAPI()  # noqa
 
 be = Backend()

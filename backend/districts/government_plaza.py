@@ -45,7 +45,7 @@ class GovernmentPlaza(CommonTile):
         self._building_list.append(value)
 
     def remove_building_list(self, value):
-        if self._building_list == None:
+        if self._building_list is None:
             return None
         self._building_list.remove(value)
 
@@ -74,7 +74,7 @@ class GovernmentPlaza(CommonTile):
             self.maintenance = self.maintenance - 1
             self.remove_building_list('ancestral_hall')
             self._ancestral_hall = None
-            
+
     # audience_chamber
     @property
     def audience_chamber(self):
@@ -99,7 +99,7 @@ class GovernmentPlaza(CommonTile):
             self.maintenance = self.maintenance - 1
             self.remove_building_list('audience_chamber')
             self._audience_chamber = None
-            
+
     # warlords_throne
     @property
     def warlords_throne(self):
@@ -124,7 +124,7 @@ class GovernmentPlaza(CommonTile):
             self.maintenance = self.maintenance - 1
             self.remove_building_list('warlords_throne')
             self._warlords_throne = None
-            
+
     # Tier II
     # foreign_ministry
     @property
@@ -150,7 +150,7 @@ class GovernmentPlaza(CommonTile):
             self.maintenance = self.maintenance - 2
             self.remove_building_list('foreign_ministry')
             self._foreign_ministry = None
-            
+
     # grand_masters_chapel
     @property
     def grand_masters_chapel(self):
@@ -177,7 +177,7 @@ class GovernmentPlaza(CommonTile):
             self.faith = self.faith - 5
             self.remove_building_list('grand_masters_chapel')
             self._grand_masters_chapel = None
-            
+
     # intelligence_agency
     @property
     def intelligence_agency(self):
@@ -202,7 +202,7 @@ class GovernmentPlaza(CommonTile):
             self.maintenance = self.maintenance - 2
             self.remove_building_list('intelligence_agency')
             self._intelligence_agency = None
-            
+
     # Tier III
     # national_history_museum
     @property
@@ -228,7 +228,7 @@ class GovernmentPlaza(CommonTile):
             self.maintenance = self.maintenance - 3
             self.remove_building_list('national_history_museum')
             self._national_history_museum = None
-            
+
     # royal_society
     @property
     def royal_society(self):
@@ -253,7 +253,7 @@ class GovernmentPlaza(CommonTile):
             self.maintenance = self.maintenance - 3
             self.remove_building_list('royal_society')
             self._royal_society = None
-            
+
     # war_department
     @property
     def war_department(self):
@@ -278,7 +278,7 @@ class GovernmentPlaza(CommonTile):
             self.maintenance = self.maintenance - 3
             self.remove_building_list('war_department')
             self._war_department = None
-            
+
     # power - Whats the power draw
     @property
     def power(self):

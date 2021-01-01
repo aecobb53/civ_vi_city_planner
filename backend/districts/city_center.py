@@ -1,5 +1,6 @@
 from backend.common_tile import CommonTile
 
+
 class CityCenter(CommonTile):
 
     def __init__(self):
@@ -29,18 +30,18 @@ class CityCenter(CommonTile):
     # building_list
     @property
     def building_list(self):
-        if self._building_list == None:
+        if self._building_list is None:
             return None
         return self._building_list
 
     # @building_list.setter
     def update_building_list(self, value):
-        if self._building_list == None:
+        if self._building_list is None:
             self._building_list = []
         self._building_list.append(value)
 
     def remove_building_list(self, value):
-        if self._building_list == None:
+        if self._building_list is None:
             return None
         self._building_list.remove(value)
 
@@ -68,8 +69,8 @@ class CityCenter(CommonTile):
     @granary.setter
     def granary(self, value):
         if value:
-            self.food = self.food  + 1
-            self.housing = self.housing  + 2
+            self.food = self.food + 1
+            self.housing = self.housing + 2
             self.update_building_list('granary')
             self._granary = True
 
@@ -191,7 +192,7 @@ class CityCenter(CommonTile):
 
     def set_buildings(self, final_improvement=None, powered=None):
 
-        if final_improvement == None:
+        if final_improvement is None:
             # self.powered = True
             final_improvement = 'flood_barrier'
         try:

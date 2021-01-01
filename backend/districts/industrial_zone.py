@@ -8,6 +8,7 @@ from backend.improvements.quarry import Quarry
 from backend.improvements.mine import Mine
 from backend.improvements.lumber_mill import LumberMill
 
+
 class IndustrialZone(CommonTile):
 
     def __init__(self):
@@ -46,7 +47,7 @@ class IndustrialZone(CommonTile):
         self._building_list.append(value)
 
     def remove_building_list(self, value):
-        if self._building_list == None:
+        if self._building_list is None:
             return None
         self._building_list.remove(value)
 
@@ -239,7 +240,7 @@ class IndustrialZone(CommonTile):
             if adj_obj is None:
                 continue
             if adj_obj.district is not None:
-                adj_district += 1 # TODO TEST THIS!! HERE
+                adj_district += 1  # TODO TEST THIS!! HERE
             if isinstance(adj_obj.district, (Aqueduct, Dam, Canal)):
                 adj_dist_production += 1
             if isinstance(adj_obj.improvement, Quarry):

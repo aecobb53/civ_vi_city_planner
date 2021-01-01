@@ -18,11 +18,11 @@ from backend.resources import *
 
 class Tile(CommonTile):
     """
-    This manages the aspects of a tile. Simple things like ther can only be one terrain feature. 
+    This manages the aspects of a tile. Simple things like ther can only be one terrain feature.
     """
 
     def __init__(
-        self, 
+        self,
         tile_list):
         super().__init__()
         self._terrain = None
@@ -237,7 +237,6 @@ class Tile(CommonTile):
 
             if name in self.list_of_resources:
                 tile_parts['resources'] = name
-
 
         for name in tile_parts.values():
             # Then i loop through the dict that was just created to assign things in order
@@ -766,7 +765,7 @@ class Tile(CommonTile):
     # terrain
     @property
     def terrain(self):
-        if self._terrain == None:
+        if self._terrain is None:
             return None
         return self._terrain
 
@@ -777,7 +776,7 @@ class Tile(CommonTile):
     # feature
     @property
     def feature(self):
-        if self._feature == None:
+        if self._feature is None:
             return None
         return self._feature
 
@@ -788,7 +787,7 @@ class Tile(CommonTile):
     # river
     @property
     def river(self):
-        if self._river == None:
+        if self._river is None:
             return None
         return self._river
 
@@ -799,7 +798,7 @@ class Tile(CommonTile):
     # resource
     @property
     def resource(self):
-        if self._resource == None:
+        if self._resource is None:
             return None
         return self._resource
 
@@ -810,7 +809,7 @@ class Tile(CommonTile):
     # improvement
     @property
     def improvement(self):
-        if self._improvement == None:
+        if self._improvement is None:
             return None
         return self._improvement
 
@@ -821,7 +820,7 @@ class Tile(CommonTile):
     # district
     @property
     def district(self):
-        if self._district == None:
+        if self._district is None:
             return None
         return self._district
 
@@ -832,7 +831,7 @@ class Tile(CommonTile):
     # wonder
     @property
     def wonder(self):
-        if self._wonder == None:
+        if self._wonder is None:
             return None
         return self._wonder
 
@@ -841,5 +840,3 @@ class Tile(CommonTile):
         self._wonder = value
 
     # def return_yield(self):
-
-

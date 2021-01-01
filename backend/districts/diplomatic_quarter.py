@@ -30,13 +30,13 @@ class DiplomaticQuarter(CommonTile):
             self._building_list = []
         self._building_list.append(value)
 
-    #consulate
+    # consulate
     @property
     def consulate(self):
         if self._consulate is None:
             return False
         return self._consulate
-    
+
     @consulate.setter
     def consulate(self, value):
         if value:
@@ -44,13 +44,13 @@ class DiplomaticQuarter(CommonTile):
             self.update_building_list('consulate')
             self._consulate = True
 
-    #chancery
+    # chancery
     @property
     def chancery(self):
         if self._chancery is None:
             return False
         return self._chancery
-    
+
     @chancery.setter
     def chancery(self, value):
         if value:

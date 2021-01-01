@@ -82,7 +82,6 @@ class EntertainmentComplex(CommonTile):
             self.update_building_list('stadium')
             self._stadium = True
 
-
     # power - Whats the power draw
     @property
     def power(self):
@@ -130,6 +129,7 @@ class EntertainmentComplex(CommonTile):
                 break
             else:
                 setattr(self, building, True)
+
     def calculate_adjacency(self, tile_obj, target_index, adj_list):  # pragma: no cover
         pass
 

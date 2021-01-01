@@ -26,10 +26,10 @@ class CommonTile:
         self._luxury = None
         self._trader = None
 
-    # erah
+    # era
     @property
     def erah(self):
-        if self._erah == None:
+        if self._erah is None:
             return None
         return self._erah
 
@@ -37,10 +37,10 @@ class CommonTile:
     def erah(self, value):
         self._erah = value
 
-    # govener        
+    # govener
     @property
     def govener(self):
-        if self._govener == None:
+        if self._govener is None:
             return None
         return self._govener
 
@@ -48,10 +48,10 @@ class CommonTile:
     def govener(self, value):
         self._govener = value
 
-    # food        
+    # food
     @property
     def food(self):
-        if self._food == None:
+        if self._food is None:
             return 0
         return self._food
 
@@ -59,10 +59,10 @@ class CommonTile:
     def food(self, value):
         self._food = value
 
-    # production        
+    # production
     @property
     def production(self):
-        if self._production == None:
+        if self._production is None:
             return 0
         return self._production
 
@@ -70,10 +70,10 @@ class CommonTile:
     def production(self, value):
         self._production = value
 
-    # gold        
+    # gold
     @property
     def gold(self):
-        if self._gold == None:
+        if self._gold is None:
             return 0
         return self._gold
 
@@ -81,10 +81,10 @@ class CommonTile:
     def gold(self, value):
         self._gold = value
 
-    # science        
+    # science
     @property
     def science(self):
-        if self._science == None:
+        if self._science is None:
             return 0
         return self._science
 
@@ -92,10 +92,10 @@ class CommonTile:
     def science(self, value):
         self._science = value
 
-    # culture        
+    # culture
     @property
     def culture(self):
-        if self._culture == None:
+        if self._culture is None:
             return 0
         return self._culture
 
@@ -103,10 +103,10 @@ class CommonTile:
     def culture(self, value):
         self._culture = value
 
-    # faith        
+    # faith
     @property
     def faith(self):
-        if self._faith == None:
+        if self._faith is None:
             return 0
         return self._faith
 
@@ -114,10 +114,10 @@ class CommonTile:
     def faith(self, value):
         self._faith = value
 
-    # tourism        
+    # tourism
     @property
     def tourism(self):
-        if self._tourism == None:
+        if self._tourism is None:
             return 0
         return self._tourism
 
@@ -125,10 +125,10 @@ class CommonTile:
     def tourism(self, value):
         self._tourism = value
 
-    # population        
+    # population
     @property
     def population(self):
-        if self._population == None:
+        if self._population is None:
             return 0
         return self._population
 
@@ -136,10 +136,10 @@ class CommonTile:
     def population(self, value):
         self._population = value
 
-    # housing        
+    # housing
     @property
     def housing(self):
-        if self._housing == None:
+        if self._housing is None:
             return 0
         return self._housing
 
@@ -147,10 +147,10 @@ class CommonTile:
     def housing(self, value):
         self._housing = value
 
-    # citizen_slot
+    # citizen_slo
     @property
     def citizen_slot(self):
-        if self._citizen_slot == None:
+        if self._citizen_slot is None:
             return 0
         return self._citizen_slot
 
@@ -158,10 +158,10 @@ class CommonTile:
     def citizen_slot(self, value):
         self._citizen_slot = value
 
-    # amenities        
+    # amenities
     @property
     def amenities(self):
-        if self._amenities == None:
+        if self._amenities is None:
             return 0
         return self._amenities
 
@@ -169,10 +169,10 @@ class CommonTile:
     def amenities(self, value):
         self._amenities = value
 
-    # power
+    # powe
     @property
     def power(self):
-        if self._power == None:
+        if self._power is None:
             return 0
         return self._power
 
@@ -180,10 +180,10 @@ class CommonTile:
     def power(self, value):
         self._power = value
 
-    # powered
+    # powere
     @property
     def powered(self):
-        if self._powered == None:
+        if self._powered is None:
             return False
         return self._powered
 
@@ -191,10 +191,10 @@ class CommonTile:
     def power(self, value):
         self._powered = value
 
-    # appeal
+    # appea
     @property
     def appeal(self):
-        if self._appeal == None:
+        if self._appeal is None:
             return 0
         return self._appeal
 
@@ -202,21 +202,21 @@ class CommonTile:
     def appeal(self, value):
         self._appeal = value
 
-    # maintenance
+    # maintenanc
     @property
     def maintenance(self):
         if self._maintenance is None:
             return 0
         return self._maintenance
-    
+
     @maintenance.setter
     def maintenance(self, value):
         self._maintenance = value
 
-    # bonus        
+    # bonus
     @property
     def bonus(self):
-        if self._bonus == None:
+        if self._bonus is None:
             return None
         return self._bonus
 
@@ -224,10 +224,10 @@ class CommonTile:
     def bonus(self, value):
         self._bonus = value
 
-    # strategic        
+    # strategic
     @property
     def strategic(self):
-        if self._strategic == None:
+        if self._strategic is None:
             return None
         return self._strategic
 
@@ -235,10 +235,10 @@ class CommonTile:
     def strategic(self, value):
         self._strategic = value
 
-    # luxury        
+    # luxury
     @property
     def luxury(self):
-        if self._luxury == None:
+        if self._luxury is None:
             return None
         return self._luxury
 
@@ -246,14 +246,13 @@ class CommonTile:
     def luxury(self, value):
         self._luxury = value
 
-    # trader        
+    # trader
     @property
     def trader(self):
-        if self._trader == None:
+        if self._trader is None:
             return None
         return self._trader
 
     @trader.setter
     def trader(self, value):
         self._trader = value
-        
