@@ -1,5 +1,6 @@
 from backend.common_tile import CommonTile
 
+
 class WindFarm(CommonTile):
 
     def __init__(self):

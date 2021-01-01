@@ -1,5 +1,6 @@
 from backend.common_tile import CommonTile
 
+
 class Wheat(CommonTile):
 
     def __init__(self):

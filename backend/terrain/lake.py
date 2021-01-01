@@ -1,5 +1,6 @@
 from backend.common_tile import CommonTile
 
+
 class Lake(CommonTile):
 
     def __init__(

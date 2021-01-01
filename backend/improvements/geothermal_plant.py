@@ -1,5 +1,6 @@
 from backend.common_tile import CommonTile
 
+
 class GeothermalPlant(CommonTile):
 
     def __init__(self):

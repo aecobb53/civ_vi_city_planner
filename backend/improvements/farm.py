@@ -1,6 +1,7 @@
 from backend.common_tile import CommonTile
 import math
 
+
 class Farm(CommonTile):
 
     def __init__(self):

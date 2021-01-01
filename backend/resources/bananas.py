@@ -1,5 +1,6 @@
 from backend.common_tile import CommonTile
 
+
 class Bananas(CommonTile):
 
     def __init__(self):

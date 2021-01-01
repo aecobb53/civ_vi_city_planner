@@ -1,5 +1,6 @@
 from backend.common_tile import CommonTile
 
+
 class SkiResort(CommonTile):
 
     def __init__(self):
@@ -10,7 +11,7 @@ class SkiResort(CommonTile):
             'mountains',
         ]
         self.resources = None
-    
+
     def calculate_erah(self, tile_obj, target_index, adj_list):  # pragma: no cover
         target_object = getattr(tile_obj, target_index)
         if target_object.appeal > 0:

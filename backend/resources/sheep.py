@@ -1,5 +1,6 @@
 from backend.common_tile import CommonTile
 
+
 class Sheep(CommonTile):
 
     def __init__(self):

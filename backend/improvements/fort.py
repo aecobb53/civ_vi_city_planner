@@ -1,5 +1,6 @@
 from backend.common_tile import CommonTile
 
+
 class Fort(CommonTile):
 
     def __init__(self):

@@ -1,5 +1,6 @@
 from backend.common_tile import CommonTile
 
+
 class Crabs(CommonTile):
 
     def __init__(self):

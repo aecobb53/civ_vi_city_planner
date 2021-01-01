@@ -130,6 +130,7 @@ class WaterPark(CommonTile):
                 break
             else:
                 setattr(self, building, True)
+
     def calculate_adjacency(self, tile_obj, target_index, adj_list):  # pragma: no cover
         pass
 

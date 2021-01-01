@@ -161,7 +161,7 @@ class TheaterSquare(CommonTile):
         final_improvement=None,
         powered=None):
 
-        if final_improvement == None:
+        if final_improvement is None:
             self.powered = True
             final_improvement = 'broadcast_center'
         try:
@@ -194,7 +194,7 @@ class TheaterSquare(CommonTile):
             if adj_obj.wonder is not None:
                 adj_wonder += 1
             if adj_obj.district is not None:
-                adj_district += 1 # TODO TEST THIS!! HERE
+                adj_district += 1  # TODO TEST THIS!! HERE
             if isinstance(adj_obj.district, WaterPark):
                 adj_water_part += 1
             if isinstance(adj_obj.district, EntertainmentComplex):

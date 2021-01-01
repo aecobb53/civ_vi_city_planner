@@ -1,5 +1,6 @@
 from backend.common_tile import CommonTile
 
+
 class Ocean(CommonTile):
 
     def __init__(

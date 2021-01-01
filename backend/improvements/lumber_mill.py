@@ -1,5 +1,6 @@
 from backend.common_tile import CommonTile
 
+
 class LumberMill(CommonTile):
 
     def __init__(self):

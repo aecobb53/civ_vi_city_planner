@@ -1,5 +1,6 @@
 from backend.common_tile import CommonTile
 
+
 class Mine(CommonTile):
 
     def __init__(self):
@@ -28,7 +29,6 @@ class Mine(CommonTile):
             'uranium',
             'amber',
         ]
-
 
     def calculate_erah(self, tile_obj, target_index, adj_list):  # pragma: no cover
         target_object = getattr(tile_obj, target_index)

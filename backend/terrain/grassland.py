@@ -1,5 +1,6 @@
 from backend.common_tile import CommonTile
 
+
 class Grassland(CommonTile):
 
     def __init__(

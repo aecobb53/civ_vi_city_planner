@@ -1,5 +1,6 @@
 from backend.common_tile import CommonTile
 
+
 class Cattle(CommonTile):
 
     def __init__(self):

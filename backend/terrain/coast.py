@@ -1,5 +1,6 @@
 from backend.common_tile import CommonTile
 
+
 class Coast(CommonTile):
 
     def __init__(
