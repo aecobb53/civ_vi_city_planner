@@ -67,7 +67,7 @@ services:
             - ENVIRONMENT=test
             - SERVICE=lint
 
-    sh:
+    bash:
         build: 
             context: .
             dockerfile: features/Dockerfile
