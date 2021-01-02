@@ -55,16 +55,7 @@ def after_all(context):
 def before_scenario(context, scenario):
     # print(scenario)
     if 'DEBUG' in scenario.tags:
-        # print('updating to debug')
-        # print(logit)
-        # print(logger.__dict__)
-        # logit.debug('logging before')
         logger.update_consol_level('DEBUG')
-        # logger.return_logit()
-        # logit = logger.return_logit()
-        # logit.debug('logging after')
-        # print(logit)
-        # print(logger.__dict__)
 
     if 'INFO' in scenario.tags:
         logger.update_consol_level('INFO')
@@ -80,5 +71,5 @@ def before_scenario(context, scenario):
     #     context.run = False
 
 def after_scenario(context, scenario):
-    # logger.update_consol_level('WARNING')
+    logger.update_consol_level('WARNING')
     pass

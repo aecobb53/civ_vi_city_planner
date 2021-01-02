@@ -156,7 +156,7 @@ class Campus(CommonTile):
                 adj_geo_reef += 1
         target_object.science = target_object.science + adj_mountain
         target_object.science = target_object.science + math.floor(adj_rainforest / 2)
-        target_object.science = target_object.science + adj_geo_reef
+        target_object.science = target_object.science + adj_geo_reef * 2
 
     def calculate_specialist_yield(self):
         self.science = self.science + self.citizen_slot * self.specialist_yield

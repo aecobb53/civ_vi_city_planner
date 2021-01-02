@@ -61,7 +61,7 @@ class Tile(CommonTile):
             'cataract',
             'volcano',
             'volcanic_soil',
-            'geothermal',
+            'geothermal_fissure',
         ]
         self.list_of_improvements = [
             'farm',
@@ -322,10 +322,10 @@ class Tile(CommonTile):
                 if 'volcanic_soil' in name:
                     self.feature = Volcanic_soil()
 
-                if 'geothermal' in name:
-                    self.feature = Geothermal()
+                if 'geothermal_fissure' in name:
+                    self.feature = GeothermalFissure()
 
-                terrain_type = str(type(self.terrain)).split('.')[1]
+                terrain_type = str(type(self.terrain)).split('.')[2]
                 if terrain_type not in self.feature.acceptable_terrain:
                     self.feature = None
 
@@ -494,8 +494,8 @@ class Tile(CommonTile):
                 if name == 'uranium':
                     self.resource = Uranium()
 
-                terrain_type = str(type(self.terrain)).split('.')[1]
-                feature_type = str(type(self.feature)).split('.')[1]
+                terrain_type = str(type(self.terrain)).split('.')[2]
+                feature_type = str(type(self.feature)).split('.')[2]
 
                 try:
                     if terrain_type not in self.resource.terrain:
@@ -679,19 +679,19 @@ class Tile(CommonTile):
                     self.improvement = Fishery()
 
                 try:
-                    terrain_type = str(type(self.terrain)).split('.')[1]
+                    terrain_type = str(type(self.terrain)).split('.')[2]
                     if terrain_type not in self.improvement.terrain:
                         self.improvement = None
                 except:
                     pass
                 try:
-                    feature_type = str(type(self.feature)).split('.')[1]
+                    feature_type = str(type(self.feature)).split('.')[2]
                     if feature_type not in self.improvement.features:
                         self.improvement = None
                 except:
                     pass
                 try:
-                    resource_type = str(type(self.resource)).split('.')[1]
+                    resource_type = str(type(self.resource)).split('.')[2]
                     if resource_type not in self.improvement.resources:
                         self.improvement = None
                 except:

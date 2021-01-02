@@ -1,4 +1,4 @@
-from backend.bin.logger import Logger
+from backend.bin.logger_borg import Logger
 
 # logging_mod = logger
 
