@@ -1,8 +1,8 @@
 import os
 
 # Logging
-from steps import steps_logging
-logit, logger = steps_logging.setup()
+from steps import steps_logging_handler
+logit, logger = steps_logging_handler.setup()
 
 
 # sql_database = 'db/weatherman_behave.sql'
@@ -39,12 +39,12 @@ def startup():
 
 def before_all(context):
     print('Setting up environment')
-    database_cleanup()
-    move_logging()
+    # database_cleanup()
+    # move_logging()
 
 def after_all(context):
     print('Cleaning up environment')
-    database_cleanup()
+    # database_cleanup()
     
 # def before_feature(context, feature):
 #     print('before')
@@ -55,20 +55,30 @@ def after_all(context):
 def before_scenario(context, scenario):
     # print(scenario)
     if 'DEBUG' in scenario.tags:
+        # print('updating to debug')
+        # print(logit)
+        # print(logger.__dict__)
+        # logit.debug('logging before')
         logger.update_consol_level('DEBUG')
+        # logger.return_logit()
+        # logit = logger.return_logit()
+        # logit.debug('logging after')
+        # print(logit)
+        # print(logger.__dict__)
+
     if 'INFO' in scenario.tags:
         logger.update_consol_level('INFO')
     if 'WARNING' in scenario.tags:
         logger.update_consol_level('WARNING')
-    if 'database' in scenario.tags:
-        database_cleanup()
-    if 'owma' in scenario.tags:
-        pass
-    if 'on' in scenario.tags:
-        context.run = True
-    if 'off' in scenario.tags:
-        context.run = False
+    # if 'database' in scenario.tags:
+    #     database_cleanup()
+    # if 'owma' in scenario.tags:
+    #     pass
+    # if 'on' in scenario.tags:
+    #     context.run = True
+    # if 'off' in scenario.tags:
+    #     context.run = False
 
 def after_scenario(context, scenario):
-    logger.update_consol_level('WARNING')
+    # logger.update_consol_level('WARNING')
     pass
