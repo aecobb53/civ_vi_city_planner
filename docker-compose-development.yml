@@ -41,7 +41,7 @@ services:
         volumes:
             - mongodb_data_container:/data/db
 
-    sh:
+    bash:
         build: 
             context: .
             dockerfile: features/Dockerfile
