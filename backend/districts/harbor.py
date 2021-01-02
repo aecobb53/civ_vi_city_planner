@@ -1,120 +1,125 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
 import math
-from features.mountain import Mountain
-from features.rainforest import Rainforest
-from features.geothermal_fissure import GeothermalFissure
-from features.reef import Reef
 
-class Campus(CommonTile):
+from backend.districts.city_center import CityCenter
+from backend.terrain.coast import Coast
+from backend.terrain.ocean import Ocean
+
+
+class Harbor(CommonTile):
 
     def __init__(self):
         super().__init__()
         self.default_building_list = [
-            'library',
-            'university',
-            'research_lab',
+            'lighthouse',
+            'shipyard',
+            'seaport',
         ]
         self._building_list = None
-        self._library = None
-        self._university = None
-        self._research_lab = None
+        self._lighthouse = None
+        self._shipyard = None
+        self._seaport = None
         self._powered = None
         self._power = None
+        self.specialist_gold_yield = 2
+        self.specialist_food_yield = 1
 
     # building_list
     @property
     def building_list(self):
-        if self._building_list == None:
+        if self._building_list is None:
             return None
         return self._building_list
 
     # @building_list.setter
     def update_building_list(self, value):
-        if self._building_list == None:
+        if self._building_list is None:
             self._building_list = []
         self._building_list.append(value)
 
-    # library
+    # lighthouse
     @property
-    def library(self):
-        if self._library == None:
-            return None
-        return self._library
+    def lighthouse(self):
+        if self._lighthouse is None:
+            return False
+        return self._lighthouse
 
-    @library.setter
-    def library(self, value):
-        if value == True:
-            self.science = self.science + 2
+    @lighthouse.setter
+    def lighthouse(self, value):
+        if value:
+            self.food = self.food + 1
+            self.gold = self.gold + 1
+            self.housing = self.housing + 1
             self.citizen_slot = self.citizen_slot + 1
-            self.update_building_list('library')
-            self._library = True
+            self.update_building_list('lighthouse')
+            self._lighthouse = True
 
-    # university
+    # shipyard
     @property
-    def university(self):
-        if self._university == None:
-            return None
-        return self._university
+    def shipyard(self):
+        if self._shipyard is None:
+            return False
+        return self._shipyard
 
-    @university.setter
-    def university(self, value):
-        if value == True:
-            self.science = self.science + 4
-            self.houseing = self.houseing + 1
+    @shipyard.setter
+    def shipyard(self, value):
+        if value:
             self.citizen_slot = self.citizen_slot + 1
-            self.update_building_list('university')
-            self._university = True
+            self.maintenance = self.maintenance + 2
+            self.update_building_list('shipyard')
+            self._shipyard = True
 
-    # research_lab
+    # seaport
     @property
-    def research_lab(self):
-        if self._research_lab == None:
-            return None
-        return self._research_lab
+    def seaport(self):
+        if self._seaport is None:
+            return False
+        return self._seaport
 
-    @research_lab.setter
-    def research_lab(self, value):
-        if value == True:
-            self.science = self.science + 3
-            if self.powered:
-                self.science = self.science + 5
-            self.houseing = self.houseing + 1
+    @seaport.setter
+    def seaport(self, value):
+        if value:
+            self.food = self.food + 2
+            self.gold = self.gold + 2
+            self.housing = self.housing + 1
             self.citizen_slot = self.citizen_slot + 1
-            self.update_building_list('research_lab')
-            self._research_lab = True
+            self.specialist_food_yield += 1
+            self.update_building_list('seaport')
+            self._seaport = True
 
-    # power
+    # power - Whats the power draw
     @property
     def power(self):
-        if self._power == None:
+        if self._power is None:
             return 0
-        self._power
+        return self._power
 
     @power.setter
     def power(self, value):
-        self._power = value
+        pass
+        # self._power = value
 
-    # powered
+    # powered - Does the city need power?
     @property
     def powered(self):
-        if self._powered == None:
+        if self._powered is None:
             return False
-        self._powered
+        return self._powered
 
     @powered.setter
     def powered(self, value):
-        self._power = 3
-        self._powered = value
+        # self.power = 3
+        # self._powered = value
+        pass
 
     def set_buildings(
         self,
         final_improvement=None,
         powered=None):
 
-        if final_improvement == None:
-            self.powered = True
-            # print(self.powered)
-            final_improvement = 'research_lab'
+        if final_improvement is None:
+            powered = True
+            final_improvement = 'seaport'
         try:
             final_improvement = int(final_improvement)
         except:
@@ -132,21 +137,27 @@ class Campus(CommonTile):
             else:
                 setattr(self, building, True)
 
-    def calculate_adjacency(self, tile_obj, target_index, adj_list):
+    def calculate_adjacency(self, tile_obj, target_index, adj_list):  # pragma: no cover
         target_object = getattr(tile_obj, target_index)
 
-        adj_mountain = 0
-        adj_rainforest = 0
-        adj_geo_reef = 0
+        adj_city_center = 0
+        adj_sea = 0
+        adj_districts = 0
         for adj_obj in adj_list:
             if adj_obj is None:
                 continue
-            if isinstance(adj_obj.feature, Mountain):
-                adj_mountain += 1
-            if isinstance(adj_obj.feature, Rainforest):
-                adj_rainforest += 1
-            if isinstance(adj_obj.feature, GeothermalFissure) or isinstance(adj_obj.feature, Reef):
-                adj_geo_reef += 1
-        target_object.science = target_object.science + adj_mountain
-        target_object.science = target_object.science + math.floor(adj_rainforest / 2)
-        target_object.science = target_object.science + adj_geo_reef
+            if adj_obj.district is not None:
+                adj_district += 1  # TODO TEST THIS!! HERE
+            if isinstance(adj_obj.district, CityCenter):
+                adj.city_center += 1
+            if isinstance(adj_obj.terrain, Coast) or isinstance(adj_obj.terrain, Ocean):
+                adj_sea += 1
+        target_object.gold = target_object.gold + (adj_city_center * 2)
+        target_object.gold = target_object.gold + adj_sea
+        target_object.gold = target_object.gold + math.floor(adj_district / 2)
+        if self.seaport:
+            self.production = self.production + ((adj_city_center * 2) + adj_sea + math.floor(adj_district / 2))
+
+    def calculate_specialist_yield(self):
+        self.gold = self.gold + self.citizen_slot * self.specialist_gold_yield
+        self.food = self.food + self.citizen_slot * self.specialist_food_yield

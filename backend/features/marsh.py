@@ -1,4 +1,4 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
 
 
 class Marsh(CommonTile):
@@ -7,5 +7,5 @@ class Marsh(CommonTile):
         super().__init__()
         self.food = 1
         self.acceptable_terrain = [
-            'grassland'
+            'grassland',
         ]

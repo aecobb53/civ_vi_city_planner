@@ -1,21 +1,13 @@
 import json
 import math
 
-# from common_tile import CommonTile
-# from tile_container import Tile
-# from terrain.grassland import Grassland
-# from terrain.plains import Plains
-# from features.woods import Woods
-# from improvements.farm import Farm
-# from districts.campus import Campus
-
-from common_tile import CommonTile
-from tile_container import Tile
-from terrain import *
-from features import *
-from improvements import *
-from districts import *
-from resources import *
+from backend.common_tile import CommonTile
+from backend.tile_container import Tile
+from backend.terrain import *
+from backend.features import *
+from backend.improvements import *
+from backend.districts import *
+from backend.resources import *
 
 
 class TileManager:
@@ -77,7 +69,7 @@ class TileManager:
         self._luxury = None
         self._trader = None
 
-        for k,v in kwargs.items():
+        for k, v in kwargs.items():
             if not isinstance(v, list):
                 v = [v]
             setattr(self, k, v)
@@ -131,7 +123,7 @@ class TileManager:
             'faith',
             'tourism',
             'population',
-            'houseing',
+            'housing',
             'amenities',
             'power',
             'appeal',
@@ -145,58 +137,10 @@ class TileManager:
             'improvement',
         ]
 
-        # Era:0 Ancient Era (4000 BC ~ 1000 BC)
-        # Era:1 Classical Era (1000 BC ~ 500 AD)
-        # Era:2 Medieval Era (500 ~ 1350)
-        # Era:3 Renaissance Era (1350 ~ 1725)
-        # Era:4 Industrial Era (1725 ~ 1890)
-        # Era:5 Modern Era (1890 ~ 1945)
-        # Era:6 Atomic Era (1945 ~ 1995)
-        # Era:7 Information Era (1995 ~ 2020)
-        # Era:8 Future Era GS-Only.png (2020 ~ 2050)
-        # print(json.dumps(self.__dict__, indent=4))
-        # print(f"cc: {self.cc}")
-        # print(f"i0: {self.i0}")
-        # print(f"i1: {self.i1}")
-        # print(f"i2: {self.i2}")
-        # print(f"i3: {self.i3}")
-        # print(f"i4: {self.i4}")
-        # print(f"i5: {self.i5}")
-        # print(f"m0: {self.m0}")
-        # print(f"m1: {self.m1}")
-        # print(f"m2: {self.m2}")
-        # print(f"m3: {self.m3}")
-        # print(f"m4: {self.m4}")
-        # print(f"m5: {self.m5}")
-        # print(f"m6: {self.m6}")
-        # print(f"m7: {self.m7}")
-        # print(f"m8: {self.m8}")
-        # print(f"m9: {self.m9}")
-        # print(f"m10: {self.m10}")
-        # print(f"m11: {self.m11}")
-        # print(f"o0: {self.o0}")
-        # print(f"o1: {self.o1}")
-        # print(f"o2: {self.o2}")
-        # print(f"o3: {self.o3}")
-        # print(f"o4: {self.o4}")
-        # print(f"o5: {self.o5}")
-        # print(f"o6: {self.o6}")
-        # print(f"o7: {self.o7}")
-        # print(f"o8: {self.o8}")
-        # print(f"o9: {self.o9}")
-        # print(f"o10: {self.o10}")
-        # print(f"o11: {self.o11}")
-        # print(f"o12: {self.o12}")
-        # print(f"o13: {self.o13}")
-        # print(f"o14: {self.o14}")
-        # print(f"o15: {self.o15}")
-        # print(f"o16: {self.o16}")
-        # print(f"o17: {self.o17}")
-
     # cc
     @property
     def cc(self):
-        if self._cc == None:
+        if self._cc is None:
             return None
         return self._cc
 
@@ -207,7 +151,7 @@ class TileManager:
     # i0
     @property
     def i0(self):
-        if self._i0 == None:
+        if self._i0 is None:
             return None
         return self._i0
 
@@ -218,7 +162,7 @@ class TileManager:
     # i1
     @property
     def i1(self):
-        if self._i1 == None:
+        if self._i1 is None:
             return None
         return self._i1
 
@@ -229,7 +173,7 @@ class TileManager:
     # i2
     @property
     def i2(self):
-        if self._i2 == None:
+        if self._i2 is None:
             return None
         return self._i2
 
@@ -240,7 +184,7 @@ class TileManager:
     # i3
     @property
     def i3(self):
-        if self._i3 == None:
+        if self._i3 is None:
             return None
         return self._i3
 
@@ -251,7 +195,7 @@ class TileManager:
     # i4
     @property
     def i4(self):
-        if self._i4 == None:
+        if self._i4 is None:
             return None
         return self._i4
 
@@ -262,7 +206,7 @@ class TileManager:
     # i5
     @property
     def i5(self):
-        if self._i5 == None:
+        if self._i5 is None:
             return None
         return self._i5
 
@@ -273,7 +217,7 @@ class TileManager:
     # m0
     @property
     def m0(self):
-        if self._m0 == None:
+        if self._m0 is None:
             return None
         return self._m0
 
@@ -284,7 +228,7 @@ class TileManager:
     # m1
     @property
     def m1(self):
-        if self._m1 == None:
+        if self._m1 is None:
             return None
         return self._m1
 
@@ -295,7 +239,7 @@ class TileManager:
     # m2
     @property
     def m2(self):
-        if self._m2 == None:
+        if self._m2 is None:
             return None
         return self._m2
 
@@ -306,7 +250,7 @@ class TileManager:
     # m3
     @property
     def m3(self):
-        if self._m3 == None:
+        if self._m3 is None:
             return None
         return self._m3
 
@@ -317,7 +261,7 @@ class TileManager:
     # m4
     @property
     def m4(self):
-        if self._m4 == None:
+        if self._m4 is None:
             return None
         return self._m4
 
@@ -328,7 +272,7 @@ class TileManager:
     # m5
     @property
     def m5(self):
-        if self._m5 == None:
+        if self._m5 is None:
             return None
         return self._m5
 
@@ -339,7 +283,7 @@ class TileManager:
     # m6
     @property
     def m6(self):
-        if self._m6 == None:
+        if self._m6 is None:
             return None
         return self._m6
 
@@ -350,7 +294,7 @@ class TileManager:
     # m7
     @property
     def m7(self):
-        if self._m7 == None:
+        if self._m7 is None:
             return None
         return self._m7
 
@@ -361,7 +305,7 @@ class TileManager:
     # m8
     @property
     def m8(self):
-        if self._m8 == None:
+        if self._m8 is None:
             return None
         return self._m8
 
@@ -372,7 +316,7 @@ class TileManager:
     # m9
     @property
     def m9(self):
-        if self._m9 == None:
+        if self._m9 is None:
             return None
         return self._m9
 
@@ -383,7 +327,7 @@ class TileManager:
     # m10
     @property
     def m10(self):
-        if self._m10 == None:
+        if self._m10 is None:
             return None
         return self._m10
 
@@ -394,7 +338,7 @@ class TileManager:
     # m11
     @property
     def m11(self):
-        if self._m11 == None:
+        if self._m11 is None:
             return None
         return self._m11
 
@@ -405,7 +349,7 @@ class TileManager:
     # o0
     @property
     def o0(self):
-        if self._o0 == None:
+        if self._o0 is None:
             return None
         return self._o0
 
@@ -416,7 +360,7 @@ class TileManager:
     # o1
     @property
     def o1(self):
-        if self._o1 == None:
+        if self._o1 is None:
             return None
         return self._o1
 
@@ -427,7 +371,7 @@ class TileManager:
     # o2
     @property
     def o2(self):
-        if self._o2 == None:
+        if self._o2 is None:
             return None
         return self._o2
 
@@ -438,7 +382,7 @@ class TileManager:
     # o3
     @property
     def o3(self):
-        if self._o3 == None:
+        if self._o3 is None:
             return None
         return self._o3
 
@@ -449,7 +393,7 @@ class TileManager:
     # o4
     @property
     def o4(self):
-        if self._o4 == None:
+        if self._o4 is None:
             return None
         return self._o4
 
@@ -460,7 +404,7 @@ class TileManager:
     # o5
     @property
     def o5(self):
-        if self._o5 == None:
+        if self._o5 is None:
             return None
         return self._o5
 
@@ -471,7 +415,7 @@ class TileManager:
     # o6
     @property
     def o6(self):
-        if self._o6 == None:
+        if self._o6 is None:
             return None
         return self._o6
 
@@ -482,7 +426,7 @@ class TileManager:
     # o7
     @property
     def o7(self):
-        if self._o7 == None:
+        if self._o7 is None:
             return None
         return self._o7
 
@@ -493,7 +437,7 @@ class TileManager:
     # o8
     @property
     def o8(self):
-        if self._o8 == None:
+        if self._o8 is None:
             return None
         return self._o8
 
@@ -504,7 +448,7 @@ class TileManager:
     # o9
     @property
     def o9(self):
-        if self._o9 == None:
+        if self._o9 is None:
             return None
         return self._o9
 
@@ -515,7 +459,7 @@ class TileManager:
     # o10
     @property
     def o10(self):
-        if self._o10 == None:
+        if self._o10 is None:
             return None
         return self._o10
 
@@ -526,7 +470,7 @@ class TileManager:
     # o11
     @property
     def o11(self):
-        if self._o11 == None:
+        if self._o11 is None:
             return None
         return self._o11
 
@@ -537,7 +481,7 @@ class TileManager:
     # o12
     @property
     def o12(self):
-        if self._o12 == None:
+        if self._o12 is None:
             return None
         return self._o12
 
@@ -548,7 +492,7 @@ class TileManager:
     # o13
     @property
     def o13(self):
-        if self._o13 == None:
+        if self._o13 is None:
             return None
         return self._o13
 
@@ -559,7 +503,7 @@ class TileManager:
     # o14
     @property
     def o14(self):
-        if self._o14 == None:
+        if self._o14 is None:
             return None
         return self._o14
 
@@ -570,7 +514,7 @@ class TileManager:
     # o15
     @property
     def o15(self):
-        if self._o15 == None:
+        if self._o15 is None:
             return None
         return self._o15
 
@@ -581,7 +525,7 @@ class TileManager:
     # o16
     @property
     def o16(self):
-        if self._o16 == None:
+        if self._o16 is None:
             return None
         return self._o16
 
@@ -592,7 +536,7 @@ class TileManager:
     # o17
     @property
     def o17(self):
-        if self._o17 == None:
+        if self._o17 is None:
             return None
         return self._o17
 
@@ -603,7 +547,7 @@ class TileManager:
     # erah
     @property
     def erah(self):
-        if self._erah == None:
+        if self._erah is None:
             return 8
         return self._erah
 
@@ -616,7 +560,7 @@ class TileManager:
     # govener
     @property
     def govener(self):
-        if self._govener == None:
+        if self._govener is None:
             return None
         return self._govener
 
@@ -627,7 +571,7 @@ class TileManager:
     # amenities
     @property
     def amenities(self):
-        if self._amenities == None:
+        if self._amenities is None:
             return None
         return self._amenities
 
@@ -638,7 +582,7 @@ class TileManager:
     # power
     @property
     def power(self):
-        if self._power == None:
+        if self._power is None:
             return None
         return self._power
 
@@ -649,7 +593,7 @@ class TileManager:
     # bonus
     @property
     def bonus(self):
-        if self._bonus == None:
+        if self._bonus is None:
             return None
         return self._bonus
 
@@ -660,7 +604,7 @@ class TileManager:
     # strategic
     @property
     def strategic(self):
-        if self._strategic == None:
+        if self._strategic is None:
             return None
         return self._strategic
 
@@ -671,7 +615,7 @@ class TileManager:
     # luxury
     @property
     def luxury(self):
-        if self._luxury == None:
+        if self._luxury is None:
             return None
         return self._luxury
 
@@ -682,7 +626,7 @@ class TileManager:
     # trader
     @property
     def trader(self):
-        if self._trader == None:
+        if self._trader is None:
             return None
         return self._trader
 
@@ -697,8 +641,6 @@ class TileManager:
             orig_yield = getattr(getattr(self, tile_index), resource)
             tile_yield = getattr(getattr(getattr(self, tile_index), tile_type), resource)
             new_yield = orig_yield + tile_yield
-            # if resource == 'food':
-                # print(orig_yield, tile_yield, new_yield)
             setattr(getattr(self, tile_index), resource, new_yield)
             return tile_yield
             # return getattr(getattr(getattr(self, tile_index), tile_type), resource)
@@ -749,12 +691,11 @@ class TileManager:
         except AttributeError:
             pass
 
-
     def calculate_tile_yield(self, tile_index):
         """
         This will run both the adjacency and era calculators to get a final tile yield.
         """
-        # if tile_index == None:
+        # if tile_index is None:
         #     print('for testing only running first few keys. Fix this later!!!!')
         #     search_list = list(self.adjacency_members.keys())[:7]
         #     # search_list = self.adjacency_members.keys()
@@ -769,7 +710,7 @@ class TileManager:
             print('has wonder')
             # self._calculate_wonder(tile_index)
             return None
-            
+
         if getattr(self, tile_index).district is not None:
             print('has district')
             self._calculate_district(tile_index)
@@ -804,341 +745,3 @@ class TileManager:
         This may need to be updated eventually in case I keep track of surrounding tiles outside of the city that still influence it.
         """
         return self.adjacency_members[tile_index]
-
-
-
-# tm = TileManager(
-#     erah=8,
-#     cc=[
-#         # 'campus:1',
-#         'ocean',
-#         'seastead'
-#         # 'campus:university'
-#     ],
-#     i0=[
-#         'ocean',
-#         'fishing_boat',
-#         # 'rainforest',
-#         # 'mountain',
-#     ],
-#     i1=[
-#         'ocean'
-#         'reef',
-#         # 'rainforest',
-#         # 'mountain',
-#     ]
-# )
-
-# # for item, val in tm.cc.terrain.__dict__.items():
-# #     print(f"    {item} : {val}")
-
-# print(tm.cc.__dict__)
-# # print('')
-# # print(tm.i0.__dict__)
-# print(tm.cc.terrain)
-# print(tm.cc.feature)
-# print(tm.cc.river)
-# print(tm.cc.resource)
-# print(tm.cc.improvement)
-# print(tm.cc.district)
-# print('')
-# print(f"food: {tm.cc.food}")
-# print(f"production: {tm.cc.production}")
-# print(f"gold: {tm.cc.gold}")
-# print(f"science: {tm.cc.science}")
-# # print('\n\ndict keys here')
-# # print(tm.cc.__dict__.keys())
-# # print('')
-# # print(tm.cc.terrain.__dict__.keys())
-# # print('')
-# # print(tm.cc.improvement.__dict__.keys())
-# # print('\n\n')
-# tm.calculate_city_yield()
-# # tm.calculate_tile_yield()
-# # print(tm.cc.district.__dict__)
-# print(f"food: {tm.cc.food}")
-# print(f"production: {tm.cc.production}")
-# print(f"gold: {tm.cc.gold}")
-# print(f"science: {tm.cc.science}")
-
-
-# exit()
-
-# tm = TileManager(
-#     cc=[
-#         'grasslandh',
-#         'floodplains',
-#         # 'campus',
-#         # 'wheat',
-#         # 'bananas',
-#         'farm',
-#         # 'plantation',
-#     ]
-# )
-tm = TileManager(
-    erah=8,
-    # cc=[
-    #     'grassland',
-    #     'floodplains',
-    #     'farm',
-    #     # 'grassland',
-    # ],
-    cc=[
-        'plains',
-        'rainforest',
-        'plantation',
-        # 'aluminum',
-        # 'river',
-        # 'city_center'
-        # 'floodplains',
-        'campus:1'
-        # 'campus'
-        # 'farm'
-        # 'desert',
-        # 'campus',
-        # 'river'
-    ],
-    i0=[
-        'grasslandh',
-        'floodplains',
-        'farm'
-    ],
-    i1=[
-        'grassland',
-        'floodplains',
-        # 'farm'
-        'plantation'
-    ]
-)
-
-# for item, val in tm.cc.terrain.__dict__.items():
-#     print(f"    {item} : {val}")
-
-print(tm.cc.__dict__)
-print(tm.cc.terrain)
-print(tm.cc.feature)
-print(tm.cc.river)
-print(tm.cc.resource)
-print(tm.cc.improvement)
-print(tm.cc.district)
-print('')
-print(f"food: {tm.cc.food}")
-print(f"production: {tm.cc.production}")
-print(f"gold: {tm.cc.gold}")
-print(f"science: {tm.cc.science}")
-# print('\n\ndict keys here')
-# print(tm.cc.__dict__.keys())
-# print('')
-# print(tm.cc.terrain.__dict__.keys())
-# print('')
-# print(tm.cc.improvement.__dict__.keys())
-# print('\n\n')
-tm.calculate_city_yield()
-# tm.calculate_tile_yield()
-# print(tm.cc.district.__dict__)
-print(f"food: {tm.cc.food}")
-print(f"production: {tm.cc.production}")
-print(f"gold: {tm.cc.gold}")
-print(f"science: {tm.cc.science}")
-
-
-exit()
-
-
-# tm = TileManager(
-#     i0=[
-#         'grassland'
-#     ]
-# )
-
-# # for k,v in tm.__dict__.items():
-# for k,v in tm.i0.__dict__.items():
-#     print(k,v)
-# print('')
-# for k,v in tm.i0._terrain.__dict__.items():
-#     print(k,v)
-
-# print('\n')
-
-tm2 = TileManager(
-    erah=8,
-    cc=[
-        'desert',
-        'grassland',
-        'floodplains',
-        'farm'
-    ],
-    i0=[
-        'grassland',
-        'floodplains',
-        'farm'
-    ],
-    i1=[
-        'grassland',
-        'floodplains',
-        'farm'
-    ]
-)
-
-# # for k,v in tm.__dict__.items():
-# for k,v in tm2.i0.__dict__.items():
-#     print(k,v)
-# print('t')
-# for k,v in tm2.i0._terrain.__dict__.items():
-#     print(k,v)
-# print('f')
-# for k,v in tm2.i0._feature.__dict__.items():
-#     print(k,v)
-
-print(tm2.i0.food)
-# tm2.i0.food += tm2.i0.terrain.food + tm2.i0.feature.food
-# # tm2.i0.food += sum([i for i in [tm2.i0.terrain.food + tm2.i0.feature.food + tm.i0.improvement.food] if i is not None])
-# print(tm2.i0.food)
-
-# tm2.tile_summer('i0', '')
-# tm2.calculate_tile_yield('i0')
-tm2.calculate_tile_yield()
-print(tm2.i0.food)
-
-exit()
-
-resource_list = [
-    'food',
-    'production',
-    'gold',
-    'science',
-    'culture',
-    'faith',
-    'tourism',
-    'population',
-    'houseing',
-    'amenities',
-    'power',
-    'appeal',
-]
-tile_list = [
-    'terrain',
-    'feature',
-    'improvement',
-]
-
-def tile_summer(self, tile_index, tile_type, resource):
-    print(self, tile_index, tile_type, resource)
-    # print(getattr(getattr(getattr(self, tile_index), tile_type), resource))
-    try:
-        orig_yield = getattr(getattr(self, tile_index), resource)
-        tile_yield = getattr(getattr(getattr(self, tile_index), tile_type), resource)
-        new_yield = orig_yield + tile_yield
-        setattr(getattr(self, tile_index), resource, new_yield)
-        return tile_yield
-        # return getattr(getattr(getattr(self, tile_index), tile_type), resource)
-    except AttributeError:
-        return None
-
-
-
-
-
-# for item in summer_list:
-#     print('')
-#     print(item)
-#     # print(getattr(tm.i0, item))
-#     # print(getattr(tm.i0.terrain, item))
-#     # print(getattr(tm.i0.feature, item))
-#     for tile in tile_list:
-#         try:
-#             print(getattr(getattr(tm2.i0, tile), item))
-#         except AttributeError:
-#             pass
-
-for tile_index in ['i0']:
-    for tile_type in tile_list:
-        for resource in resource_list:
-            tile_yield = tile_summer(tm2, tile_index, tile_type, resource)
-            # if tile_yield is not None:
-            #     print(tile_yield)
-
-print('i0 food yield')
-print(tm2.i0.food)
-
-
-# print(tile_summer(tm2, 'i0', 'terrain', 'food'))
-
-exit()
-
-
-
-
-
-
-
-tm = TileManager(
-
-        cc=[
-            'grassland',
-            'woods',
-            'river',
-            'farm',
-        ],
-
-        i0=[
-            'grassland',
-            'woods',
-            'river',
-            'farm',
-        ],
-
-        i1=[
-            'grassland',
-            'woods',
-            'river',
-            'farm',
-        ],
-
-        i2=[
-            'grassland',
-            'woods',
-            'river',
-            'farm',
-        ],
-
-        i3=[
-            'grassland',
-            'woods',
-            'river',
-        ],
-
-        i4=[
-            'grassland',
-            'woods',
-            'river',
-        ],
-
-        i5=[
-            'grassland',
-            'woods',
-            'river',
-        ],
-)
-gl = Grassland()
-wd = Woods()
-
-# print(tm.__dict__)
-# print(tm.i0.__dict__)
-# print(tm.i0.terrain.__dict__)
-# print('')
-print(tm.i0.food)
-print(tm.i0.houseing)
-print(tm.erah)
-# tm._calculate_adjacency('i0')
-tm.calculate_tile_yield('i0')
-print(tm.i0.food)
-print(tm.i0.houseing)
-# print(tm.calculate_adjacency('cc'))
-# print(tm._cc.__dict__)
-# print(json.dumps(tm.__dict__, indent=2))
-
-# print(json.dumps(gl.__dict__, indent=4))
-# print(gl.food)
-# gl.food = 1
-# print(gl.food)

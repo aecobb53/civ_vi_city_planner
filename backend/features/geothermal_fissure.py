@@ -1,4 +1,4 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
 
 
 class GeothermalFissure(CommonTile):
@@ -7,9 +7,9 @@ class GeothermalFissure(CommonTile):
         super().__init__()
         self.science = 1
         self.acceptable_terrain = [
+            'desert',
             'grassland',
             'plains',
-            'desert',
-            'tundra',
             'snow',
+            'tundra',
         ]

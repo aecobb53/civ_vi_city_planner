@@ -1,5 +1,6 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
 import math
+
 
 class Farm(CommonTile):
 
@@ -8,7 +9,7 @@ class Farm(CommonTile):
         self.food = 1
         self.production = 0
         self.gold = 0
-        self.houseing = .5
+        self.housing = .5
         self.acceptable_terrain = [
             'grassland',
             'plains',
@@ -24,7 +25,7 @@ class Farm(CommonTile):
         ]
         self.hills = True
 
-    def calculate_adjacency(self, tile_obj, target_index, adj_list):
+    def calculate_adjacency(self, tile_obj, target_index, adj_list):  # pragma: no cover
         target_object = getattr(tile_obj, target_index)
         adj_count = 0
         for adj_obj in adj_list:

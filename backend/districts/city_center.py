@@ -1,4 +1,5 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
+
 
 class CityCenter(CommonTile):
 
@@ -29,18 +30,18 @@ class CityCenter(CommonTile):
     # building_list
     @property
     def building_list(self):
-        if self._building_list == None:
+        if self._building_list is None:
             return None
         return self._building_list
 
     # @building_list.setter
     def update_building_list(self, value):
-        if self._building_list == None:
+        if self._building_list is None:
             self._building_list = []
         self._building_list.append(value)
 
     def remove_building_list(self, value):
-        if self._building_list == None:
+        if self._building_list is None:
             return None
         self._building_list.remove(value)
 
@@ -48,12 +49,12 @@ class CityCenter(CommonTile):
     @property
     def monument(self):
         if self._monument is None:
-            return None
+            return False
         return self._monument
 
     @monument.setter
     def monument(self, value):
-        if value is True:
+        if value:
             self.culture = self.culture + 2
             self.update_building_list('monument')
             self._monument = True
@@ -62,14 +63,14 @@ class CityCenter(CommonTile):
     @property
     def granary(self):
         if self._granary is None:
-            return None
+            return False
         return self._granary
 
     @granary.setter
     def granary(self, value):
-        if value is True:
-            self.food = self.food  + 1
-            self.housing = self.houseing  + 2
+        if value:
+            self.food = self.food + 1
+            self.housing = self.housing + 2
             self.update_building_list('granary')
             self._granary = True
 
@@ -77,12 +78,12 @@ class CityCenter(CommonTile):
     @property
     def water_mill(self):
         if self._water_mill is None:
-            return None
+            return False
         return self._water_mill
 
     @water_mill.setter
     def water_mill(self, value):
-        if value is True:
+        if value:
             self.food = self.food + 1
             self.production = self.production + 1
             self.update_building_list('water_mill')
@@ -101,13 +102,14 @@ class CityCenter(CommonTile):
     @property
     def sewer(self):
         if self._sewer is None:
-            return None
+            return False
         return self._sewer
 
     @sewer.setter
     def sewer(self, value):
-        if value is True:
-            self.houseing = self.houseing + 2
+        if value:
+            self.housing = self.housing + 2
+            self.maintenance = self.maintenance + 2
             self.update_building_list('sewer')
             self._sewer = True
 
@@ -115,12 +117,12 @@ class CityCenter(CommonTile):
     @property
     def flood_barrier(self):
         if self._flood_barrier is None:
-            return None
+            return False
         return self._flood_barrier
 
     @flood_barrier.setter
     def flood_barrier(self, value):
-        if value is True:
+        if value:
             self.update_building_list('flood_barrier')
             self._flood_barrier = True
 
@@ -128,12 +130,12 @@ class CityCenter(CommonTile):
     @property
     def ancient_walls(self):
         if self._ancient_walls is None:
-            return None
+            return False
         return self._ancient_walls
 
     @ancient_walls.setter
     def ancient_walls(self, value):
-        if value is True:
+        if value:
             self.update_building_list('ancient_walls')
             self._ancient_walls = True
 
@@ -141,12 +143,12 @@ class CityCenter(CommonTile):
     @property
     def medival_walls(self):
         if self._medival_walls is None:
-            return None
+            return False
         return self._medival_walls
 
     @medival_walls.setter
     def medival_walls(self, value):
-        if value is True:
+        if value:
             self.update_building_list('medival_walls')
             self._medival_walls = True
 
@@ -154,42 +156,43 @@ class CityCenter(CommonTile):
     @property
     def renaissance_walls(self):
         if self._renaissance_walls is None:
-            return None
+            return False
         return self._renaissance_walls
 
     @renaissance_walls.setter
     def renaissance_walls(self, value):
-        if value is True:
+        if value:
             self.update_building_list('renaissance_walls')
             self._renaissance_walls = True
 
-    # power
+    # power - Whats the power draw
     @property
     def power(self):
         if self._power is None:
-            return 0
-        self._power
+            return False
+        return self._power
 
     @power.setter
     def power(self, value):
-        # self._power = value
         pass
+        # self._power = value
 
-    # powered
+    # powered - Does the city need power?
     @property
     def powered(self):
         if self._powered is None:
             return False
-        self._powered
+        return self._powered
 
     @powered.setter
     def powered(self, value):
+        # self.power = 3
         # self._powered = value
         pass
 
     def set_buildings(self, final_improvement=None, powered=None):
 
-        if final_improvement == None:
+        if final_improvement is None:
             # self.powered = True
             final_improvement = 'flood_barrier'
         try:
@@ -206,9 +209,12 @@ class CityCenter(CommonTile):
             else:
                 setattr(self, building, True)
 
-    def calculate_adjacency(self, tile_obj, target_index, adj_list):
+    def calculate_adjacency(self, tile_obj, target_index, adj_list):  # pragma: no cover
         target_object = getattr(tile_obj, target_index)
 
         if not target_object.river:
             if self.water_mill:
                 del self.water_mill
+
+    def calculate_specialist_yield(self):
+        pass

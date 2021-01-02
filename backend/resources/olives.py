@@ -1,4 +1,5 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
+
 
 class Bananas(CommonTile):
 

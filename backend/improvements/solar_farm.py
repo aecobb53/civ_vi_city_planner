@@ -1,4 +1,5 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
+
 
 class SolarFarm(CommonTile):
 
@@ -13,3 +14,5 @@ class SolarFarm(CommonTile):
             'tundra',
             'desert',
         ]
+        self.acceptable_features = None
+        self.resources = None

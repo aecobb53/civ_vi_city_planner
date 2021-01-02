@@ -1,4 +1,5 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
+
 
 class Grassland(CommonTile):
 
@@ -7,5 +8,20 @@ class Grassland(CommonTile):
         hills=None
     ):
         super().__init__()
-        self.food = 2
-        self.production = 1 if hills == True else 0
+        self.food = self.food + 2
+        self._hills = None
+        if hills:
+            self.hills = True
+
+    # hills
+    @property
+    def hills(self):
+        if self._hills is None:
+            return False
+        return self._hills
+
+    @hills.setter
+    def hills(self, value):
+        if value:
+            self.production = self.production + 1
+            self._hills = True

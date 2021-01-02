@@ -1,4 +1,5 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
+
 
 class Coal(CommonTile):
 
@@ -7,13 +8,13 @@ class Coal(CommonTile):
         self.production = 2
         self.resource_type = 'strategic'
         self.terrain = [
-            'grassland',
-            'plains',
+            'grasslandh',
+            'plainsh',
         ]
-        self.hills = True
+        self.features = None
         # self.features = [
         #     'rainforest'
         # ]
         self.improvement = [
-            'mine'
+            'mine',
         ]

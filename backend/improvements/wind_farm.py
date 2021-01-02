@@ -1,4 +1,5 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
+
 
 class WindFarm(CommonTile):
 
@@ -8,10 +9,11 @@ class WindFarm(CommonTile):
         self.gold = 1
         self.power = 2
         self.acceptable_terrain = [
-            'desert',
-            'grassland',
-            'plains',
-            'snow',
-            'tundra',
+            'deserth',
+            'grasslandh',
+            'plainsh',
+            'snowh',
+            'tundrah',
         ]
-        self.hills = True
+        self.acceptable_features = None
+        self.resources = None

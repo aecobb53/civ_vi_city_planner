@@ -1,4 +1,5 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
+
 
 class Niter(CommonTile):
 
@@ -13,9 +14,10 @@ class Niter(CommonTile):
             'plains',
             'tundra',
         ]
+        self.features = None
         # self.features = [
         #     'rainforest'
         # ]
         self.improvement = [
-            'mine'
+            'mine',
         ]

@@ -1,4 +1,4 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
 
 
 class ImpactZone(CommonTile):
@@ -6,10 +6,14 @@ class ImpactZone(CommonTile):
     def __init__(self):
         super().__init__()
         self.acceptable_terrain = [
-            'grassland',
-            'plains',
             'desert',
-            'tundra',
+            'deserth',
+            'grassland',
+            'grasslandh',
+            'plains',
+            'plainsh',
             'snow',
+            'snowh',
+            'tundra',
+            'tundrah',
         ]
-        self.hills = True

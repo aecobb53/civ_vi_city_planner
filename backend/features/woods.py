@@ -1,4 +1,4 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
 
 
 class Woods(CommonTile):
@@ -8,7 +8,9 @@ class Woods(CommonTile):
         self.production = 1
         self.acceptable_terrain = [
             'grassland',
+            'grasslandh',
             'plains',
+            'plainsh',
             'tundra',
+            'tundrah',
         ]
-        self.hills = True

@@ -1,4 +1,5 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
+
 
 class Sheep(CommonTile):
 
@@ -7,13 +8,12 @@ class Sheep(CommonTile):
         self.food = 1
         self.resource_type = 'bonus'
         self.terrain = [
-            'grassland',
-            'plains',
-            'desert',
-            'tundra',
-            'snow',
+            'grasslandh',
+            'plainsh',
+            'deserth',
+            'tundrah',
         ]
-        self.hills = True
+        self.features = None
         self.improvement = [
             'pasture'
         ]

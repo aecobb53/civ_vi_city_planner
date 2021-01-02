@@ -1,4 +1,5 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
+
 
 class Oil(CommonTile):
 
@@ -13,10 +14,11 @@ class Oil(CommonTile):
             'coast',
             'lake',
         ]
+        self.features = None
         # self.features = [
         #     'rainforest'
         # ]
         self.improvement = [
-            'oil_well'
-            'offshore_oil_well'
+            'oil_well',
+            'offshore_oil_well',
         ]

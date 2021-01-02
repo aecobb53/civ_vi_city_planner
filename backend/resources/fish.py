@@ -1,4 +1,5 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
+
 
 class Fish(CommonTile):
 
@@ -8,11 +9,12 @@ class Fish(CommonTile):
         self.resource_type = 'bonus'
         self.terrain = [
             'coast',
-            'lake'
+            'lake',
         ]
+        self.features = None
         # self.features = [
         #     'reef'
         # ]
         self.improvement = [
-            'fishing_boats'
+            'fishing_boats',
         ]

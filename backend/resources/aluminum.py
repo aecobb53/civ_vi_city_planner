@@ -1,4 +1,5 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
+
 
 class Aluminum(CommonTile):
 
@@ -10,9 +11,10 @@ class Aluminum(CommonTile):
             'desert',
             'plains',
         ]
+        self.features = None
         # self.features = [
         #     'rainforest'
         # ]
         self.improvement = [
-            'mine'
+            'mine',
         ]

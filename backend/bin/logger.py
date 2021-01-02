@@ -216,7 +216,7 @@ class Logger:
             self.create_ch is None and \
             self.create_sh is None and \
             self.create_th is None:
-            
+
             self.create_fh = True
             self.create_ch = True
 
@@ -334,5 +334,12 @@ class Logger:
         self.logger.addHandler(self.fh)
 
     def update_consol_level(self, new_level):
-        self._update_consol_level(new_level)
+        # print(self.c_level)
+        # print(new_level)
+        self.c_level = new_level
+        # print(self.c_level)
+        self._update_consol_level(self.c_level)
+        # self._update_consol_level(new_level)
+        # self.ch.setFormatter(self.formatter)
+        # self.logger.addHandler(self.ch)
         self.logger.addHandler(self.ch)

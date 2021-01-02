@@ -1,4 +1,5 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
+
 
 class Horses(CommonTile):
 
@@ -11,6 +12,7 @@ class Horses(CommonTile):
             'grassland',
             'plains'
         ]
+        self.features = None
         # self.features = [
         #     'rainforest'
         # ]

@@ -1,4 +1,5 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
+
 
 class Cattle(CommonTile):
 
@@ -9,6 +10,7 @@ class Cattle(CommonTile):
         self.terrain = [
             'grassland',
         ]
+        self.features = None
         self.improvement = [
-            'pasture'
+            'pasture',
         ]

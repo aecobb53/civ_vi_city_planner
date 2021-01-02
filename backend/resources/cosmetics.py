@@ -1,6 +1,7 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
 
-class Bananas(CommonTile):
+
+class Cosmetics(CommonTile):
 
     def __init__(self):
         super().__init__()

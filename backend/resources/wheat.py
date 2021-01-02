@@ -1,4 +1,5 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
+
 
 class Wheat(CommonTile):
 
@@ -8,11 +9,12 @@ class Wheat(CommonTile):
         self.resource_type = 'bonus'
         self.terrain = [
             'plains',
-            'desert',
+            # 'desert',
         ]
+        self.features = None
         # self.features = [
         #     'floodplains'
         # ]
         self.improvement = [
-            'plantation'
+            'plantation',
         ]

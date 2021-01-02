@@ -1,4 +1,5 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
+
 
 class Mine(CommonTile):
 
@@ -7,12 +8,13 @@ class Mine(CommonTile):
         self.production = 1
         self.appeal = -1
         self.acceptable_terrain = [
-            'desert',
-            'grassland',
-            'plains',
-            'snow',
-            'tundra',
+            'deserth',
+            'grasslandh',
+            'plainsh',
+            'snowh',
+            'tundrah',
         ]
+        self.acceptable_features = None
         self.resources = [
             'copper',
             'diamonds',
@@ -27,9 +29,8 @@ class Mine(CommonTile):
             'uranium',
             'amber',
         ]
-        self.hills = True
 
-    def calculate_erah(self, tile_obj, target_index, adj_list):
+    def calculate_erah(self, tile_obj, target_index, adj_list):  # pragma: no cover
         target_object = getattr(tile_obj, target_index)
         if tile_obj.erah >= 2:
             target_object.production = target_object.production + 1

@@ -1,20 +1,23 @@
-from common_tile import CommonTile
-from features.reef import Reef
-from improvements.fishing_boats import FishingBoats
+from backend.common_tile import CommonTile
+from backend.features.reef import Reef
+from backend.improvements.fishing_boats import FishingBoats
+
 
 class Seastead(CommonTile):
 
     def __init__(self):
         super().__init__()
         self.food = 2
-        self.houseing = 2
+        self.housing = 2
         self.acceptable_terrain = [
             'lake',
             'coast',
             'ocean',
         ]
+        self.acceptable_features = None
+        self.resources = None
 
-    def calculate_adjacency(self, tile_obj, target_index, adj_list):
+    def calculate_adjacency(self, tile_obj, target_index, adj_list):  # pragma: no cover
         target_object = getattr(tile_obj, target_index)
         adj_fishing_boat = 0
         adj_reef = 0

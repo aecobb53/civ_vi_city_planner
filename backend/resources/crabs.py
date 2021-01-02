@@ -1,4 +1,5 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
+
 
 class Crabs(CommonTile):
 
@@ -10,6 +11,7 @@ class Crabs(CommonTile):
             'coast',
             'lake',
         ]
+        self.features = None
         self.improvement = [
-            'fishing_boats'
+            'fishing_boats',
         ]

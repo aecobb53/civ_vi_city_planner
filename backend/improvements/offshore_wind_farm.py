@@ -1,4 +1,5 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
+
 
 class OffshoreWindFarm(CommonTile):
 
@@ -11,3 +12,5 @@ class OffshoreWindFarm(CommonTile):
             'lake',
             'coast',
         ]
+        self.acceptable_features = None
+        self.resources = None

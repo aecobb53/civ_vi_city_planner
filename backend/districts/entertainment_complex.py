@@ -1,109 +1,108 @@
-from common_tile import CommonTile
+from backend.common_tile import CommonTile
 import math
-from features.mountain import Mountain
-from features.rainforest import Rainforest
-from features.geothermal_fissure import GeothermalFissure
-from features.reef import Reef
 
-class Campus(CommonTile):
+
+class EntertainmentComplex(CommonTile):
 
     def __init__(self):
         super().__init__()
         self.default_building_list = [
-            'library',
-            'university',
-            'research_lab',
+            'arena',
+            'zoo',
+            'stadium',
         ]
         self._building_list = None
-        self._library = None
-        self._university = None
-        self._research_lab = None
+        self._arena = None
+        self._zoo = None
+        self._stadium = None
         self._powered = None
         self._power = None
+        self.amenities = self.amenities + 1
+        self.maintenance = self.maintenance + 1
+        self.specialist_yield = 2
+        self.specialist_power_bonus = 1
 
     # building_list
     @property
     def building_list(self):
-        if self._building_list == None:
+        if self._building_list is None:
             return None
         return self._building_list
 
     # @building_list.setter
     def update_building_list(self, value):
-        if self._building_list == None:
+        if self._building_list is None:
             self._building_list = []
         self._building_list.append(value)
 
-    # library
+    # arena
     @property
-    def library(self):
-        if self._library == None:
-            return None
-        return self._library
+    def arena(self):
+        if self._arena is None:
+            return False
+        return self._arena
 
-    @library.setter
-    def library(self, value):
-        if value == True:
-            self.science = self.science + 2
-            self.citizen_slot = self.citizen_slot + 1
-            self.update_building_list('library')
-            self._library = True
+    @arena.setter
+    def arena(self, value):
+        if value:
+            self.amenities = self.amenities + 1
+            self.maintenance = self.maintenance + 1
+            self.update_building_list('arena')
+            self._arena = True
 
-    # university
+    # zoo
     @property
-    def university(self):
-        if self._university == None:
-            return None
-        return self._university
+    def zoo(self):
+        if self._zoo is None:
+            return False
+        return self._zoo
 
-    @university.setter
-    def university(self, value):
-        if value == True:
-            self.science = self.science + 4
-            self.houseing = self.houseing + 1
-            self.citizen_slot = self.citizen_slot + 1
-            self.update_building_list('university')
-            self._university = True
+    @zoo.setter
+    def zoo(self, value):
+        if value:
+            self.amenities = self.amenities + 1
+            self.maintenance = self.maintenance + 2
+            self.update_building_list('zoo')
+            self._zoo = True
 
-    # research_lab
+    # stadium
     @property
-    def research_lab(self):
-        if self._research_lab == None:
-            return None
-        return self._research_lab
+    def stadium(self):
+        if self._stadium is None:
+            return False
+        return self._stadium
 
-    @research_lab.setter
-    def research_lab(self, value):
-        if value == True:
-            self.science = self.science + 3
+    @stadium.setter
+    def stadium(self, value):
+        if value:
+            self.amenities = self.amenities + 1
+            self.maintenance = self.maintenance + 3
             if self.powered:
-                self.science = self.science + 5
-            self.houseing = self.houseing + 1
-            self.citizen_slot = self.citizen_slot + 1
-            self.update_building_list('research_lab')
-            self._research_lab = True
+                self.amenities = self.amenities + 2
+            self.update_building_list('stadium')
+            self._stadium = True
 
-    # power
+    # power - Whats the power draw
     @property
     def power(self):
-        if self._power == None:
+        if self._power is None:
             return 0
-        self._power
+        return self._power
 
     @power.setter
     def power(self, value):
         self._power = value
 
-    # powered
+    # powered - Does the city need power?
     @property
     def powered(self):
-        if self._powered == None:
+        if self._powered is None:
             return False
-        self._powered
+        return self._powered
 
     @powered.setter
     def powered(self, value):
-        self._power = 3
+        self.power = 2
         self._powered = value
 
     def set_buildings(
@@ -111,10 +110,9 @@ class Campus(CommonTile):
         final_improvement=None,
         powered=None):
 
-        if final_improvement == None:
-            self.powered = True
-            # print(self.powered)
-            final_improvement = 'research_lab'
+        if final_improvement is None:
+            powered = True
+            final_improvement = 'stadium'
         try:
             final_improvement = int(final_improvement)
         except:
@@ -132,21 +130,8 @@ class Campus(CommonTile):
             else:
                 setattr(self, building, True)
 
-    def calculate_adjacency(self, tile_obj, target_index, adj_list):
-        target_object = getattr(tile_obj, target_index)
+    def calculate_adjacency(self, tile_obj, target_index, adj_list):  # pragma: no cover
+        pass
 
-        adj_mountain = 0
-        adj_rainforest = 0
-        adj_geo_reef = 0
-        for adj_obj in adj_list:
-            if adj_obj is None:
-                continue
-            if isinstance(adj_obj.feature, Mountain):
-                adj_mountain += 1
-            if isinstance(adj_obj.feature, Rainforest):
-                adj_rainforest += 1
-            if isinstance(adj_obj.feature, GeothermalFissure) or isinstance(adj_obj.feature, Reef):
-                adj_geo_reef += 1
-        target_object.science = target_object.science + adj_mountain
-        target_object.science = target_object.science + math.floor(adj_rainforest / 2)
-        target_object.science = target_object.science + adj_geo_reef
+    def calculate_specialist_yield(self):
+        pass
