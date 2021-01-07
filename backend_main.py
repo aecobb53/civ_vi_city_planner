@@ -19,41 +19,50 @@ from backend import tile_container
 from backend import tile_manager
 
 
-# class Terrain(BaseModel):
-#     name: str
-#     hill: bool = None
+class Terrain(BaseModel):
+    name: str
+    hill: bool = None
 
 
-# class Feature(BaseModel):
-#     name: str
-#     river: bool = None
+class Feature(BaseModel):
+    name: str
+    river: bool = None
 
 
-# class Resource(BaseModel):
-#     name: str
+class Resource(BaseModel):
+    name: str
 
 
-# class Imporovement(BaseModel):
-#     name: str
+class Imporovement(BaseModel):
+    name: str
 
 
-# class District(BaseModel):
-#     name: str
-#     powered: bool = True
-#     buildings: List(str) = []
+class District(BaseModel):
+    name: str
+    powered: bool = True
+    buildings: List[str] = []
 
 
-# class Wonder(BaseModel):
-#     name: str
+class Wonder(BaseModel):
+    name: str
 
 
-# class Tile(BaseModel):
-#     terrain: Optional[Terrain] = None
-#     feature: Optional[Feature] = None
-#     resource: Optional[Resource] = None
-#     imporovement: Optional[Imporovement] = None
-#     district: Optional[District] = None
-#     wonder: Optional[Wonder] = None
+class Tile(BaseModel):
+    terrain: Optional[Terrain] = None
+    feature: Optional[Feature] = None
+    resource: Optional[Resource] = None
+    imporovement: Optional[Imporovement] = None
+    district: Optional[District] = None
+    wonder: Optional[Wonder] = None
+
+
+class CityPlan(BaseModel):
+    name: str = None
+    center: List[Tile]
+    inner: List[Tile]
+    middle: List[Tile]
+    outer: List[Tile]
+    nearby: List[Tile]
 
 
 class Item(BaseModel):
@@ -87,6 +96,11 @@ def heartbeat(request: Request):
 @app.post("/items/")
 async def create_item(item: Item):
     return item
+
+@app.post("/city_plan/")
+async def create_city(city: CityPlan):
+    # return str(type(city))
+    return str(city)
 
 
 
