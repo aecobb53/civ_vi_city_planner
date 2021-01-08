@@ -45,3 +45,55 @@ environments:
         log_parameters:
             log_suffix: 'test'
 datetime_str: '%Y-%m-%dT%H:%M:%SZ'
+tile_index_list:
+    - cc
+    - i0
+    - i1
+    - i2
+    - i3
+    - i4
+    - i5
+    - m0
+    - m1
+    - m2
+    - m3
+    - m4
+    - m5
+    - m6
+    - m7
+    - m8
+    - m9
+    - m10
+    - m11
+    - o0
+    - o1
+    - o2
+    - o3
+    - o4
+    - o5
+    - o6
+    - o7
+    - o8
+    - o9
+    - o10
+    - o11
+    - o12
+    - o13
+    - o14
+    - o15
+    - o16
+    - o17
+circle_layers:
+    - center
+    - inner
+    - middle
+    - outer
+    - nearby
+
+tile_layers:
+    - terrain
+    - feature
+    - resource
+    - improvement
+    - district
+    - wonder

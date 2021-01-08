@@ -10,57 +10,147 @@ r = requests.get(url)
 print(r)
 print(r.text)
 
+# # exit()
+# print('')
+
+# post_data = {
+#     "name": "Foo",
+#     "description": "An optional description",
+#     "price": 45.2,
+#     "tax": 3.5
+# }
+# item_url = url + '/items/'
+# print(f"url: {item_url}")
+# print('running item class')
+# r = requests.post(item_url, data=json.dumps(post_data))
+# print(r)
+# print(r.text)
+
+# # exit()
+# print('')
+
+# post_data = {
+#     'name':'somename',
+#     'testvar':'something else',
+#     'ignorevar':'this is ignored because its not set',
+#     'center':[],
+#     'inner':[],
+#     'middle':[],
+#     'outer':[],
+#     'nearby':[],
+# }
+# null_city_url = url + '/city_plan/'
+# print(f"url: {null_city_url}")
+# print('running null item class')
+# r = requests.post(null_city_url, data=json.dumps(post_data))
+# print(r)
+# print(r.text)
+# try:
+#     print(json.dumps(r.json, indent=4))
+# except:
+#     print('not json parsable')
+
 # exit()
 print('')
 
-post_data = {
-    "name": "Foo",
-    "description": "An optional description",
-    "price": 45.2,
-    "tax": 3.5
-}
-item_url = url + '/items/'
-print(f"url: {item_url}")
-print('running item class')
-r = requests.post(item_url, data=json.dumps(post_data))
-print(r)
-print(r.text)
-
-# exit()
-print('')
 
 post_data = {
-    'name': "alberta",
-    'center': "center ring",
-    'inner': "inner ring",
-    'middle': "middle ring",
-    'outer': "outer ring",
-    'nearby': "nearby ring",
-}
-post_data = {
-    # 'name': "alberta",
-    'center': [
-        "center ring",
+    'center':[
+        {
+            'terrain':{
+                'name': 'grassland',
+            },
+            'feature':{
+                'name':'woods',
+            },
+            'resource':{
+                'name':'iron',
+            },
+            'improvement':{
+                'name':'farm'
+            },
+            'district':{
+                'name':'campus'
+            },
+        },
+        {
+            'terrain':{
+                'name': 'desert',
+                'hill':True,
+            },
+            'feature':{
+                'name':'floodplains',
+                'river':True,
+            },
+        },
+        {
+            'terrain':{
+                'name': 'plains',
+                'hill':False,
+            },
+            'feature':{
+                'name':'rainforest',
+                'river':False,
+            },
+        },
+        # {},
+        # {},
+        # {},
     ],
-    'inner': [
-        "inner ring",
+    'inner':[
+        {
+            'terrain':{
+                'name': 'grassland',
+            },
+            'feature':{
+                'name':'woods',
+            },
+            'resource':{
+                'name':'iron',
+            },
+            'improvement':{
+                'name':'farm'
+            },
+            'district':{
+                'name':'campus'
+            },
+        },
+        {
+            'terrain':{
+                'name': 'desert',
+                'hill':True,
+            },
+            'feature':{
+                'name':'floodplains',
+                'river':True,
+            },
+        },
+        {
+            'terrain':{
+                'name': 'plains',
+                'hill':False,
+            },
+            'feature':{
+                'name':'rainforest',
+                'river':False,
+            },
+        },
+        {},
+        {},
+        {},
     ],
-    'middle': [
-        "middle ring",
-    ],
-    'outer': [
-        "outer ring",
-    ],
-    'nearby': [
-        "nearby ring",
-    ],
+    'middle':[],
+    'outer':[],
+    'nearby':[],
 }
 city_url = url + '/city_plan/'
 print(f"url: {city_url}")
-print('running item class')
+print('running null item class')
 r = requests.post(city_url, data=json.dumps(post_data))
 print(r)
 print(r.text)
+if r.status_code != 200:
+    raise ValueError('the code is wrong yo')
 try:
     print(json.dumps(r.json, indent=4))
 except:

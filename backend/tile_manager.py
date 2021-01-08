@@ -1,4 +1,5 @@
 import json
+import yaml
 import math
 
 from backend.common_tile import CommonTile
@@ -8,6 +9,10 @@ from backend.features import *
 from backend.improvements import *
 from backend.districts import *
 from backend.resources import *
+
+# Config
+with open('etc/backend.yml') as ycf:
+    config = yaml.load(ycf, Loader=yaml.FullLoader)
 
 
 class TileManager:
@@ -23,43 +28,46 @@ class TileManager:
         The values of the kwargs are converted to lists if they are not already then provided to the Tile class.
         """
 
-        self._cc = None
-        self._i0 = None
-        self._i1 = None
-        self._i2 = None
-        self._i3 = None
-        self._i4 = None
-        self._i5 = None
-        self._m0 = None
-        self._m1 = None
-        self._m2 = None
-        self._m3 = None
-        self._m4 = None
-        self._m5 = None
-        self._m6 = None
-        self._m7 = None
-        self._m8 = None
-        self._m9 = None
-        self._m10 = None
-        self._m11 = None
-        self._o0 = None
-        self._o1 = None
-        self._o2 = None
-        self._o3 = None
-        self._o4 = None
-        self._o5 = None
-        self._o6 = None
-        self._o7 = None
-        self._o8 = None
-        self._o9 = None
-        self._o10 = None
-        self._o11 = None
-        self._o12 = None
-        self._o13 = None
-        self._o14 = None
-        self._o15 = None
-        self._o16 = None
-        self._o17 = None
+        # self._cc = None
+        # self._i0 = None
+        # self._i1 = None
+        # self._i2 = None
+        # self._i3 = None
+        # self._i4 = None
+        # self._i5 = None
+        # self._m0 = None
+        # self._m1 = None
+        # self._m2 = None
+        # self._m3 = None
+        # self._m4 = None
+        # self._m5 = None
+        # self._m6 = None
+        # self._m7 = None
+        # self._m8 = None
+        # self._m9 = None
+        # self._m10 = None
+        # self._m11 = None
+        # self._o0 = None
+        # self._o1 = None
+        # self._o2 = None
+        # self._o3 = None
+        # self._o4 = None
+        # self._o5 = None
+        # self._o6 = None
+        # self._o7 = None
+        # self._o8 = None
+        # self._o9 = None
+        # self._o10 = None
+        # self._o11 = None
+        # self._o12 = None
+        # self._o13 = None
+        # self._o14 = None
+        # self._o15 = None
+        # self._o16 = None
+        # self._o17 = None
+        # While i can init the list here like this, i still need to use the getter/setters for every one below... i think
+        for tile_index in config['tile_index_list']:
+            setattr(self, '_' + tile_index, None)
         self._erah = None
         self._govener = None
         self._amenities = None
@@ -70,6 +78,8 @@ class TileManager:
         self._trader = None
 
         for k, v in kwargs.items():
+            if v is None:
+                continue
             if not isinstance(v, list):
                 v = [v]
             setattr(self, k, v)
@@ -128,6 +138,7 @@ class TileManager:
             'power',
             'appeal',
         ]
+        # The order of this one matters I think
         self.tile_list = [
             'wonder',
             'district',
@@ -690,6 +701,13 @@ class TileManager:
             getattr(self, tile_index).improvement.calculate_erah(self, tile_index, self.adjacency_members[tile_index])
         except AttributeError:
             pass
+
+    # def set_attribute(attribute, value):
+    #     setattr(self, attribute, value)
+
+    # def append_attribute(attribute, value):
+    #     if 
+    #     getattr(self, attribute).append(value)
 
     def calculate_tile_yield(self, tile_index):
         """
