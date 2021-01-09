@@ -159,6 +159,16 @@ def analize_tm(tile_object):
                 if getattr(getattr(tile_object, tile_index), layer) is not None:
                     logit.debug(f"{indent}layer: {layer}, {getattr(getattr(tile_object, tile_index), layer)}")
 
+def analize_yields(tile_object):
+    indent = '    '
+    for tile_index in config['tile_index_list']:
+        # logit.debug(f"index: {tile_index}, {getattr(tile_object, tile_index)}")
+        if getattr(tile_object, tile_index) is not None:
+            logit.debug(f"index: {tile_index}, {getattr(tile_object, tile_index)}")
+            for res in config['tile_resources']:
+                if getattr(getattr(tile_object, tile_index), res) is not None and getattr(getattr(tile_object, tile_index), res) != 0:
+                    logit.debug(f"{indent}res: {res}, {getattr(getattr(tile_object, tile_index), res)}")
+
 
 app = FastAPI()
 logit.debug('\npage break\n')
@@ -178,6 +188,8 @@ def heartbeat(request: Request):
 async def create_city(city: CityPlan):
     tile_object = create_tile_manager_object(city)
     analize_tm(tile_object)
+    tile_object.calculate_city_yield()
+    analize_yields(tile_object)
 
 
     # create_tile_manager_object(city)

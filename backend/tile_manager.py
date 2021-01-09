@@ -28,43 +28,6 @@ class TileManager:
         The values of the kwargs are converted to lists if they are not already then provided to the Tile class.
         """
 
-        # self._cc = None
-        # self._i0 = None
-        # self._i1 = None
-        # self._i2 = None
-        # self._i3 = None
-        # self._i4 = None
-        # self._i5 = None
-        # self._m0 = None
-        # self._m1 = None
-        # self._m2 = None
-        # self._m3 = None
-        # self._m4 = None
-        # self._m5 = None
-        # self._m6 = None
-        # self._m7 = None
-        # self._m8 = None
-        # self._m9 = None
-        # self._m10 = None
-        # self._m11 = None
-        # self._o0 = None
-        # self._o1 = None
-        # self._o2 = None
-        # self._o3 = None
-        # self._o4 = None
-        # self._o5 = None
-        # self._o6 = None
-        # self._o7 = None
-        # self._o8 = None
-        # self._o9 = None
-        # self._o10 = None
-        # self._o11 = None
-        # self._o12 = None
-        # self._o13 = None
-        # self._o14 = None
-        # self._o15 = None
-        # self._o16 = None
-        # self._o17 = None
         # While i can init the list here like this, i still need to use the getter/setters for every one below... i think
         for tile_index in config['tile_index_list']:
             setattr(self, '_' + tile_index, None)
@@ -124,20 +87,8 @@ class TileManager:
             'o17': [None, self.o0, self.m0, self.m11, self.o16, None],
         }
 
-        self.resource_list = [
-            'food',
-            'production',
-            'gold',
-            'science',
-            'culture',
-            'faith',
-            'tourism',
-            'population',
-            'housing',
-            'amenities',
-            'power',
-            'appeal',
-        ]
+        self.resource_list = config['tile_resources']
+
         # The order of this one matters I think
         self.tile_list = [
             'wonder',

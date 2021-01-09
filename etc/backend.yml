@@ -89,7 +89,6 @@ circle_layers:
     - middle
     - outer
     - nearby
-
 tile_layers:
     - terrain
     - feature
@@ -97,3 +96,16 @@ tile_layers:
     - improvement
     - district
     - wonder
+tile_resources:
+    - food
+    - production
+    - gold
+    - science
+    - culture
+    - faith
+    - tourism
+    - population
+    - housing
+    - amenities
+    - power
+    - appeal
