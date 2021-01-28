@@ -154,15 +154,18 @@ print(r.text)
 if r.status_code != 200:
     raise ValueError('the code is wrong yo')
 try:
-    print(json.dumps(r.json, indent=4))
+    rj = r.json()
+    print(json.dumps(rj, indent=4))
+    city_id = rj['cityId']
 except:
     print('not json parsable')
+    exit()
 
-exit()
+# exit()
 print('')
 
 post_data = {
-    'cityId':'test_cityId',
+    'cityId':city_id,
 }
 city_url = url + '/city_plan/'
 print(f"url: {city_url}")
@@ -173,6 +176,6 @@ print(r.text)
 if r.status_code != 200:
     raise ValueError('the code is wrong yo')
 try:
-    print(json.dumps(r.json, indent=4))
+    print(json.dumps(r.json(), indent=4))
 except:
     print('not json parsable')

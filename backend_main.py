@@ -8,7 +8,8 @@ import yaml
 from fastapi import FastAPI, Request, Query
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import HTMLResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import RedirectResponse
 from typing import Optional, List  # noqa
@@ -92,6 +93,23 @@ class CityPlan(BaseModel):
     outer: List[Tile] = None
     nearby: List[Tile] = None
 
+
+    # Proposed additions
+    # erah
+    # city_uuid
+    # food
+    # production
+    # gold
+    # science
+    # culture
+    # faith
+    # population
+    # housing
+    # citizen_slot
+    # amenities
+    # power
+    # maintenance
+
     
 class CityId(BaseModel):
     cityId: str
@@ -101,28 +119,6 @@ class CityId(BaseModel):
 
     # if len(center) < 6:
     #     center.append(None)
-
-        
-
-
-# class Item(BaseModel):
-#     # name: str = None
-#     # center: str = None
-#     # inner: str = None
-#     # middle: str = None
-#     # outer: str = None
-#     # nearby: str = None
-#     # name: str = ''
-#     # center: List[Tile]
-#     # inner: List[Tile]
-#     # middle: List[Tile]
-#     # outer: List[Tile]
-#     # nearby: List[Tile]
-
-#     name: str
-#     description: Optional[str] = None
-#     price: float
-#     tax: Optional[float] = None
 
 
 def create_tile_manager_object(city_object):
@@ -154,11 +150,15 @@ def create_tile_manager_object(city_object):
                     except AttributeError:
                         pass
                     if layer == 'terrain':
-                        tile_list.append(getattr(tile, layer).hills)
+                        if getattr(tile, layer).hills:
+                            tile_list.append('hills')
                     if layer == 'feature':
-                        tile_list.append(getattr(tile, layer).river)
+                        if getattr(tile, layer).river:
+                            tile_list.append('river')
                 city_dct[tile_index] = tile_list
                 logit.debug(f"tile_list for {tile_index}: {tile_list}")
+    for i,j in city_dct.items():
+        logit.debug(f"city dict {i} : {j}")
     tm = tile_manager.TileManager(**city_dct)
     return tm
 
@@ -179,48 +179,41 @@ def create_city_plan_object_from_database(database_entry):
         'outer': [],
         'nearby': [],
     }
+
     for tile_index in config['tile_index_list']:
         if tile_index in database_entry:
             ring = city_key[tile_index[0]]
             entry = {}
-            print(database_entry[tile_index], ring)
             for layer in config['tile_layers']:
                 try:
-                    print(database_entry[tile_index][layer])
-                    default_value = database_entry[tile_index][layer]
-                    if layer == 'terrain':
-                        # if default_value.endswith('h'):
-                        # hills = default_value.endswith('h')
-                        value = {
-                            'name': default_value,
-                            'hills': True,
-                        }
+                    # print(database_entry[tile_index][layer])
+                    temp_value = database_entry[tile_index][layer]
+                    if layer == 'hills':
+                        entry['terrain']['hills'] = True
+                        continue
+                    elif layer == 'river':
+                        entry['feature']['river'] = True
+                        continue
                     else:
-                        value = {'name': database_entry[tile_index][layer]}
-                    #     if value['name'].endswith('h'):
-                    #         value['name'] = {
-                    #             'name': value['name'][:-1],
-                    #             ''
-                    #         }
+                        value = {
+                            'name': temp_value
+                        }
 
                     entry[layer] = value
                 except KeyError:
                     pass
             city_plan[city_key[tile_index[0]]].append(entry)
         else:
-            # print(city_plan, city_key[tile_index[0]], city_plan[city_key[tile_index[0]]])
             city_plan[city_key[tile_index[0]]].append({})
-            # city_plan[city_key[tile_index[0]].append([])
+    for metric in config['city_metrics']:
+        try:
+            city_plan[metric] = database_entry[metric]
+        except KeyError:
+            pass
 
-            # print(tile_index, )
-            # city_plan[city_key[tile_index[0]]].append()
-    # for k, v in database_entry.items():
-    #     print(k,v)
-    #     if k in config['tile_index_list']
-    for k,v in city_plan.items():
-        print(k)
-        for i in v:
-            print(f"    {json.dumps(i,indent = 2)}")
+    print('running through city plan')
+    print(json.dumps(city_plan, indent=2))
+    return CityPlan(**city_plan)
 
 def analize_tm(tile_object):
     indent = '    '
@@ -266,7 +259,11 @@ async def create_city(city: CityPlan):
     json_object = tile_object.converte_to_json()
     logit.debug(f"{json.dumps(json_object, indent=2)}")
 
-    return str(city)
+    json_response = jsonable_encoder(CityId(cityId=json_object['city_uuid']))
+    logit.debug(f"returned response: {json_response}")
+    return JSONResponse(content=json_response)
+    # If im supposed to return just the uuid, i have that coded out below
+    # return json_object['city_uuid']
 
 @app.get("/city_plan/")
 async def return_city(cityId: CityId):
@@ -276,9 +273,9 @@ async def return_city(cityId: CityId):
     database_example_data = {
         "cc": {
             "terrain": "grassland",
-            "hill": True,
+            "hills": 'hills',
             "feature": "woods",
-            "river": True,
+            "river": 'river',
             "district": "campus"
         },
         "i0": {
@@ -295,122 +292,8 @@ async def return_city(cityId: CityId):
             "feature": "rainforest"
         },
         "erah": 8,
-        "city_uuid": "6836776852ab11ebbf7b0242ac120002"
+        "city_uuid": cityId.cityId
     }
     city = create_city_plan_object_from_database(database_example_data)
-    # # city = CityPlan(database_example_data)
-
-    # # tm = tile_manager.TileManager(**city_dct)
-    # tile_object = create_tile_manager_object(city)
-    # # tile_object = tile_manager.TileManager().json_to_object(database_example_data)
-    # logit.debug(f"tile object {tile_object}")
-
-    # tile_object.calculate_city_yield()
-    # return_json = tile_object.converte_to_json()
-    # return return_json
-    # # return str(cityId)
-
-
-
-
-
-
-
-
-# class Backend:
-
-#     def __init__(self):
-#         pass
-
-
-
-# # be = Backend()
-
-# class CityPlan(BaseModel):
-#     name: str
-#     description: Optional[str] = None
-#     price: float
-#     tax: Optional[float] = None
-
-# app = FastAPI()  # noqa
-
-# @app.get('/')
-# def heartbeat(request: Request):
-#     return "thump thump..."
-
-# @app.post('/items')
-# async def create_item(item: CityPlan):
-#     return item
-
-# @app.post('/city_plan')
-# def post_city_plan(
-#     request: Request,
-    
-# ):
-
-# tm = tile_manager.TileManager(
-#     erah=8,
-#     # cc=[
-#     #     'grassland',
-#     #     'floodplains',
-#     #     'farm',
-#     #     # 'grassland',
-#     # ],
-#     cc=[
-#         'plains',
-#         'rainforest',
-#         'plantation',
-#         # 'aluminum',
-#         # 'river',
-#         'city_center'
-#         # 'floodplains',
-#         # 'campus:1'
-#         # 'campus'
-#         # 'theater_square'
-#         # 'farm'
-#         # 'desert',
-#         # 'campus',
-#         # 'river'
-#     ],
-#     i0=[
-#         'grasslandh',
-#         'floodplains',
-#         'farm'
-#     ],
-#     i1=[
-#         'grassland',
-#         'floodplains',
-#         # 'farm'
-#         'plantation'
-#     ]
-# )
-
-# # for item, val in tm.cc.terrain.__dict__.items():
-# #     print(f"    {item} : {val}")
-
-# print(tm.cc.__dict__)
-# print(tm.cc.terrain)
-# print(tm.cc.feature)
-# print(tm.cc.river)
-# print(tm.cc.resource)
-# print(tm.cc.improvement)
-# print(tm.cc.district)
-# print('')
-# print(f"food: {tm.cc.food}")
-# print(f"production: {tm.cc.production}")
-# print(f"gold: {tm.cc.gold}")
-# print(f"science: {tm.cc.science}")
-# # print('\n\ndict keys here')
-# # print(tm.cc.__dict__.keys())
-# # print('')
-# # print(tm.cc.terrain.__dict__.keys())
-# # print('')
-# # print(tm.cc.improvement.__dict__.keys())
-# # print('\n\n')
-# tm.calculate_city_yield()
-# # tm.calculate_tile_yield()
-# # print(tm.cc.district.__dict__)
-# print(f"food: {tm.cc.food}")
-# print(f"production: {tm.cc.production}")
-# print(f"gold: {tm.cc.gold}")
-# print(f"science: {tm.cc.science}")
+    json_response = jsonable_encoder(city)
+    return json_response

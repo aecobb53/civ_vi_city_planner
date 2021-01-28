@@ -147,7 +147,7 @@ class CommonTile:
     def housing(self, value):
         self._housing = value
 
-    # citizen_slo
+    # citizen_slot
     @property
     def citizen_slot(self):
         if self._citizen_slot is None:
@@ -169,7 +169,7 @@ class CommonTile:
     def amenities(self, value):
         self._amenities = value
 
-    # powe
+    # power
     @property
     def power(self):
         if self._power is None:
@@ -180,7 +180,7 @@ class CommonTile:
     def power(self, value):
         self._power = value
 
-    # powere
+    # powered
     @property
     def powered(self):
         if self._powered is None:
@@ -188,7 +188,7 @@ class CommonTile:
         return self._powered
 
     @powered.setter
-    def power(self, value):
+    def powered(self, value):
         self._powered = value
 
     # appea

@@ -10,7 +10,11 @@ grep_port () {
 
 setup () {
     # Run setup from the cmd line. Not reccomended as its super clunkey
-    ./setup.py
+    # ./setup.py
+    mkdir logs
+    mkdir logs/backend
+    mkdir logs/backend/behave
+    mkdir db
 }
 
 start_container () {

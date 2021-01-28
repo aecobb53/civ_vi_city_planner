@@ -286,7 +286,7 @@ class Tile(CommonTile):
 
             # Hills
             if name == 'hills':
-                self.hills = True
+                self.hills = Hills()
 
             # Features
             if name in self.list_of_features:
@@ -335,7 +335,7 @@ class Tile(CommonTile):
 
             # River
             if name == 'river':
-                self.river = True
+                self.river = River()
 
             # Resource
             if name in self.list_of_resources:

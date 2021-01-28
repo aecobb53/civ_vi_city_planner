@@ -111,3 +111,18 @@ tile_resources:
     - amenities
     - power
     - appeal
+city_metrics:
+    - erah
+    - city_uuid
+    - food
+    - production
+    - gold
+    - science
+    - culture
+    - faith
+    - population
+    - housing
+    - citizen_slot
+    - amenities
+    - power
+    - maintenance

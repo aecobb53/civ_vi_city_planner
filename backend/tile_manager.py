@@ -745,12 +745,38 @@ class TileManager:
             print('has improvement')
             self._calculate_improvement(tile_index)
 
+    def sum_city_tiles(self):
+        for metric in config['city_metrics']:
+            for tile_index in list(self.adjacency_members.keys()):
+                try:
+                    print(f"sum tile stuff: {metric}, {tile_index}, {getattr(getattr(self, tile_index), metric)}")
+                    tile_value = getattr(getattr(self, tile_index), metric)
+                except AttributeError:
+                    continue
+                try:
+                    if metric == 'erah':
+                        self.erah = max(self.erah, tile_value)
+                    elif metric == 'city_uuid':
+                        continue
+                    else:
+                        if tile_value is None:
+                            continue
+                        try:
+                            new_value = getattr(self, metric) + tile_value
+                        except AttributeError:
+                            new_value = tile_value
+                        setattr(self, metric, new_value)
+                except TypeError:
+                    pass
+                
+
     def calculate_city_yield(self):
         # print('for testing only running first few keys. Fix this later!!!!')
         # search_list = list(self.adjacency_members.keys())[:7]
         search_list = list(self.adjacency_members.keys())
         for tile_index in search_list:
             self.calculate_tile_yield(tile_index)
+        self.sum_city_tiles()
 
     def return_adj_matrix(self, tile_index):
         """
@@ -769,12 +795,6 @@ class TileManager:
             for layer in config['tile_layers']:
                 if getattr(tile, layer) is not None:
                     temp_container[layer] = str(getattr(tile, layer)).split('.')[2]
-                    if layer == 'terrain':
-                        print(str(getattr(tile, layer)).split('.')[2])
-                        # print(getattr(tile, layer).hills, str(getattr(tile, layer)).split('.')[2])
-                    if layer == 'feature':
-                        print(str(getattr(tile, layer)).split('.')[2])
-                        # print(getattr(tile, layer).hills, str(getattr(tile, layer)).split('.')[2])
             if temp_container != {}:
                 return_dict[tile_index] = temp_container
         if self.name is not None:
@@ -807,12 +827,17 @@ class TileManager:
         if self.city_uuid is not None:
             return_dict['city_uuid'] = self.city_uuid
 
+        self.calculate_city_yield()
+        for metric in config['city_metrics']:
+            if getattr(self, metric) is not None:
+                return_dict[metric] = getattr(self, metric)
+
         return return_dict
 
-    def json_to_object(self, city_json):
-        for k, v in city_json.items():
-            if k not in config['tile_index_list']:
-                continue
-            print(k,v)
-        # uuid.UUID(hex=('hex value here'))
-        return self
+    # def json_to_object(self, city_json):
+    #     for k, v in city_json.items():
+    #         if k not in config['tile_index_list']:
+    #             continue
+    #         print(k,v)
+    #     # uuid.UUID(hex=('hex value here'))
+    #     return self
