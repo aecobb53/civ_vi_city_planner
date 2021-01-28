@@ -34,7 +34,7 @@ start_container () {
 
         reg)
             echo "Spinning up the reg env for ${APPNAME} program"
-            docker-compose -d -f docker-compose-regression.yml up
+            docker-composedocker -d -f docker-compose-regression.yml up
             COMPOSE_EXIT_CODE=$?
             ;;
 
