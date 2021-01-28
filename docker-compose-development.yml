@@ -11,6 +11,7 @@ services:
         volumes:
             - .:/usr/src
         ports:
+            # - 8000:8000
             - 8314:8000
         environment:
             - ENVIRONMENT=dev
@@ -41,7 +42,7 @@ services:
         volumes:
             - mongodb_data_container:/data/db
 
-    sh:
+    bash:
         build: 
             context: .
             dockerfile: features/Dockerfile

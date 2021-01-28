@@ -1,5 +1,7 @@
 import json
+import yaml
 import math
+import uuid
 
 from backend.common_tile import CommonTile
 from backend.tile_container import Tile
@@ -8,6 +10,10 @@ from backend.features import *
 from backend.improvements import *
 from backend.districts import *
 from backend.resources import *
+
+# Config
+with open('etc/backend.yml') as ycf:
+    config = yaml.load(ycf, Loader=yaml.FullLoader)
 
 
 class TileManager:
@@ -23,43 +29,10 @@ class TileManager:
         The values of the kwargs are converted to lists if they are not already then provided to the Tile class.
         """
 
-        self._cc = None
-        self._i0 = None
-        self._i1 = None
-        self._i2 = None
-        self._i3 = None
-        self._i4 = None
-        self._i5 = None
-        self._m0 = None
-        self._m1 = None
-        self._m2 = None
-        self._m3 = None
-        self._m4 = None
-        self._m5 = None
-        self._m6 = None
-        self._m7 = None
-        self._m8 = None
-        self._m9 = None
-        self._m10 = None
-        self._m11 = None
-        self._o0 = None
-        self._o1 = None
-        self._o2 = None
-        self._o3 = None
-        self._o4 = None
-        self._o5 = None
-        self._o6 = None
-        self._o7 = None
-        self._o8 = None
-        self._o9 = None
-        self._o10 = None
-        self._o11 = None
-        self._o12 = None
-        self._o13 = None
-        self._o14 = None
-        self._o15 = None
-        self._o16 = None
-        self._o17 = None
+        # While i can init the list here like this, i still need to use the getter/setters for every one below... i think
+        for tile_index in config['tile_index_list']:
+            setattr(self, '_' + tile_index, None)
+        self._name = None
         self._erah = None
         self._govener = None
         self._amenities = None
@@ -68,8 +41,11 @@ class TileManager:
         self._strategic = None
         self._luxury = None
         self._trader = None
+        self._city_uuid = None
 
         for k, v in kwargs.items():
+            if v is None:
+                continue
             if not isinstance(v, list):
                 v = [v]
             setattr(self, k, v)
@@ -114,20 +90,9 @@ class TileManager:
             'o17': [None, self.o0, self.m0, self.m11, self.o16, None],
         }
 
-        self.resource_list = [
-            'food',
-            'production',
-            'gold',
-            'science',
-            'culture',
-            'faith',
-            'tourism',
-            'population',
-            'housing',
-            'amenities',
-            'power',
-            'appeal',
-        ]
+        self.resource_list = config['tile_resources']
+
+        # The order of this one matters I think
         self.tile_list = [
             'wonder',
             'district',
@@ -544,6 +509,19 @@ class TileManager:
     def o17(self, value):
         self._o17 = Tile(value)
 
+    # name
+    @property
+    def name(self):
+        if self._name is None:
+            return None
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        if not isinstance(value, list):
+            value = [value]
+        self._name = value[0]
+
     # erah
     @property
     def erah(self):
@@ -634,6 +612,21 @@ class TileManager:
     def trader(self, value):
         self._trader = Tile(value)
 
+    # city_uuid
+    @property
+    def city_uuid(self):
+        if self._city_uuid is None:
+            self.city_uuid = self._generate_uuid()
+        return self._city_uuid
+
+    @city_uuid.setter
+    def city_uuid(self, value):
+        if self._city_uuid is None:
+            self._city_uuid = value
+
+    def _generate_uuid(self):
+        return uuid.uuid1().hex
+
     def _tile_summer(self, tile_index, tile_type, resource):
         # print(self, tile_index, tile_type, resource)
         # print(getattr(getattr(getattr(self, tile_index), tile_type), resource))
@@ -666,6 +659,11 @@ class TileManager:
         for resource in self.resource_list:
             self._tile_summer(tile_index, 'terrain', resource)
 
+    def _calculate_hills(self, tile_index):
+        # Calculate the yield for the hills of the tile
+        for resource in self.resource_list:
+            self._tile_summer(tile_index, 'hills', resource)
+
     def _calculate_feature(self, tile_index):
         # Calculate the yield for the feature of the tile
         for resource in self.resource_list:
@@ -690,6 +688,13 @@ class TileManager:
             getattr(self, tile_index).improvement.calculate_erah(self, tile_index, self.adjacency_members[tile_index])
         except AttributeError:
             pass
+
+    # def set_attribute(attribute, value):
+    #     setattr(self, attribute, value)
+
+    # def append_attribute(attribute, value):
+    #     if 
+    #     getattr(self, attribute).append(value)
 
     def calculate_tile_yield(self, tile_index):
         """
@@ -720,9 +725,17 @@ class TileManager:
             print('has terrain')
             self._calculate_terrain(tile_index)
 
+        if getattr(self, tile_index).hills is not None:
+            print('has hills')
+            self._calculate_hills(tile_index)
+
         if getattr(self, tile_index).feature is not None:
             print('has feature')
             self._calculate_feature(tile_index)
+
+        # if getattr(self, tile_index).river is not None:
+        #     print('has river')
+        #     # self._calculate_river(tile_index)
 
         if getattr(self, tile_index).resource is not None:
             self._calculate_resource(tile_index)
@@ -732,12 +745,38 @@ class TileManager:
             print('has improvement')
             self._calculate_improvement(tile_index)
 
+    def sum_city_tiles(self):
+        for metric in config['city_metrics']:
+            for tile_index in list(self.adjacency_members.keys()):
+                try:
+                    print(f"sum tile stuff: {metric}, {tile_index}, {getattr(getattr(self, tile_index), metric)}")
+                    tile_value = getattr(getattr(self, tile_index), metric)
+                except AttributeError:
+                    continue
+                try:
+                    if metric == 'erah':
+                        self.erah = max(self.erah, tile_value)
+                    elif metric == 'city_uuid':
+                        continue
+                    else:
+                        if tile_value is None:
+                            continue
+                        try:
+                            new_value = getattr(self, metric) + tile_value
+                        except AttributeError:
+                            new_value = tile_value
+                        setattr(self, metric, new_value)
+                except TypeError:
+                    pass
+                
+
     def calculate_city_yield(self):
         # print('for testing only running first few keys. Fix this later!!!!')
         # search_list = list(self.adjacency_members.keys())[:7]
         search_list = list(self.adjacency_members.keys())
         for tile_index in search_list:
             self.calculate_tile_yield(tile_index)
+        self.sum_city_tiles()
 
     def return_adj_matrix(self, tile_index):
         """
@@ -745,3 +784,60 @@ class TileManager:
         This may need to be updated eventually in case I keep track of surrounding tiles outside of the city that still influence it.
         """
         return self.adjacency_members[tile_index]
+
+    def converte_to_json(self):
+        return_dict = {}
+        for tile_index in config['tile_index_list']:
+            temp_container = {}
+            tile = getattr(self, tile_index)
+            if tile is None:
+                continue
+            for layer in config['tile_layers']:
+                if getattr(tile, layer) is not None:
+                    temp_container[layer] = str(getattr(tile, layer)).split('.')[2]
+            if temp_container != {}:
+                return_dict[tile_index] = temp_container
+        if self.name is not None:
+            return_dict['name'] = self.name
+
+        if self.erah is not None:
+            return_dict['erah'] = self.erah
+
+        if self.govener is not None:
+            return_dict['govener'] = self.govener
+
+        if self.amenities is not None:
+            return_dict['amenities'] = self.amenities
+
+        if self.power is not None:
+            return_dict['power'] = self.power
+
+        if self.bonus is not None:
+            return_dict['bonus'] = self.bonus
+
+        if self.strategic is not None:
+            return_dict['strategic'] = self.strategic
+
+        if self.luxury is not None:
+            return_dict['luxury'] = self.luxury
+
+        if self.trader is not None:
+            return_dict['trader'] = self.trader
+
+        if self.city_uuid is not None:
+            return_dict['city_uuid'] = self.city_uuid
+
+        self.calculate_city_yield()
+        for metric in config['city_metrics']:
+            if getattr(self, metric) is not None:
+                return_dict[metric] = getattr(self, metric)
+
+        return return_dict
+
+    # def json_to_object(self, city_json):
+    #     for k, v in city_json.items():
+    #         if k not in config['tile_index_list']:
+    #             continue
+    #         print(k,v)
+    #     # uuid.UUID(hex=('hex value here'))
+    #     return self

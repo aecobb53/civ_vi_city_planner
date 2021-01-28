@@ -1,6 +1,7 @@
 from .coast import Coast
 from .desert import Desert
 from .grassland import Grassland
+from .hills import Hills
 from .lake import Lake
 from .ocean import Ocean
 from .plains import Plains

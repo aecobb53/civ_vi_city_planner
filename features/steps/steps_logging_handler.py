@@ -7,6 +7,7 @@ def setup():
     logger = Logger('civ_vi', \
         log_directory='logs/backend/behave/', \
         app_name_in_file=True, \
+        log_suffix='testing', \
         log_prefix='functional_testing', \
         date_in_file=True, \
         time_in_file=True, \
