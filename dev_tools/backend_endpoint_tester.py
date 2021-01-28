@@ -59,9 +59,11 @@ post_data = {
         {
             'terrain':{
                 'name': 'grassland',
+                'hills': True,
             },
             'feature':{
                 'name':'woods',
+                'river': True,
             },
             'resource':{
                 'name':'iron',
@@ -73,26 +75,26 @@ post_data = {
                 'name':'campus'
             },
         },
-        {
-            'terrain':{
-                'name': 'desert',
-                'hill':True,
-            },
-            'feature':{
-                'name':'floodplains',
-                'river':True,
-            },
-        },
-        {
-            'terrain':{
-                'name': 'plains',
-                'hill':False,
-            },
-            'feature':{
-                'name':'rainforest',
-                'river':False,
-            },
-        },
+        # {
+        #     'terrain':{
+        #         'name': 'desert',
+        #         'hills':True,
+        #     },
+        #     'feature':{
+        #         'name':'floodplains',
+        #         'river':True,
+        #     },
+        # },
+        # {
+        #     'terrain':{
+        #         'name': 'plains',
+        #         'hills':False,
+        #     },
+        #     'feature':{
+        #         'name':'rainforest',
+        #         'river':False,
+        #     },
+        # },
         # {},
         # {},
         # {},
@@ -118,7 +120,7 @@ post_data = {
         {
             'terrain':{
                 'name': 'desert',
-                'hill':True,
+                'hills':True,
             },
             'feature':{
                 'name':'floodplains',
@@ -128,7 +130,7 @@ post_data = {
         {
             'terrain':{
                 'name': 'plains',
-                'hill':False,
+                'hills':True,
             },
             'feature':{
                 'name':'rainforest',
@@ -145,8 +147,27 @@ post_data = {
 }
 city_url = url + '/city_plan/'
 print(f"url: {city_url}")
-print('running null item class')
+# print('running null item class')
 r = requests.post(city_url, data=json.dumps(post_data))
+print(r)
+print(r.text)
+if r.status_code != 200:
+    raise ValueError('the code is wrong yo')
+try:
+    print(json.dumps(r.json, indent=4))
+except:
+    print('not json parsable')
+
+exit()
+print('')
+
+post_data = {
+    'cityId':'test_cityId',
+}
+city_url = url + '/city_plan/'
+print(f"url: {city_url}")
+# print('running null item class')
+r = requests.get(city_url, data=json.dumps(post_data))
 print(r)
 print(r.text)
 if r.status_code != 200:

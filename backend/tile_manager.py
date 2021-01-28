@@ -1,6 +1,7 @@
 import json
 import yaml
 import math
+import uuid
 
 from backend.common_tile import CommonTile
 from backend.tile_container import Tile
@@ -31,6 +32,7 @@ class TileManager:
         # While i can init the list here like this, i still need to use the getter/setters for every one below... i think
         for tile_index in config['tile_index_list']:
             setattr(self, '_' + tile_index, None)
+        self._name = None
         self._erah = None
         self._govener = None
         self._amenities = None
@@ -39,6 +41,7 @@ class TileManager:
         self._strategic = None
         self._luxury = None
         self._trader = None
+        self._city_uuid = None
 
         for k, v in kwargs.items():
             if v is None:
@@ -506,6 +509,19 @@ class TileManager:
     def o17(self, value):
         self._o17 = Tile(value)
 
+    # name
+    @property
+    def name(self):
+        if self._name is None:
+            return None
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        if not isinstance(value, list):
+            value = [value]
+        self._name = value[0]
+
     # erah
     @property
     def erah(self):
@@ -596,6 +612,21 @@ class TileManager:
     def trader(self, value):
         self._trader = Tile(value)
 
+    # city_uuid
+    @property
+    def city_uuid(self):
+        if self._city_uuid is None:
+            self.city_uuid = self._generate_uuid()
+        return self._city_uuid
+
+    @city_uuid.setter
+    def city_uuid(self, value):
+        if self._city_uuid is None:
+            self._city_uuid = value
+
+    def _generate_uuid(self):
+        return uuid.uuid1().hex
+
     def _tile_summer(self, tile_index, tile_type, resource):
         # print(self, tile_index, tile_type, resource)
         # print(getattr(getattr(getattr(self, tile_index), tile_type), resource))
@@ -627,6 +658,11 @@ class TileManager:
         # Calculate the yield for the terrain of the tile
         for resource in self.resource_list:
             self._tile_summer(tile_index, 'terrain', resource)
+
+    def _calculate_hills(self, tile_index):
+        # Calculate the yield for the hills of the tile
+        for resource in self.resource_list:
+            self._tile_summer(tile_index, 'hills', resource)
 
     def _calculate_feature(self, tile_index):
         # Calculate the yield for the feature of the tile
@@ -689,9 +725,17 @@ class TileManager:
             print('has terrain')
             self._calculate_terrain(tile_index)
 
+        if getattr(self, tile_index).hills is not None:
+            print('has hills')
+            self._calculate_hills(tile_index)
+
         if getattr(self, tile_index).feature is not None:
             print('has feature')
             self._calculate_feature(tile_index)
+
+        # if getattr(self, tile_index).river is not None:
+        #     print('has river')
+        #     # self._calculate_river(tile_index)
 
         if getattr(self, tile_index).resource is not None:
             self._calculate_resource(tile_index)
@@ -714,3 +758,61 @@ class TileManager:
         This may need to be updated eventually in case I keep track of surrounding tiles outside of the city that still influence it.
         """
         return self.adjacency_members[tile_index]
+
+    def converte_to_json(self):
+        return_dict = {}
+        for tile_index in config['tile_index_list']:
+            temp_container = {}
+            tile = getattr(self, tile_index)
+            if tile is None:
+                continue
+            for layer in config['tile_layers']:
+                if getattr(tile, layer) is not None:
+                    temp_container[layer] = str(getattr(tile, layer)).split('.')[2]
+                    if layer == 'terrain':
+                        print(str(getattr(tile, layer)).split('.')[2])
+                        # print(getattr(tile, layer).hills, str(getattr(tile, layer)).split('.')[2])
+                    if layer == 'feature':
+                        print(str(getattr(tile, layer)).split('.')[2])
+                        # print(getattr(tile, layer).hills, str(getattr(tile, layer)).split('.')[2])
+            if temp_container != {}:
+                return_dict[tile_index] = temp_container
+        if self.name is not None:
+            return_dict['name'] = self.name
+
+        if self.erah is not None:
+            return_dict['erah'] = self.erah
+
+        if self.govener is not None:
+            return_dict['govener'] = self.govener
+
+        if self.amenities is not None:
+            return_dict['amenities'] = self.amenities
+
+        if self.power is not None:
+            return_dict['power'] = self.power
+
+        if self.bonus is not None:
+            return_dict['bonus'] = self.bonus
+
+        if self.strategic is not None:
+            return_dict['strategic'] = self.strategic
+
+        if self.luxury is not None:
+            return_dict['luxury'] = self.luxury
+
+        if self.trader is not None:
+            return_dict['trader'] = self.trader
+
+        if self.city_uuid is not None:
+            return_dict['city_uuid'] = self.city_uuid
+
+        return return_dict
+
+    def json_to_object(self, city_json):
+        for k, v in city_json.items():
+            if k not in config['tile_index_list']:
+                continue
+            print(k,v)
+        # uuid.UUID(hex=('hex value here'))
+        return self

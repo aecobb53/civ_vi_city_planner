@@ -1,6 +1,6 @@
 import datetime
 # import time
-# import json
+import json
 import os
 import yaml
 # import threading
@@ -49,7 +49,7 @@ with open('etc/backend.yml') as ycf:
 
 class Terrain(BaseModel):
     name: str
-    hill: bool = None
+    hills: bool = None
 
 
 class Feature(BaseModel):
@@ -93,6 +93,8 @@ class CityPlan(BaseModel):
     nearby: List[Tile] = None
 
     
+class CityId(BaseModel):
+    cityId: str
     # logit.debug(f"center item here {center}")
     # logit.debug(f"center item here {self.center}")
     # logit.debug(f"center type {type(center)}")
@@ -138,17 +140,87 @@ def create_tile_manager_object(city_object):
                     continue
                 logit.debug(f"tile {tile_index}: {tile}")
                 tile_list = []
+                logit.warning(f"here is the tile were on {tile.__dict__.keys()}")
                 for layer in tile_layers:
+                    logit.warning(f"here is the layer were on {layer}")
                     try:
-                        if getattr(tile, layer) is not None:
+                        if getattr(tile, layer) is None:
+                            continue
+                    except:
+                        continue
+                    try:
                             logit.debug(f"layer details {tile_index}-{layer}: {getattr(tile, layer)}")
                             tile_list.append(getattr(tile, layer).name)
                     except AttributeError:
                         pass
+                    if layer == 'terrain':
+                        tile_list.append(getattr(tile, layer).hills)
+                    if layer == 'feature':
+                        tile_list.append(getattr(tile, layer).river)
                 city_dct[tile_index] = tile_list
                 logit.debug(f"tile_list for {tile_index}: {tile_list}")
     tm = tile_manager.TileManager(**city_dct)
     return tm
+
+def create_city_plan_object_from_database(database_entry):
+    print(json.dumps(database_entry, indent=2))
+    print('create city plan from database dict')
+    city_key = {
+        'c': 'center',
+        'i': 'inner',
+        'm': 'middle',
+        'o': 'outer',
+        'n': 'nearby',
+    }
+    city_plan = {
+        'center': [],
+        'inner': [],
+        'middle': [],
+        'outer': [],
+        'nearby': [],
+    }
+    for tile_index in config['tile_index_list']:
+        if tile_index in database_entry:
+            ring = city_key[tile_index[0]]
+            entry = {}
+            print(database_entry[tile_index], ring)
+            for layer in config['tile_layers']:
+                try:
+                    print(database_entry[tile_index][layer])
+                    default_value = database_entry[tile_index][layer]
+                    if layer == 'terrain':
+                        # if default_value.endswith('h'):
+                        # hills = default_value.endswith('h')
+                        value = {
+                            'name': default_value,
+                            'hills': True,
+                        }
+                    else:
+                        value = {'name': database_entry[tile_index][layer]}
+                    #     if value['name'].endswith('h'):
+                    #         value['name'] = {
+                    #             'name': value['name'][:-1],
+                    #             ''
+                    #         }
+
+                    entry[layer] = value
+                except KeyError:
+                    pass
+            city_plan[city_key[tile_index[0]]].append(entry)
+        else:
+            # print(city_plan, city_key[tile_index[0]], city_plan[city_key[tile_index[0]]])
+            city_plan[city_key[tile_index[0]]].append({})
+            # city_plan[city_key[tile_index[0]].append([])
+
+            # print(tile_index, )
+            # city_plan[city_key[tile_index[0]]].append()
+    # for k, v in database_entry.items():
+    #     print(k,v)
+    #     if k in config['tile_index_list']
+    for k,v in city_plan.items():
+        print(k)
+        for i in v:
+            print(f"    {json.dumps(i,indent = 2)}")
 
 def analize_tm(tile_object):
     indent = '    '
@@ -186,45 +258,57 @@ def heartbeat(request: Request):
 
 @app.post("/city_plan/")
 async def create_city(city: CityPlan):
+    logit.debug('city_plan post endpoint hit')
     tile_object = create_tile_manager_object(city)
-    analize_tm(tile_object)
+    # analize_tm(tile_object)
     tile_object.calculate_city_yield()
-    analize_yields(tile_object)
+    # analize_yields(tile_object)
+    json_object = tile_object.converte_to_json()
+    logit.debug(f"{json.dumps(json_object, indent=2)}")
 
-
-    # create_tile_manager_object(city)
-    # cd = city.__dict__
-    # logit.debug('city plan endpoint hit')
-    # logit.debug(f"type of city plan {type(city)}")
-    # # logit.debug(f"city plan layout {city.__dict__}")
-    # logit.debug(f"city plan layout {cd}")
-    # logit.debug(f"city plan keys {cd.keys()}")
-    # logit.debug(f"city plan name {city.name}")
-    # logit.debug(f"city plan center {city.center}")
-    # for item in city.center:
-    #     logit.debug(f"center item {item}")
-    #     if item.terrain is not None:
-    #         logit.debug(f"center terrain item {item.terrain}")
-    # logit.debug('\n\n')
-    # logit.debug('listing out center tiles')
-    # for index, tl in enumerate(city.center):
-    #     logit.debug(f"{index} : {tl}")
-
-
-    # tile_object = create_tile_manager_object()
-    # analize_tm(tile_object)
-    # logit.info('break between two managers')
-    # tile_object = create_tile_manager_object('placeholder')
-    # analize_tm(tile_object)
-    # logit.debug(f"Tile object {tile_object}")
-    # logit.debug(f"Tile object dict {tile_object.__dict__}")
-    
-        
-    # logit.debug(f"Tile object dict {tile_object.__dict__.keys()}")
-
-
-    # return str(type(city))
     return str(city)
+
+@app.get("/city_plan/")
+async def return_city(cityId: CityId):
+    logit.debug('city_plan get endpoint hit')
+    logit.debug(f"cityID: {cityId.cityId}")
+    logit.warning('actually grabbing a city based on its ID is turned off for testing')
+    database_example_data = {
+        "cc": {
+            "terrain": "grassland",
+            "hill": True,
+            "feature": "woods",
+            "river": True,
+            "district": "campus"
+        },
+        "i0": {
+            "terrain": "grassland",
+            "feature": "woods",
+            "district": "campus"
+        },
+        "i1": {
+            "terrain": "desert",
+            "feature": "floodplains"
+        },
+        "i2": {
+            "terrain": "plains",
+            "feature": "rainforest"
+        },
+        "erah": 8,
+        "city_uuid": "6836776852ab11ebbf7b0242ac120002"
+    }
+    city = create_city_plan_object_from_database(database_example_data)
+    # # city = CityPlan(database_example_data)
+
+    # # tm = tile_manager.TileManager(**city_dct)
+    # tile_object = create_tile_manager_object(city)
+    # # tile_object = tile_manager.TileManager().json_to_object(database_example_data)
+    # logit.debug(f"tile object {tile_object}")
+
+    # tile_object.calculate_city_yield()
+    # return_json = tile_object.converte_to_json()
+    # return return_json
+    # # return str(cityId)
 
 
 

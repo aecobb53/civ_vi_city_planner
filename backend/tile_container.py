@@ -26,6 +26,7 @@ class Tile(CommonTile):
         tile_list):
         super().__init__()
         self._terrain = None
+        self._hills = None
         self._feature = None
         self._river = None
         self._resource = None
@@ -35,15 +36,10 @@ class Tile(CommonTile):
 
         self.list_of_terrain = [
             'grassland',
-            'grasslandh',
             'plains',
-            'plainsh',
             'desert',
-            'deserth',
             'tundra',
-            'tundrah',
             'snow',
-            'snowh',
             'coast',
             'lake',
             'ocean',
@@ -200,6 +196,7 @@ class Tile(CommonTile):
 
         tile_parts = {
             'terrain': None,
+            'hills': None,
             'features': None,
             'river': None,
             'resources': None,
@@ -209,19 +206,22 @@ class Tile(CommonTile):
 
         for name in tile_list:
             # First i need to make sure the order of everything is correct
-            if ':' in name:
-                """
-                If i want specific buildings in a district i append the district with a :building name or :building_number
-                ex: campus
-                ex: campus:2
-                ex: campus:univeristy
-                """
-                dist_name = name.split(':')
-            else:
-                dist_name = [name]
+            # if ':' in name:
+            #     """
+            #     If i want specific buildings in a district i append the district with a :building name or :building_number
+            #     ex: campus
+            #     ex: campus:2
+            #     ex: campus:univeristy
+            #     """
+            #     dist_name = name.split(':')
+            # else:
+            #     dist_name = [name]
 
             if name in self.list_of_terrain:
                 tile_parts['terrain'] = name
+
+            if name == 'hills':
+                tile_parts['hills'] = name
 
             if name in self.list_of_features:
                 tile_parts['features'] = name
@@ -232,7 +232,7 @@ class Tile(CommonTile):
             if name in self.list_of_improvements:
                 tile_parts['improvements'] = name
 
-            if dist_name[0] in self.list_of_districts:
+            if name in self.list_of_districts:
                 tile_parts['districts'] = name
 
             if name in self.list_of_resources:
@@ -255,34 +255,38 @@ class Tile(CommonTile):
 
             # Terrain
             if name in self.list_of_terrain:
-                if name.endswith('h'):
-                    hills = True
-                else:
-                    hills = False
+                # if name.endswith('h'):
+                #     hills = True
+                # else:
+                #     hills = False
 
                 if 'grassland' in name:
-                    self.terrain = Grassland(hills=hills)
+                    self.terrain = Grassland()
 
                 if 'plains' in name:
-                    self.terrain = Plains(hills=hills)
+                    self.terrain = Plains()
 
                 if 'desert' in name:
-                    self.terrain = Desert(hills=hills)
+                    self.terrain = Desert()
 
                 if 'tundra' in name:
-                    self.terrain = Tundra(hills=hills)
+                    self.terrain = Tundra()
 
                 if 'snow' in name:
-                    self.terrain = Snow(hills=hills)
+                    self.terrain = Snow()
 
                 if 'coast' in name:
-                    self.terrain = Coast(hills=hills)
+                    self.terrain = Coast()
 
                 if 'lake' in name:
-                    self.terrain = Lake(hills=hills)
+                    self.terrain = Lake()
 
                 if 'ocean' in name:
-                    self.terrain = Ocean(hills=hills)
+                    self.terrain = Ocean()
+
+            # Hills
+            if name == 'hills':
+                self.hills = True
 
             # Features
             if name in self.list_of_features:
@@ -773,6 +777,17 @@ class Tile(CommonTile):
     def terrain(self, value):
         self._terrain = value
 
+    # hills
+    @property
+    def hills(self):
+        if self._hills is None:
+            return None
+        return self._hills
+
+    @hills.setter
+    def hills(self, value):
+        self._hills = value
+
     # feature
     @property
     def feature(self):
@@ -838,5 +853,3 @@ class Tile(CommonTile):
     @wonder.setter
     def wonder(self, value):
         self._wonder = value
-
-    # def return_yield(self):

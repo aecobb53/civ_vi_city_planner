@@ -91,7 +91,9 @@ circle_layers:
     - nearby
 tile_layers:
     - terrain
+    - hills
     - feature
+    - river
     - resource
     - improvement
     - district
