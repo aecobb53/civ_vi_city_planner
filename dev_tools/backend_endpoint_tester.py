@@ -6,7 +6,12 @@ url = 'http://0.0.0.0:' + port
 
 print(f"url: {url}")
 print('verifying heartbeat')
-r = requests.get(url)
+try:
+    r = requests.get(url)
+except:
+    port = '8204'
+    url = 'http://0.0.0.0:' + port
+    r = requests.get(url)
 print(r)
 print(r.text)
 

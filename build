@@ -34,7 +34,8 @@ start_container () {
 
         reg)
             echo "Spinning up the reg env for ${APPNAME} program"
-            docker-composedocker -d -f docker-compose-regression.yml up
+            docker rm $(docker stop $(docker ps -a --filter="name=civ_vi_reg_backend" --format="{{.ID}}"))
+            docker-compose -f docker-compose-regression.yml up -d
             COMPOSE_EXIT_CODE=$?
             ;;
 

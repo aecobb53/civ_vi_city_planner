@@ -16,7 +16,7 @@ services:
         environment:
             - ENVIRONMENT=reg
             - SERVICE=backend
-        container_name: reg_backend
+        container_name: civ_vi_reg_backend
 
     # calculator:
     #     build:
