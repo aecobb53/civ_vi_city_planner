@@ -8,13 +8,21 @@ grep_port () {
     grep -A10 $1 docker-compose.yml | grep -A4 ports | grep "-" | head -n1
 }
 
+create_directory () {
+    if [ ! -d $1 ]
+    then
+        echo Creating "${1}" directory
+        mkdir $1
+    fi
+}
+
 setup () {
     # Run setup from the cmd line. Not reccomended as its super clunkey
     # ./setup.py
-    mkdir logs
-    mkdir logs/backend
-    mkdir logs/backend/behave
-    mkdir db
+    create_directory "logs"
+    create_directory "logs/backend"
+    create_directory "logs/backend/behave"
+    create_directory "db"
 }
 
 start_container () {
