@@ -112,7 +112,7 @@ class CityPlan(BaseModel):
 
     
 class CityId(BaseModel):
-    cityId: str
+    name: str
     # logit.debug(f"center item here {center}")
     # logit.debug(f"center item here {self.center}")
     # logit.debug(f"center type {type(center)}")
@@ -259,7 +259,7 @@ async def create_city(city: CityPlan):
     json_object = tile_object.converte_to_json()
     logit.debug(f"{json.dumps(json_object, indent=2)}")
 
-    json_response = jsonable_encoder(CityId(cityId=json_object['city_uuid']))
+    json_response = jsonable_encoder(CityId(name=json_object['city_uuid']))
     logit.debug(f"returned response: {json_response}")
     return JSONResponse(content=json_response)
     # If im supposed to return just the uuid, i have that coded out below
@@ -268,7 +268,7 @@ async def create_city(city: CityPlan):
 @app.get("/city_plan/")
 async def return_city(cityId: CityId):
     logit.debug('city_plan get endpoint hit')
-    logit.debug(f"cityID: {cityId.cityId}")
+    logit.debug(f"cityID: {cityId.name}")
     logit.warning('actually grabbing a city based on its ID is turned off for testing')
     database_example_data = {
         "cc": {
@@ -292,7 +292,7 @@ async def return_city(cityId: CityId):
             "feature": "rainforest"
         },
         "erah": 8,
-        "city_uuid": cityId.cityId
+        "city_uuid": cityId.name
     }
     city = create_city_plan_object_from_database(database_example_data)
     json_response = jsonable_encoder(city)

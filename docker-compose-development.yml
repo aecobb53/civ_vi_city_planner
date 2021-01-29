@@ -17,30 +17,30 @@ services:
             - ENVIRONMENT=dev
             - SERVICE=backend
 
-    calculator:
-        build:
-            context: .
-            dockerfile: calculator/Dockerfile
-        image: civ_calculator
-        command: sh
-        # command: uvicorn backend:app --reload --host 0.0.0.0 --port 8000
-        volumes:
-            - .:/usr/src
-        ports:
-            - 8316:8000
-        environment:
-            - ENVIRONMENT=dev
-            - SERVICE=calculator
+    # calculator:
+    #     build:
+    #         context: .
+    #         dockerfile: calculator/Dockerfile
+    #     image: civ_calculator
+    #     command: sh
+    #     # command: uvicorn backend:app --reload --host 0.0.0.0 --port 8000
+    #     volumes:
+    #         - .:/usr/src
+    #     ports:
+    #         - 8316:8000
+    #     environment:
+    #         - ENVIRONMENT=dev
+    #         - SERVICE=calculator
 
-    database:
-        image: mongo:latest
-        environment: 
-            MONGO_INITDB_ROOT_USERNAME: root
-            MONGO_INITDB_ROOT_PASSWORD: rootpassword
-        ports:
-            - 8305:8000
-        volumes:
-            - mongodb_data_container:/data/db
+    # database:
+    #     image: mongo:latest
+    #     environment: 
+    #         MONGO_INITDB_ROOT_USERNAME: root
+    #         MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    #     ports:
+    #         - 8305:8000
+    #     volumes:
+    #         - mongodb_data_container:/data/db
 
     bash:
         build: 
