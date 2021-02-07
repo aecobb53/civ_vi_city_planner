@@ -5,7 +5,7 @@ services:
         build: 
             context: .
             dockerfile: backend/Dockerfile
-        image: civ_backend
+        image: civ_backend_regs
         restart: always
         # command: uvicorn backend:app --workers 1 --host 0.0.0.0 --port 8000
         command: uvicorn backend_main:app --workers 1 --host 0.0.0.0 --port 8000
