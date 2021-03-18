@@ -32,15 +32,17 @@ services:
     #         - ENVIRONMENT=dev
     #         - SERVICE=calculator
 
-    # database:
-    #     image: mongo:latest
-    #     environment: 
-    #         MONGO_INITDB_ROOT_USERNAME: root
-    #         MONGO_INITDB_ROOT_PASSWORD: rootpassword
-    #     ports:
-    #         - 8305:8000
-    #     volumes:
-    #         - mongodb_data_container:/data/db
+    database:
+        image: mongo:latest
+        environment: 
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: rootpassword
+        ports:
+            - 8305:8000
+        volumes:
+            - ./db:/data/db
+            # - mongodb_data_container:/data/db
+        # docker run -it -v ${MONGODB_DIR}:/data/db -p ${MONGODB_PORT}:27017 --name mongodb-${1} -d mongo
 
     bash:
         build: 
