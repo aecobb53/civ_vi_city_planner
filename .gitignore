@@ -3,6 +3,9 @@ old/
 db/
 logs/
 .vscode
+mongo-app/
+mongo-data/
+mongodata/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

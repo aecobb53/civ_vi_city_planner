@@ -33,16 +33,44 @@ services:
     #         - SERVICE=calculator
 
     database:
-        image: mongo:latest
-        environment: 
+        image: mongo
+        environment:
             MONGO_INITDB_ROOT_USERNAME: root
-            MONGO_INITDB_ROOT_PASSWORD: rootpassword
-        ports:
-            - 8305:8000
-        volumes:
-            - ./db:/data/db
-            # - mongodb_data_container:/data/db
-        # docker run -it -v ${MONGODB_DIR}:/data/db -p ${MONGODB_PORT}:27017 --name mongodb-${1} -d mongo
+            MONGO_INITDB_ROOT_PASSWORD: example
+
+    # database:
+    #     image: mongo:latest
+    #     environment: 
+    #         MONGO_INITDB_ROOT_USERNAME: root
+    #         MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    #     ports:
+    #         # - 8305:8000
+    #         - 27017:27017
+    #         - 27018:27018
+    #         - 27019:27019
+    #     volumes:
+    #         - ./db:/data/db
+    #         # - mongodb_data_container:/data/db
+    #     # docker run -it -v ${MONGODB_DIR}:/data/db -p ${MONGODB_PORT}:27017 --name mongodb-${1} -d mongo
+        
+    #     # docker run -d -p 27017-27019:27017-27019 --name mongodb mongo
+    #     # docker exec -it mongodb bash
+    #         # mongo
+
+
+    # database:
+    #     # image: mongo
+    #     build:
+    #         context: .
+    #     volumes:
+    #         - ./mongo-data:/data/db
+    #         - ./mongo-app:/var/www/html
+    #     ports:
+    #         - 27017:27017
+    #     environment: 
+    #         - MONGO_INITDB_ROOT_USERNAME=root
+    #         - MONGO_INITDB_ROOT_PASSWORD=password
+
 
     bash:
         build: 

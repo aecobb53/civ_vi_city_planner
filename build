@@ -28,15 +28,21 @@ setup () {
 
 mongodb () {
 
-    cmd="docker-compose -f docker-compose-development.yml up database"
-    echo "command: ${cmd}"
-    docker-compose -f docker-compose-development.yml -p mongodb-dev up database
-    echo "command: ${cmd}"
+    cmd="docker run -p 27017-27019:27017-27019 --name mongodb-dev mongo"
+    # cmd="docker run -d -p 27017-27019:27017-27019 --name mongodb-dev mongo"
+    echo $cmd
+    $cmd
+    echo $cmd
+
+    # cmd="docker-compose -f docker-compose-development.yml -p mongodb-dev up database"
+    # echo "command: ${cmd}"
+    #      docker-compose -f docker-compose-development.yml -p mongodb-dev up database
+    # echo "command: ${cmd}"
 
     exit
 
     MONGODB_DIR='/mongodata'
-    MONGODB_PORT=8305
+    MONGODB_PORT=27017
 
     echo "DIR ${MONGODB_DIR}"
     echo "PORT ${MONGODB_PORT}"
@@ -86,7 +92,7 @@ start_container () {
         reg)
             echo "Spinning up the reg env for ${APPNAME} program"
             docker rm $(docker stop $(docker ps -a --filter="name=civ_vi_reg_backend" --format="{{.ID}}"))
-            docker-compose -f docker-compose-regression.yml up -d
+            docker-compose -f docker-compose-regression.yml up -d $2
             COMPOSE_EXIT_CODE=$?
             ;;
 

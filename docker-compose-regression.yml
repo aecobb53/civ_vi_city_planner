@@ -1,22 +1,22 @@
 version: '3'
 
 services:
-    backend:
-        build: 
-            context: .
-            dockerfile: backend/Dockerfile
-        image: civ_backend_regs
-        restart: always
-        # command: uvicorn backend:app --workers 1 --host 0.0.0.0 --port 8000
-        command: uvicorn backend_main:app --workers 1 --host 0.0.0.0 --port 8000
-        volumes:
-            - .:/usr/src
-        ports:
-            - 8204:8000
-        environment:
-            - ENVIRONMENT=reg
-            - SERVICE=backend
-        container_name: civ_vi_reg_backend
+    # backend:
+    #     build: 
+    #         context: .
+    #         dockerfile: backend/Dockerfile
+    #     image: civ_backend_regs
+    #     restart: always
+    #     # command: uvicorn backend:app --workers 1 --host 0.0.0.0 --port 8000
+    #     command: uvicorn backend_main:app --workers 1 --host 0.0.0.0 --port 8000
+    #     volumes:
+    #         - .:/usr/src
+    #     ports:
+    #         - 8204:8000
+    #     environment:
+    #         - ENVIRONMENT=reg
+    #         - SERVICE=backend
+    #     container_name: civ_vi_reg_backend
 
     # calculator:
     #     build:
@@ -32,3 +32,12 @@ services:
     #     environment:
     #         - ENVIRONMENT=reg
     #         - SERVICE=calculator
+
+    database:
+        image: mongo
+        restart: always
+        ports:
+            - 27017:27017
+        # environment:
+        #     MONGO_INITDB_ROOT_USERNAME: root
+        #     MONGO_INITDB_ROOT_PASSWORD: example
