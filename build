@@ -26,53 +26,53 @@ setup () {
     create_directory "mongodata"
 }
 
-mongodb () {
+# mongodb () {
 
-    cmd="docker run -p 27017-27019:27017-27019 --name mongodb-dev mongo"
-    # cmd="docker run -d -p 27017-27019:27017-27019 --name mongodb-dev mongo"
-    echo $cmd
-    $cmd
-    echo $cmd
+#     cmd="docker run -p 27017-27019:27017-27019 --name mongodb-dev mongo"
+#     # cmd="docker run -d -p 27017-27019:27017-27019 --name mongodb-dev mongo"
+#     echo $cmd
+#     $cmd
+#     echo $cmd
 
-    # cmd="docker-compose -f docker-compose-development.yml -p mongodb-dev up database"
-    # echo "command: ${cmd}"
-    #      docker-compose -f docker-compose-development.yml -p mongodb-dev up database
-    # echo "command: ${cmd}"
+#     # cmd="docker-compose -f docker-compose-development.yml -p mongodb-dev up database"
+#     # echo "command: ${cmd}"
+#     #      docker-compose -f docker-compose-development.yml -p mongodb-dev up database
+#     # echo "command: ${cmd}"
 
-    exit
+#     exit
 
-    MONGODB_DIR='/mongodata'
-    MONGODB_PORT=27017
+#     MONGODB_DIR='/mongodata'
+#     MONGODB_PORT=27017
 
-    echo "DIR ${MONGODB_DIR}"
-    echo "PORT ${MONGODB_PORT}"
-    echo "extention ${1}"
+#     echo "DIR ${MONGODB_DIR}"
+#     echo "PORT ${MONGODB_PORT}"
+#     echo "extention ${1}"
 
-    # cmd="${MONGODB_DIR} ${MONGODB_PORT} ${1}"
-    cmd="docker run -it -v ${MONGODB_DIR}:/data/db -p ${MONGODB_PORT}:27017 --name mongodb-${1} -d mongo"
-    # cmd="docker run mongodata:${MONGODB_DIR} -p ${MONGODB_PORT}:8000 --name mongodb-${1} -d mongo"
-    echo "cmd: ${cmd}"
-    cmd
-    echo "cmd: ${cmd}"
+#     # cmd="${MONGODB_DIR} ${MONGODB_PORT} ${1}"
+#     cmd="docker run -it -v ${MONGODB_DIR}:/data/db -p ${MONGODB_PORT}:27017 --name mongodb-${1} -d mongo"
+#     # cmd="docker run mongodata:${MONGODB_DIR} -p ${MONGODB_PORT}:8000 --name mongodb-${1} -d mongo"
+#     echo "cmd: ${cmd}"
+#     cmd
+#     echo "cmd: ${cmd}"
 
-    exit
-    # sudo docker pull mongo
-    MONGODB_DIR='/mongodata'
-    MONGODB_PORT=8000
-    # sudo docker run -it -v mongodata:/data/db --name mongodb -d mongo 
-    # sudo docker run -it -v mongodata:/data/db -p 27017:27017 --name mongodb -d mongo
-    # sudo docker logs mongodb
-    # sudo docker exec -it mongodb bash
-    # mongo # In the container
-    # mongo -host localhost -port 27017
+#     exit
+#     # sudo docker pull mongo
+#     MONGODB_DIR='/mongodata'
+#     MONGODB_PORT=8000
+#     # sudo docker run -it -v mongodata:/data/db --name mongodb -d mongo 
+#     # sudo docker run -it -v mongodata:/data/db -p 27017:27017 --name mongodb -d mongo
+#     # sudo docker logs mongodb
+#     # sudo docker exec -it mongodb bash
+#     # mongo # In the container
+#     # mongo -host localhost -port 27017
 
-    sudo docker run mongodata:${MONGODB_DIR} -p 8305:${MONGODB_PORT} --name mongodb-${1} -d mongo
-    sudo docker run mongodata:/mongodata -p 8305:8000 --name mongodb-dev -d mongo
-    sudo docker exec -it mongodb bash
-    mongo -host localhost -port 27017
-    # docker run -v mongodata:/mongodata -p 8503:8000 --name mongodb-dev -d mongo
+#     sudo docker run mongodata:${MONGODB_DIR} -p 8305:${MONGODB_PORT} --name mongodb-${1} -d mongo
+#     sudo docker run mongodata:/mongodata -p 8305:8000 --name mongodb-dev -d mongo
+#     sudo docker exec -it mongodb bash
+#     mongo -host localhost -port 27017
+#     # docker run -v mongodata:/mongodata -p 8503:8000 --name mongodb-dev -d mongo
 
-}
+# }
 
 start_container () {
     COMPOSE_EXIT_CODE=2
@@ -92,7 +92,8 @@ start_container () {
         reg)
             echo "Spinning up the reg env for ${APPNAME} program"
             docker rm $(docker stop $(docker ps -a --filter="name=civ_vi_reg_backend" --format="{{.ID}}"))
-            docker-compose -f docker-compose-regression.yml up -d $2
+            docker-compose -f docker-compose-regression.yml up $2
+            # docker-compose -f docker-compose-regression.yml up -d $2
             COMPOSE_EXIT_CODE=$?
             ;;
 

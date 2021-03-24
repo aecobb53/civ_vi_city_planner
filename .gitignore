@@ -1,6 +1,5 @@
 # This project
 old/
-db/
 logs/
 .vscode
 mongo-app/

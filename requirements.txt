@@ -3,7 +3,7 @@ fastapi==0.61.2
 uvicorn==0.12.3
 gunicorn==20.0.4
 behave==1.2.6
-jinja2==2.11.2
+jinja2==2.11.3
 aiofiles==0.6.0
 coverage==5.3
 pytest==6.1.2

@@ -1,0 +1,4 @@
+
+prod-host: civ_vi_city_planner_database_1
+reg-host: civ_vi_city_planner_database_1
+# mongo-port: 27017

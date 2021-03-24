@@ -38,6 +38,14 @@ services:
         restart: always
         ports:
             - 27017:27017
-        # environment:
+        volumes: 
+            - /data/db:/data/db/
+        environment:
+            MONGO_HOST: reg-host
+            # MONGO_INITDB_DATABASE: db/reg_mongodb
         #     MONGO_INITDB_ROOT_USERNAME: root
         #     MONGO_INITDB_ROOT_PASSWORD: example
+
+# volumes:
+#   db:
+#     external: true
