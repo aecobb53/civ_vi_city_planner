@@ -99,7 +99,13 @@ start_container () {
 
         dev)
             echo "Spinning up a dev env for ${APPNAME} program"
-            docker-compose -f docker-compose-development.yml up $2
+            if [ $2 = "bash" ]; then
+                echo one
+                docker-compose -f docker-compose-development.yml run --rm $2
+            else
+                echo two
+                docker-compose -f docker-compose-development.yml up $2
+            fi
             # docker-compose -f docker-compose-development.yml run --rm $2
             COMPOSE_EXIT_CODE=$?
             ;;

@@ -17,15 +17,16 @@ services:
         environment:
             - ENVIRONMENT=test
             - SERVICE=functional
+            - MONGOENV=test
 
     unit:
         build: 
             context: .
             dockerfile: features/Dockerfile
         image: civ_unit
-        command: pytest --cov-report html
+        # command: pytest --cov-report html
         # command: pytest --cov=. .
-        # command: pytest --cov=. tests/test_data_validator.py
+        command: pytest --cov=. backend/tests/db/test_pymongodb_database.py
         # command: pytest --cov=. tests/test_application.py
         volumes:
             - .:/usr/src
@@ -34,6 +35,7 @@ services:
         environment:
             - ENVIRONMENT=test
             - SERVICE=unit
+            - MONGOENV=test
 
     coverage:
         build: 
@@ -48,6 +50,7 @@ services:
         environment:
             - ENVIRONMENT=test
             - SERVICE=unit
+            - MONGOENV=test
 
     lint:
         build: 
@@ -66,6 +69,7 @@ services:
         environment:
             - ENVIRONMENT=test
             - SERVICE=lint
+            - MONGOENV=test
 
     bash:
         build: 
@@ -80,3 +84,4 @@ services:
         environment:
             - ENVIRONMENT=test
             - SERVICE=lint
+            - MONGOENV=test

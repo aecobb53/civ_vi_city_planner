@@ -2,9 +2,7 @@
 old/
 logs/
 .vscode
-mongo-app/
-mongo-data/
-mongodata/
+data/db/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -16,6 +16,7 @@ services:
         environment:
             - ENVIRONMENT=dev
             - SERVICE=backend
+            - MONGOENV=reg
 
     # calculator:
     #     build:
@@ -32,11 +33,11 @@ services:
     #         - ENVIRONMENT=dev
     #         - SERVICE=calculator
 
-    database:
-        image: mongo
-        environment:
-            MONGO_INITDB_ROOT_USERNAME: root
-            MONGO_INITDB_ROOT_PASSWORD: example
+    # database:
+    #     image: mongo
+    #     environment:
+    #         MONGO_INITDB_ROOT_USERNAME: root
+    #         MONGO_INITDB_ROOT_PASSWORD: example
 
     # database:
     #     image: mongo:latest
@@ -72,12 +73,27 @@ services:
     #         - MONGO_INITDB_ROOT_PASSWORD=password
 
 
+    # bash:
+    #     build: 
+    #         context: .
+    #         dockerfile: features/Dockerfile
+    #     image: civ_bash
+    #     # command: sh; pytest -h
+    #     command: bash
+    #     volumes:
+    #         - .:/usr/src
+    #     ports:
+    #         - 8023:8000
+    #     environment:
+    #         - ENVIRONMENT=test
+    #         - SERVICE=bash
+    #         - MONGOENV=reg
+
     bash:
         build: 
             context: .
             dockerfile: features/Dockerfile
         image: civ_bash
-        # command: sh; pytest -h
         command: bash
         volumes:
             - .:/usr/src
@@ -86,6 +102,7 @@ services:
         environment:
             - ENVIRONMENT=test
             - SERVICE=bash
+            - MONGOENV=reg
 
 volumes:
     mongodb_data_container:
