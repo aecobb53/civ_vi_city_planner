@@ -6,7 +6,7 @@ import os
 import re
 
 
-# from pymongodb_databse import PymongoDBDatabase
+from backend.db.pymongodb_database import PymongoDBDatabase
 
 
 class CivVIDatabase:
@@ -31,36 +31,3 @@ class CivVIDatabase:
     def remove_from_cities_database(self, parameters):
         output = self.cities_db.remove_from_database(parameters)
         return output
-    # def list_database_collections(self):
-
-if __name__ == '__main__':
-    print('running this thing')
-    CD = CivVIDatabase()
-    print('database dump')
-    for i in CD.find_in_cities_database({}):
-        print(i)
-
-    testdata = {
-        'name': 'Andrew',
-        'details': 'string'
-    }
-
-    print(CD.write_to_cities_database(testdata))
-
-    for i in CD.find_in_cities_database({}):
-        print(i)
-
-    testdata = [
-        {'name': 'Andrew','details': 'string'},
-        {'name': 'Andrew','details': 'string'}
-    ]
-
-    print(CD.write_to_cities_database(testdata))
-
-    for i in CD.find_in_cities_database({}):
-        print(i)
-
-    print(CD.remove_from_cities_database({}))
-
-    for i in CD.find_in_cities_database({}):
-        print(i)
