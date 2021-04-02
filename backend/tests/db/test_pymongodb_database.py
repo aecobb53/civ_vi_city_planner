@@ -27,15 +27,15 @@ def test_add_dict_to_database(setup_database):
 
 def test_remove_dict_from_database(setup_database):
     test_db = setup_database
-    data_to_add = {
+    data_to_add = [{
         'example':'dct',
         'of':'information',
-    }
+    }]
     test_db.write_to_database(data_to_add)
     data = test_db.find_in_database({})
     for i in data:
         assert i == data_to_add[0]
-    test_db.remove_from_database(data_to_add)
+    test_db.remove_from_database(data_to_add[0])
     data = test_db.find_in_database({})
     for i in data:
         raise ValueError('there should not have been any data found')

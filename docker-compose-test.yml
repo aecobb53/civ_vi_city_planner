@@ -9,7 +9,7 @@ services:
         # command: behave features/data_validator.feature
         # command: behave features/main.feature:6
         # command: behave --tags="@owma"
-        command: behave
+        command: behave # Default test
         volumes:
             - .:/usr/src
         ports:
@@ -24,9 +24,11 @@ services:
             context: .
             dockerfile: features/Dockerfile
         image: civ_unit
-        # command: pytest --cov-report html
+        # command: pytest --cov-report html # Default not to terminal report
+        command: pytest --cov=. backend/tests # Default test
         # command: pytest --cov=. .
-        command: pytest --cov=. backend/tests/db/test_pymongodb_database.py
+        # command: pytest --cov=. backend/tests/db/test_pymongodb_database.py
+        # command: pytest --cov=. backend/tests/terrain/test_terrain.py
         # command: pytest --cov=. tests/test_application.py
         volumes:
             - .:/usr/src
@@ -58,7 +60,7 @@ services:
             dockerfile: features/Dockerfile
         image: civ_lint
         # command: sh
-        command: pycodestyle --show-source
+        command: pycodestyle --show-source # Default test
         # command: pycodestyle --show-source --benchmark
         # command: pycodestyle dev_tools/main_tool.py --show-source
         # command: pycodestyle dev_tools/main_tool.py --show-source --show-pep8

@@ -13,7 +13,6 @@ testdata = [
     ('food', 1),
     ('production', 0),
     ('gold', 1),
-    ('hills', False),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
 def test_unhilled_coast(resource, value):
@@ -25,7 +24,6 @@ testdata = [
     ('food', 1),
     ('production', 0),
     ('gold', 0),
-    ('hills', False),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
 def test_unhilled_tundra(resource, value):
@@ -34,13 +32,12 @@ def test_unhilled_tundra(resource, value):
 
 testdata = [
     ('food', 1),
-    ('production', 1),
+    ('production', 0),
     ('gold', 0),
-    ('hills', True),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
 def test_hilled_tundra(resource, value):
-    test_terrain = Tundra(hills=True)
+    test_terrain = Tundra()
     assert getattr(test_terrain, resource) == value
 
 # Snow Init
@@ -48,7 +45,6 @@ testdata = [
     ('food', 0),
     ('production', 0),
     ('gold', 0),
-    ('hills', False),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
 def test_unhilled_snow(resource, value):
@@ -57,13 +53,12 @@ def test_unhilled_snow(resource, value):
 
 testdata = [
     ('food', 0),
-    ('production', 1),
+    ('production', 0),
     ('gold', 0),
-    ('hills', True),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
 def test_hilled_snow(resource, value):
-    test_terrain = Snow(hills=True)
+    test_terrain = Snow()
     assert getattr(test_terrain, resource) == value
 
 # Plains Init
@@ -71,7 +66,6 @@ testdata = [
     ('food', 1),
     ('production', 1),
     ('gold', 0),
-    ('hills', False),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
 def test_unhilled_plains(resource, value):
@@ -80,13 +74,12 @@ def test_unhilled_plains(resource, value):
 
 testdata = [
     ('food', 1),
-    ('production', 2),
+    ('production', 1),
     ('gold', 0),
-    ('hills', True),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
 def test_hilled_plains(resource, value):
-    test_terrain = Plains(hills=True)
+    test_terrain = Plains()
     assert getattr(test_terrain, resource) == value
 
 # Ocean Init
@@ -94,7 +87,6 @@ testdata = [
     ('food', 1),
     ('production', 0),
     ('gold', 0),
-    ('hills', False),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
 def test_unhilled_ocean(resource, value):
@@ -106,7 +98,6 @@ testdata = [
     ('food', 1),
     ('production', 0),
     ('gold', 1),
-    ('hills', False),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
 def test_unhilled_lake(resource, value):
@@ -118,7 +109,6 @@ testdata = [
     ('food', 2),
     ('production', 0),
     ('gold', 0),
-    ('hills', False),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
 def test_unhilled_grassland(resource, value):
@@ -127,13 +117,12 @@ def test_unhilled_grassland(resource, value):
 
 testdata = [
     ('food', 2),
-    ('production', 1),
+    ('production', 0),
     ('gold', 0),
-    ('hills', True),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
 def test_hilled_grassland(resource, value):
-    test_terrain = Grassland(hills=True)
+    test_terrain = Grassland()
     assert getattr(test_terrain, resource) == value
 
 # Desert Init
@@ -141,7 +130,6 @@ testdata = [
     ('food', 0),
     ('production', 0),
     ('gold', 0),
-    ('hills', False),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
 def test_unhilled_desert(resource, value):
@@ -150,11 +138,10 @@ def test_unhilled_desert(resource, value):
 
 testdata = [
     ('food', 0),
-    ('production', 1),
+    ('production', 0),
     ('gold', 0),
-    ('hills', True),
 ]
 @pytest.mark.parametrize("resource, value", testdata)
 def test_hilled_desert(resource, value):
-    test_terrain = Desert(hills=True)
+    test_terrain = Desert()
     assert getattr(test_terrain, resource) == value
