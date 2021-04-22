@@ -20,6 +20,7 @@ setup () {
 
     # While wonders are not build out yet:
     _create_directory "backend/wonders"
+    _create_directory "features/wonders"
 }
 
 setup_check() {

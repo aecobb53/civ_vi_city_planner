@@ -29,15 +29,15 @@ else:
     c_level = 'WARNING'
 
 # Logging
-logger = Logger('civ_vi', \
-    log_directory='logs/backend/', \
-    app_name_in_file=True, \
-    log_suffix=log_prefix, \
-    log_prefix='main', \
-    date_in_file=False, \
-    time_in_file=False, \
-    utc_in_file=False, \
-    f_level='DEBUG', \
+logger = Logger('civ_vi',
+    log_directory='logs/backend/',
+    app_name_in_file=True,
+    log_suffix=log_prefix,
+    log_prefix='main',
+    date_in_file=False,
+    time_in_file=False,
+    utc_in_file=False,
+    f_level='DEBUG',
     c_level=c_level)
 logit = logger.return_logit()
 # default_log_file = logger.file_name
@@ -110,7 +110,7 @@ class CityPlan(BaseModel):
     # power
     # maintenance
 
-    
+
 class CityId(BaseModel):
     name: str
     # logit.debug(f"center item here {center}")
