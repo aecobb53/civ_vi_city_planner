@@ -2,13 +2,7 @@
 
 APPNAME='civ_vi'
 
-grep_port () {
-    # Echo the main port the current container is open to
-    echo "Activiating ports:"
-    grep -A10 $1 docker-compose.yml | grep -A4 ports | grep "-" | head -n1
-}
-
-create_directory () {
+_create_directory () {
     if [ ! -d $1 ]
     then
         echo Creating "${1}" directory
@@ -18,63 +12,75 @@ create_directory () {
 
 setup () {
     # Run setup from the cmd line. Not reccomended as its super clunkey
-    # ./setup.py
-    create_directory "logs"
-    create_directory "logs/backend"
-    create_directory "logs/backend/behave"
-    create_directory "db"
-    create_directory "mongodata"
+    _create_directory "logs"
+    _create_directory "logs/backend"
+    _create_directory "logs/backend/behave"
+    _create_directory "db"
+    _create_directory "mongodata"
+
+    # While wonders are not build out yet:
+    _create_directory "backend/wonders"
 }
 
-mongodb () {
+setup_check() {
+    SETUP_EXIT_CODE=0
+    if [ ! -d "logs" ]; then
+        SETUP_EXIT_CODE=1; fi
+    if [ ! -d "db" ]; then
+        SETUP_EXIT_CODE=1; fi
+    if [ ! -d "mongodata" ]; then
+        SETUP_EXIT_CODE=1; fi
 
-    cmd="docker-compose -f docker-compose-development.yml up database"
-    echo "command: ${cmd}"
-    docker-compose -f docker-compose-development.yml -p mongodb-dev up database
-    echo "command: ${cmd}"
-
-    exit
-
-    MONGODB_DIR='/mongodata'
-    MONGODB_PORT=8305
-
-    echo "DIR ${MONGODB_DIR}"
-    echo "PORT ${MONGODB_PORT}"
-    echo "extention ${1}"
-
-    # cmd="${MONGODB_DIR} ${MONGODB_PORT} ${1}"
-    cmd="docker run -it -v ${MONGODB_DIR}:/data/db -p ${MONGODB_PORT}:27017 --name mongodb-${1} -d mongo"
-    # cmd="docker run mongodata:${MONGODB_DIR} -p ${MONGODB_PORT}:8000 --name mongodb-${1} -d mongo"
-    echo "cmd: ${cmd}"
-    cmd
-    echo "cmd: ${cmd}"
-
-    exit
-    # sudo docker pull mongo
-    MONGODB_DIR='/mongodata'
-    MONGODB_PORT=8000
-    # sudo docker run -it -v mongodata:/data/db --name mongodb -d mongo 
-    # sudo docker run -it -v mongodata:/data/db -p 27017:27017 --name mongodb -d mongo
-    # sudo docker logs mongodb
-    # sudo docker exec -it mongodb bash
-    # mongo # In the container
-    # mongo -host localhost -port 27017
-
-    sudo docker run mongodata:${MONGODB_DIR} -p 8305:${MONGODB_PORT} --name mongodb-${1} -d mongo
-    sudo docker run mongodata:/mongodata -p 8305:8000 --name mongodb-dev -d mongo
-    sudo docker exec -it mongodb bash
-    mongo -host localhost -port 27017
-    # docker run -v mongodata:/mongodata -p 8503:8000 --name mongodb-dev -d mongo
-
+    if [ $SETUP_EXIT_CODE -ne 0 ]; then
+        echo 'Setup has not been run! Running now...'
+        setup
+    fi
 }
+
+# mongodb () {
+
+#     cmd="docker-compose -f docker-compose-development.yml up database"
+#     echo "command: ${cmd}"
+#     docker-compose -f docker-compose-development.yml -p mongodb-dev up database
+#     echo "command: ${cmd}"
+
+#     exit
+
+#     MONGODB_DIR='/mongodata'
+#     MONGODB_PORT=8305
+
+#     echo "DIR ${MONGODB_DIR}"
+#     echo "PORT ${MONGODB_PORT}"
+#     echo "extention ${1}"
+
+#     # cmd="${MONGODB_DIR} ${MONGODB_PORT} ${1}"
+#     cmd="docker run -it -v ${MONGODB_DIR}:/data/db -p ${MONGODB_PORT}:27017 --name mongodb-${1} -d mongo"
+#     # cmd="docker run mongodata:${MONGODB_DIR} -p ${MONGODB_PORT}:8000 --name mongodb-${1} -d mongo"
+#     echo "cmd: ${cmd}"
+#     cmd
+#     echo "cmd: ${cmd}"
+
+#     exit
+#     # sudo docker pull mongo
+#     MONGODB_DIR='/mongodata'
+#     MONGODB_PORT=8000
+#     # sudo docker run -it -v mongodata:/data/db --name mongodb -d mongo 
+#     # sudo docker run -it -v mongodata:/data/db -p 27017:27017 --name mongodb -d mongo
+#     # sudo docker logs mongodb
+#     # sudo docker exec -it mongodb bash
+#     # mongo # In the container
+#     # mongo -host localhost -port 27017
+
+#     sudo docker run mongodata:${MONGODB_DIR} -p 8305:${MONGODB_PORT} --name mongodb-${1} -d mongo
+#     sudo docker run mongodata:/mongodata -p 8305:8000 --name mongodb-dev -d mongo
+#     sudo docker exec -it mongodb bash
+#     mongo -host localhost -port 27017
+#     # docker run -v mongodata:/mongodata -p 8503:8000 --name mongodb-dev -d mongo
+
+# }
 
 start_container () {
     COMPOSE_EXIT_CODE=2
-    # echo $1 # env (prod, reg, dev, test)
-    # echo $2 # Service
-    # echo $3
-    # echo $@
-
     case "$1" in
         # prod
         prod)
@@ -86,6 +92,7 @@ start_container () {
         reg)
             echo "Spinning up the reg env for ${APPNAME} program"
             docker rm $(docker stop $(docker ps -a --filter="name=civ_vi_reg_backend" --format="{{.ID}}"))
+            # docker-compose -f docker-compose-regression.yml up
             docker-compose -f docker-compose-regression.yml up -d
             COMPOSE_EXIT_CODE=$?
             ;;
@@ -152,49 +159,71 @@ start_container () {
     esac
 }
 
-clean () {
-    echo clean
-    docker rm $(docker stop $(docker ps -a --filter="name=civ_vi_city_planner" --format="{{.ID}}"))
-}
-
 stop () {
     echo stop
-    docker stop $(docker ps -a --filter="name=civ_vi_city_planner" --format="{{.ID}}")
+    docker stop $(docker ps -a --filter="name=${APPNAME}" --format="{{.ID}}")
 }
 
-clense () {
-    echo clense
+clean () {
+    echo clean
+    docker rm $(docker stop $(docker ps -a --filter="name=${APPNAME}" --format="{{.ID}}"))
 }
 
 about () {
     echo "
 
+
+    Build for ${APPNAME}!
+
     
-    setup               - Set up dir and files (run if its a new cloan)
-    clean               - Move log files to the logs/archive directory
-    run                 - Run the container
-    dev-fe              - Run a frontend dev instance
-    dev-be              - Run a backend dev instance
-    clean-run           - Clean then run
-    clean_fe            - Clean then dev
-    clean_be            - Clean then dev
-    stop                - Stop weatherman containers
-    clense-containers   - Stop/rm weatherman containers
-    unit                - Unit tests
-    functional          - Functional tests
-    tests               - Unit then Functional
+    General commands
+    setup               - Set up dir and files (run if its a fresh clone)
+    stop                - Stop all containers associated with the appname "${APPNAME}"
+    clean               - Stop/RM all containers associated with the appname "${APPNAME}"
     help                - Uhhh speaking...
+
+    Docker commands
+    prod                - Spins up the PROD app
+    reg                 - Spins up the REG app
+    dev                 - Spins up the desired DEV app components
+    test                - Spins up the desired TESTs
+    coverage            - Generates a coverage report
+
+
+    ENV explanations:
+    - prod
+        Prod is what most people will hit or spin up. It is a finished product
+
+        build prod
+    
+    - reg
+        Reg is used to let the different components soak and what the dev tests interact with
+
+        build reg [service]
+    
+    - dev
+        Dev is used to test out specific functionality... as you would expect. As stated in reg
+        the dev apps interact with the reg instances when neseccary. 
+
+        build dev [service]
+    
+    - test
+        Set up to return a status code based on the success of the test. Just running 'test' will
+        run all tests. If any fail they will indicate which failed and have an overall failure 
+        message.
+
+        build test [test]
+
     "
 }
+
+# Verify things have been set up every run
+setup_check
 
 case "$1" in
     # Setup
     setup)
         setup
-        ;;
-
-    clean)
-        clean
         ;;
 
     # Running
@@ -222,18 +251,22 @@ case "$1" in
         mongodb "dev"
         ;;
 
-
     # Stopping
     stop)
         stop
         ;;
 
-    clense-containers)
-        clense
+    clean)
+        clean
         ;;
 
     # Help
     help)
+        about
+        ;;
+
+    # else
+    *)
         about
         ;;
 esac
