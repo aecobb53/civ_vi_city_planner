@@ -25,7 +25,7 @@ Verify I am unable to add hills
     When I add element tile_addition to tile_name
         | tile_addition | tile_name |
         | coast         | cc        |
-        | woods         | cc        |
+        | hills         | cc        |
     When I calculate the yields
     Then I verify the tiles elements match the expected value
         | element | value   |
