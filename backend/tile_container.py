@@ -1,12 +1,4 @@
-# from backend.common_tile import CommonTile
-# from terrain.grassland import Grassland
-# from terrain.plains import Plains
-# from features.woods import Woods
-# from features.floodplains import Floodplains
-# from improvements.farm import Farm
-# from districts.campus import Campus
-# from resources.bananas import Bananas
-# from improvements.plantation import Plantation
+import yaml
 
 from backend.common_tile import CommonTile
 from backend.terrain import *
@@ -34,167 +26,11 @@ class Tile(CommonTile):
         self._district = None
         self._wonder = None
 
-        self.list_of_terrain = [
-            'grassland',
-            'plains',
-            'desert',
-            'tundra',
-            'snow',
-            'coast',
-            'lake',
-            'ocean',
-        ]
-        self.list_of_features = [
-            'woods',
-            'rainforest',
-            'marsh',
-            'floodplains',
-            'oasis',
-            'mountain',
-            'cliffs',
-            'reef',
-            'ice',
-            'cataract',
-            'volcano',
-            'volcanic_soil',
-            'geothermal_fissure',
-        ]
-        self.list_of_improvements = [
-            'farm',
-            'mine',
-            'quarry',
-            'plantation',
-            'camp',
-            'pasture',
-            'fishing_boats',
-            'lumber_mill',
-            'fort',
-            'airstrip',
-            'seaside_resort',
-            'geothermal_plant',
-            'wind_farm',
-            'solar_farm',
-            'offshore_wind_farm',
-            'ski_resort',
-            'oil_well',
-            'offshore_oil_well',
-            'missle_silo',
-            'mountain_tunnel',
-            'railroad',
-            'seastead',
-            'alcazar',
-            'batey',
-            'cahokia_mounds',
-            'colossal_heads',
-            'mahavihara',
-            'moai',
-            'monistary',
-            'nazca_line',
-            'trading_dome',
-            'chateau',
-            'chemamull',
-            'golf_course',
-            'great_wall',
-            'hacienda',
-            'ice_hocky_rink',
-            'kampung',
-            'kurgan',
-            'mekewap',
-            'mission',
-            'nubian_pyramid',
-            'open_air_museum',
-            'outback_station',
-            'pa',
-            'pairirdaeza',
-            'polder',
-            'qhapaq_nan',
-            'rock_hewn_church',
-            'roman_fort',
-            'sphinx',
-            'stepwell',
-            'terrace_farms',
-            'ziggurat',
-            'city_park',
-            'fishery',
-        ]
-        self.list_of_districts = [
-            'city_center',
-            'campus',
-            'theater_square',
-            'holy_site',
-            'encampment',
-            'commercial_hub',
-            'harbor',
-            'industrial_zone',
-            'entertainment_complex',
-            'water_park',
-            'aqueduct',
-            'neighborhood',
-            'canal',
-            'dam',
-            'aerodrome',
-            'spaceport',
-            'govermment_plaza',
-            'diplomatic_quarter',
-        ]
-        self.list_of_resources = [
-            'bananas',
-            'copper',
-            'cattle',
-            'crabs',
-            'deer',
-            'fish',
-            'maize',
-            'rice',
-            'sheep',
-            'stone',
-            'wheat',
-            'amber',
-            'cinnamon',
-            'citrus',
-            'cloves',
-            'cocoa',
-            'coffee',
-            'cosmetics',
-            'cotton',
-            'dyes',
-            'diamonds',
-            'furs',
-            'gold_ore',
-            'gypsum',
-            'honey',
-            'insense',
-            'ivory',
-            'jade',
-            'jeans',
-            'marble',
-            'murcury',
-            'olives',
-            'pearls',
-            'perfume',
-            'salt',
-            'silk',
-            'silver',
-            'spices',
-            'sugar',
-            'tea',
-            'tobacco',
-            'toys',
-            'truffles',
-            'turtles',
-            'whales',
-            'wine',
-            'horses',
-            'iron',
-            'niter',
-            'coal',
-            'oil',
-            'aluminum',
-            'uranium',
-        ]
-        self.list_of_wonders = []
+        # Config
+        with open('etc/common_tile.yml') as ycf:
+            self.config = yaml.load(ycf, Loader=yaml.FullLoader)
 
-        tile_parts = {
+        self.tile_parts = {
             'terrain': None,
             'hills': None,
             'features': None,
@@ -217,554 +53,580 @@ class Tile(CommonTile):
             # else:
             #     dist_name = [name]
 
-            if name in self.list_of_terrain:
-                tile_parts['terrain'] = name
+            def convert_file_to_object(input):
+                """
+                Converts a file name to its expected object
+                this_file_name becomes ThisFileName
+                """
+                output = ''.join([i.capitalize() for i in input.split('_')])
+                return output
+
+            if name in self.config['terrain']['list of elements']:
+                # print('is terrain')
+                # print(Grassland())
+                # convert_file_to_object(name)
+                # exec('print(Grassland())')
+                self.tile_parts['terrain'] = name
 
             if name == 'hills':
-                tile_parts['hills'] = name
-
-            if name in self.list_of_features:
-                tile_parts['features'] = name
+                self.tile_parts['hills'] = name
 
             if name == 'river':
-                tile_parts['river'] = name
+                self.tile_parts['river'] = name
+
+            # Natural Wonders
+
+            # Wonders
+
+            if name in self.config['districts']['list of elements']:
+                self.tile_parts['districts'] = name
 
-            if name in self.list_of_improvements:
-                tile_parts['improvements'] = name
+            if name in self.config['features']['list of elements']:
+                print('is feature')
+                print(convert_file_to_object(name))
+                print(VolcanicSoil())
+                print(type('VolcanicSoil', (object,), {'msg': 'foobarbaz'}))
+                print(type(convert_file_to_object(name), (object,), {'msg': 'foobarbaz'}))
+                self.feature = type(convert_file_to_object(name), (object,), {'msg': 'foobarbaz'})
+                # exec('print(convert_file_to_object(name))')
+                # exec('print(convert_file_to_object(name)())')
+                
+                # exec('print(convert_file_to_object(name)())')
+                self.tile_parts['features'] = name
 
-            if name in self.list_of_districts:
-                tile_parts['districts'] = name
+            if name in self.config['resources']['list of elements']:
+                self.tile_parts['resources'] = name
 
-            if name in self.list_of_resources:
-                tile_parts['resources'] = name
+            if name in self.config['improvements']['list of elements']:
+                self.tile_parts['improvements'] = name
 
-        for name in tile_parts.values():
-            # Then i loop through the dict that was just created to assign things in order
-            if name is None:
-                continue
-            if ':' in name:
-                """
-                If i want specific buildings in a district i append the district with a :building name or :building_number
-                ex: campus
-                ex: campus:2
-                ex: campus:univeristy
-                """
-                dist_name = name.split(':')
-            else:
-                dist_name = [name]
+        # for name in self.tile_parts.values():
+        #     # Then i loop through the dict that was just created to assign things in order
+        #     if name is None:
+        #         continue
+        #     if ':' in name:
+        #         """
+        #         If i want specific buildings in a district i append the district with a :building name or :building_number
+        #         ex: campus
+        #         ex: campus:2
+        #         ex: campus:univeristy
+        #         """
+        #         dist_name = name.split(':')
+        #     else:
+        #         dist_name = [name]
 
-            # Terrain
-            if name in self.list_of_terrain:
-                # if name.endswith('h'):
-                #     hills = True
-                # else:
-                #     hills = False
+        #     # Terrain
+        #     if name in self.list_of_terrain:
+        #         # if name.endswith('h'):
+        #         #     hills = True
+        #         # else:
+        #         #     hills = False
 
-                if 'grassland' in name:
-                    self.terrain = Grassland()
+        #         if 'grassland' in name:
+        #             self.terrain = Grassland()
 
-                if 'plains' in name:
-                    self.terrain = Plains()
+        #         if 'plains' in name:
+        #             self.terrain = Plains()
 
-                if 'desert' in name:
-                    self.terrain = Desert()
+        #         if 'desert' in name:
+        #             self.terrain = Desert()
 
-                if 'tundra' in name:
-                    self.terrain = Tundra()
+        #         if 'tundra' in name:
+        #             self.terrain = Tundra()
 
-                if 'snow' in name:
-                    self.terrain = Snow()
+        #         if 'snow' in name:
+        #             self.terrain = Snow()
 
-                if 'coast' in name:
-                    self.terrain = Coast()
+        #         if 'coast' in name:
+        #             self.terrain = Coast()
 
-                if 'lake' in name:
-                    self.terrain = Lake()
+        #         if 'lake' in name:
+        #             self.terrain = Lake()
 
-                if 'ocean' in name:
-                    self.terrain = Ocean()
+        #         if 'ocean' in name:
+        #             self.terrain = Ocean()
 
-            # Hills
-            if name == 'hills':
-                self.hills = Hills()
+        #     # Hills
+        #     if name == 'hills':
+        #         self.hills = Hills()
 
-            # Features
-            if name in self.list_of_features:
-                if 'woods' in name:
-                    self.feature = Woods()
+        #     # Features
+        #     if name in self.list_of_features:
+        #         if 'woods' in name:
+        #             self.feature = Woods()
 
-                if 'rainforest' in name:
-                    self.feature = Rainforest()
+        #         if 'rainforest' in name:
+        #             self.feature = Rainforest()
 
-                if 'marsh' in name:
-                    self.feature = Marsh()
+        #         if 'marsh' in name:
+        #             self.feature = Marsh()
 
-                if 'floodplains' in name:
-                    self.feature = Floodplains()
+        #         if 'floodplains' in name:
+        #             self.feature = Floodplains()
 
-                if 'oasis' in name:
-                    self.feature = Oasis()
+        #         if 'oasis' in name:
+        #             self.feature = Oasis()
 
-                if 'mountain' in name:
-                    self.feature = Mountain()
+        #         if 'mountain' in name:
+        #             self.feature = Mountain()
 
-                if 'cliffs' in name:
-                    self.feature = Cliffs()
+        #         if 'cliffs' in name:
+        #             self.feature = Cliffs()
 
-                if 'reef' in name:
-                    self.feature = Reef()
+        #         if 'reef' in name:
+        #             self.feature = Reef()
 
-                if 'ice' in name:
-                    self.feature = Ice()
+        #         if 'ice' in name:
+        #             self.feature = Ice()
 
-                if 'cataract' in name:
-                    self.feature = Cataract()
+        #         if 'cataract' in name:
+        #             self.feature = Cataract()
 
-                if 'volcano' in name:
-                    self.feature = Volcano()
+        #         if 'volcano' in name:
+        #             self.feature = Volcano()
 
-                if 'volcanic_soil' in name:
-                    self.feature = Volcanic_soil()
+        #         if 'volcanic_soil' in name:
+        #             self.feature = Volcanic_soil()
 
-                if 'geothermal_fissure' in name:
-                    self.feature = GeothermalFissure()
+        #         if 'geothermal_fissure' in name:
+        #             self.feature = GeothermalFissure()
 
-                terrain_type = str(type(self.terrain)).split('.')[2]
-                if terrain_type not in self.feature.acceptable_terrain:
-                    self.feature = None
+        #         terrain_type = str(type(self.terrain)).split('.')[2]
+        #         if terrain_type not in self.feature.acceptable_terrain:
+        #             self.feature = None
 
-            # River
-            if name == 'river':
-                self.river = River()
+        #     # River
+        #     if name == 'river':
+        #         self.river = River()
 
-            # Resource
-            if name in self.list_of_resources:
-                if name == 'bananas':
-                    self.resource = Bananas()
+        #     # Resource
+        #     if name in self.list_of_resources:
+        #         if name == 'bananas':
+        #             self.resource = Bananas()
 
-                if name == 'copper':
-                    self.resource = Copper()
+        #         if name == 'copper':
+        #             self.resource = Copper()
 
-                if name == 'cattle':
-                    self.resource = Cattle()
+        #         if name == 'cattle':
+        #             self.resource = Cattle()
 
-                if name == 'crabs':
-                    self.resource = Crabs()
+        #         if name == 'crabs':
+        #             self.resource = Crabs()
 
-                if name == 'deer':
-                    self.resource = Deer()
+        #         if name == 'deer':
+        #             self.resource = Deer()
 
-                if name == 'fish':
-                    self.resource = Fish()
+        #         if name == 'fish':
+        #             self.resource = Fish()
 
-                if name == 'maize':
-                    self.resource = Maize()
+        #         if name == 'maize':
+        #             self.resource = Maize()
 
-                if name == 'rice':
-                    self.resource = Rice()
+        #         if name == 'rice':
+        #             self.resource = Rice()
 
-                if name == 'sheep':
-                    self.resource = Sheep()
+        #         if name == 'sheep':
+        #             self.resource = Sheep()
 
-                if name == 'stone':
-                    self.resource = Stone()
+        #         if name == 'stone':
+        #             self.resource = Stone()
 
-                if name == 'wheat':
-                    self.resource = Wheat()
+        #         if name == 'wheat':
+        #             self.resource = Wheat()
 
-                if name == 'amber':
-                    self.resource = Amber()
+        #         if name == 'amber':
+        #             self.resource = Amber()
 
-                if name == 'cinnamon':
-                    self.resource = Cinnamon()
+        #         if name == 'cinnamon':
+        #             self.resource = Cinnamon()
 
-                if name == 'citrus':
-                    self.resource = Citrus()
+        #         if name == 'citrus':
+        #             self.resource = Citrus()
 
-                if name == 'cloves':
-                    self.resource = Cloves()
+        #         if name == 'cloves':
+        #             self.resource = Cloves()
 
-                if name == 'cocoa':
-                    self.resource = Cocoa()
+        #         if name == 'cocoa':
+        #             self.resource = Cocoa()
 
-                if name == 'coffee':
-                    self.resource = Coffee()
+        #         if name == 'coffee':
+        #             self.resource = Coffee()
 
-                if name == 'cosmetics':
-                    self.resource = Cosmetics()
+        #         if name == 'cosmetics':
+        #             self.resource = Cosmetics()
 
-                if name == 'cotton':
-                    self.resource = Cotton()
+        #         if name == 'cotton':
+        #             self.resource = Cotton()
 
-                if name == 'dyes':
-                    self.resource = Dyes()
+        #         if name == 'dyes':
+        #             self.resource = Dyes()
 
-                if name == 'diamonds':
-                    self.resource = Diamonds()
+        #         if name == 'diamonds':
+        #             self.resource = Diamonds()
 
-                if name == 'furs':
-                    self.resource = Furs()
+        #         if name == 'furs':
+        #             self.resource = Furs()
 
-                if name == 'gold_ore':
-                    self.resource = Gold_ore()
+        #         if name == 'gold_ore':
+        #             self.resource = Gold_ore()
 
-                if name == 'gypsum':
-                    self.resource = Gypsum()
+        #         if name == 'gypsum':
+        #             self.resource = Gypsum()
 
-                if name == 'honey':
-                    self.resource = Honey()
+        #         if name == 'honey':
+        #             self.resource = Honey()
 
-                if name == 'insense':
-                    self.resource = Insense()
+        #         if name == 'insense':
+        #             self.resource = Insense()
 
-                if name == 'ivory':
-                    self.resource = Ivory()
+        #         if name == 'ivory':
+        #             self.resource = Ivory()
 
-                if name == 'jade':
-                    self.resource = Jade()
+        #         if name == 'jade':
+        #             self.resource = Jade()
 
-                if name == 'jeans':
-                    self.resource = Jeans()
+        #         if name == 'jeans':
+        #             self.resource = Jeans()
 
-                if name == 'marble':
-                    self.resource = Marble()
+        #         if name == 'marble':
+        #             self.resource = Marble()
 
-                if name == 'murcury':
-                    self.resource = Murcury()
+        #         if name == 'murcury':
+        #             self.resource = Murcury()
 
-                if name == 'olives':
-                    self.resource = Olives()
+        #         if name == 'olives':
+        #             self.resource = Olives()
 
-                if name == 'pearls':
-                    self.resource = Pearls()
+        #         if name == 'pearls':
+        #             self.resource = Pearls()
 
-                if name == 'perfume':
-                    self.resource = Perfume()
+        #         if name == 'perfume':
+        #             self.resource = Perfume()
 
-                if name == 'salt':
-                    self.resource = Salt()
+        #         if name == 'salt':
+        #             self.resource = Salt()
 
-                if name == 'silk':
-                    self.resource = Silk()
+        #         if name == 'silk':
+        #             self.resource = Silk()
 
-                if name == 'silver':
-                    self.resource = Silver()
+        #         if name == 'silver':
+        #             self.resource = Silver()
 
-                if name == 'spices':
-                    self.resource = Spices()
+        #         if name == 'spices':
+        #             self.resource = Spices()
 
-                if name == 'sugar':
-                    self.resource = Sugar()
+        #         if name == 'sugar':
+        #             self.resource = Sugar()
 
-                if name == 'tea':
-                    self.resource = Tea()
+        #         if name == 'tea':
+        #             self.resource = Tea()
 
-                if name == 'tobacco':
-                    self.resource = Tobacco()
+        #         if name == 'tobacco':
+        #             self.resource = Tobacco()
 
-                if name == 'toys':
-                    self.resource = Toys()
+        #         if name == 'toys':
+        #             self.resource = Toys()
 
-                if name == 'truffles':
-                    self.resource = Truffles()
+        #         if name == 'truffles':
+        #             self.resource = Truffles()
 
-                if name == 'turtles':
-                    self.resource = Turtles()
+        #         if name == 'turtles':
+        #             self.resource = Turtles()
 
-                if name == 'whales':
-                    self.resource = Whales()
+        #         if name == 'whales':
+        #             self.resource = Whales()
 
-                if name == 'wine':
-                    self.resource = Wine()
+        #         if name == 'wine':
+        #             self.resource = Wine()
 
-                if name == 'horses':
-                    self.resource = Horses()
+        #         if name == 'horses':
+        #             self.resource = Horses()
 
-                if name == 'iron':
-                    self.resource = Iron()
+        #         if name == 'iron':
+        #             self.resource = Iron()
 
-                if name == 'niter':
-                    self.resource = Niter()
+        #         if name == 'niter':
+        #             self.resource = Niter()
 
-                if name == 'coal':
-                    self.resource = Coal()
+        #         if name == 'coal':
+        #             self.resource = Coal()
 
-                if name == 'oil':
-                    self.resource = Oil()
+        #         if name == 'oil':
+        #             self.resource = Oil()
 
-                if name == 'aluminum':
-                    self.resource = Aluminum()
+        #         if name == 'aluminum':
+        #             self.resource = Aluminum()
 
-                if name == 'uranium':
-                    self.resource = Uranium()
+        #         if name == 'uranium':
+        #             self.resource = Uranium()
 
-                terrain_type = str(type(self.terrain)).split('.')[2]
-                feature_type = str(type(self.feature)).split('.')[2]
+        #         terrain_type = str(type(self.terrain)).split('.')[2]
+        #         feature_type = str(type(self.feature)).split('.')[2]
 
-                try:
-                    if terrain_type not in self.resource.terrain:
-                        self.resource = None
-                except AttributeError:
-                    pass
-                try:
-                    if feature_type not in self.resource.features:
-                        self.resource = None
-                except AttributeError:
-                    pass
+        #         try:
+        #             if terrain_type not in self.resource.terrain:
+        #                 self.resource = None
+        #         except AttributeError:
+        #             pass
+        #         try:
+        #             if feature_type not in self.resource.features:
+        #                 self.resource = None
+        #         except AttributeError:
+        #             pass
 
-            # Improvements
-            if name in self.list_of_improvements:
-                if name == 'farm':
-                    self.improvement = Farm()
+        #     # Improvements
+        #     if name in self.list_of_improvements:
+        #         if name == 'farm':
+        #             self.improvement = Farm()
 
-                if name == 'mine':
-                    self.improvement = Mine()
+        #         if name == 'mine':
+        #             self.improvement = Mine()
 
-                if name == 'quarry':
-                    self.improvement = Quarry()
+        #         if name == 'quarry':
+        #             self.improvement = Quarry()
 
-                if name == 'plantation':
-                    self.improvement = Plantation()
+        #         if name == 'plantation':
+        #             self.improvement = Plantation()
 
-                if name == 'camp':
-                    self.improvement = Camp()
+        #         if name == 'camp':
+        #             self.improvement = Camp()
 
-                if name == 'pasture':
-                    self.improvement = Pasture()
+        #         if name == 'pasture':
+        #             self.improvement = Pasture()
 
-                if name == 'fishing_boats':
-                    self.improvement = FishingBoats()
+        #         if name == 'fishing_boats':
+        #             self.improvement = FishingBoats()
 
-                if name == 'lumber_mill':
-                    self.improvement = LumberMill()
+        #         if name == 'lumber_mill':
+        #             self.improvement = LumberMill()
 
-                if name == 'fort':
-                    self.improvement = Fort()
+        #         if name == 'fort':
+        #             self.improvement = Fort()
 
-                if name == 'airstrip':
-                    self.improvement = Airstrip()
+        #         if name == 'airstrip':
+        #             self.improvement = Airstrip()
 
-                if name == 'seaside_resort':
-                    self.improvement = SeasideResort()
+        #         if name == 'seaside_resort':
+        #             self.improvement = SeasideResort()
 
-                if name == 'geothermal_plant':
-                    self.improvement = GeothermalPlant()
+        #         if name == 'geothermal_plant':
+        #             self.improvement = GeothermalPlant()
 
-                if name == 'wind_farm':
-                    self.improvement = WindFarm()
+        #         if name == 'wind_farm':
+        #             self.improvement = WindFarm()
 
-                if name == 'solar_farm':
-                    self.improvement = SolarFarm()
+        #         if name == 'solar_farm':
+        #             self.improvement = SolarFarm()
 
-                if name == 'offshore_wind_farm':
-                    self.improvement = OffshoreWindFarm()
+        #         if name == 'offshore_wind_farm':
+        #             self.improvement = OffshoreWindFarm()
 
-                if name == 'ski_resort':
-                    self.improvement = SkiResort()
+        #         if name == 'ski_resort':
+        #             self.improvement = SkiResort()
 
-                if name == 'oil_well':
-                    self.improvement = OilWell()
+        #         if name == 'oil_well':
+        #             self.improvement = OilWell()
 
-                if name == 'offshore_oil_well':
-                    self.improvement = OffshoreOilWell()
+        #         if name == 'offshore_oil_well':
+        #             self.improvement = OffshoreOilWell()
 
-                if name == 'missle_silo':
-                    self.improvement = MissleSilo()
+        #         if name == 'missle_silo':
+        #             self.improvement = MissleSilo()
 
-                if name == 'mountain_tunnel':
-                    self.improvement = MountainTunnel()
+        #         if name == 'mountain_tunnel':
+        #             self.improvement = MountainTunnel()
 
-                if name == 'railroad':
-                    self.improvement = Railroad()
+        #         if name == 'railroad':
+        #             self.improvement = Railroad()
 
-                if name == 'seastead':
-                    self.improvement = Seastead()
+        #         if name == 'seastead':
+        #             self.improvement = Seastead()
 
-                if name == 'alcazar':
-                    self.improvement = Alcazar()
+        #         if name == 'alcazar':
+        #             self.improvement = Alcazar()
 
-                if name == 'batey':
-                    self.improvement = Batey()
+        #         if name == 'batey':
+        #             self.improvement = Batey()
 
-                if name == 'cahokia_mounds':
-                    self.improvement = CahokiaMounds()
+        #         if name == 'cahokia_mounds':
+        #             self.improvement = CahokiaMounds()
 
-                if name == 'colossal_heads':
-                    self.improvement = ColossalHeads()
+        #         if name == 'colossal_heads':
+        #             self.improvement = ColossalHeads()
 
-                if name == 'mahavihara':
-                    self.improvement = Mahavihara()
+        #         if name == 'mahavihara':
+        #             self.improvement = Mahavihara()
 
-                if name == 'moai':
-                    self.improvement = Moai()
+        #         if name == 'moai':
+        #             self.improvement = Moai()
 
-                if name == 'monistary':
-                    self.improvement = Monistary()
+        #         if name == 'monistary':
+        #             self.improvement = Monistary()
 
-                if name == 'nazca_line':
-                    self.improvement = NazcaLine()
+        #         if name == 'nazca_line':
+        #             self.improvement = NazcaLine()
 
-                if name == 'trading_dome':
-                    self.improvement = TradingDome()
+        #         if name == 'trading_dome':
+        #             self.improvement = TradingDome()
 
-                if name == 'chateau':
-                    self.improvement = Chateau()
+        #         if name == 'chateau':
+        #             self.improvement = Chateau()
 
-                if name == 'chemamull':
-                    self.improvement = Chemamull()
+        #         if name == 'chemamull':
+        #             self.improvement = Chemamull()
 
-                if name == 'golf_course':
-                    self.improvement = GolfCourse()
+        #         if name == 'golf_course':
+        #             self.improvement = GolfCourse()
 
-                if name == 'great_wall':
-                    self.improvement = GreatWall()
+        #         if name == 'great_wall':
+        #             self.improvement = GreatWall()
 
-                if name == 'hacienda':
-                    self.improvement = Hacienda()
+        #         if name == 'hacienda':
+        #             self.improvement = Hacienda()
 
-                if name == 'ice_hocky_rink':
-                    self.improvement = IceHockyRink()
+        #         if name == 'ice_hocky_rink':
+        #             self.improvement = IceHockyRink()
 
-                if name == 'kampung':
-                    self.improvement = Kampung()
+        #         if name == 'kampung':
+        #             self.improvement = Kampung()
 
-                if name == 'kurgan':
-                    self.improvement = Kurgan()
+        #         if name == 'kurgan':
+        #             self.improvement = Kurgan()
 
-                if name == 'mekewap':
-                    self.improvement = Mekewap()
+        #         if name == 'mekewap':
+        #             self.improvement = Mekewap()
 
-                if name == 'mission':
-                    self.improvement = Mission()
+        #         if name == 'mission':
+        #             self.improvement = Mission()
 
-                if name == 'nubian_pyramid':
-                    self.improvement = NubianPyramid()
+        #         if name == 'nubian_pyramid':
+        #             self.improvement = NubianPyramid()
 
-                if name == 'open_air_museum':
-                    self.improvement = OpenAirMuseum()
+        #         if name == 'open_air_museum':
+        #             self.improvement = OpenAirMuseum()
 
-                if name == 'outback_station':
-                    self.improvement = OutbackStation()
+        #         if name == 'outback_station':
+        #             self.improvement = OutbackStation()
 
-                if name == 'pa':
-                    self.improvement = Pa()
+        #         if name == 'pa':
+        #             self.improvement = Pa()
 
-                if name == 'pairirdaeza':
-                    self.improvement = Pairirdaeza()
+        #         if name == 'pairirdaeza':
+        #             self.improvement = Pairirdaeza()
 
-                if name == 'polder':
-                    self.improvement = Polder()
+        #         if name == 'polder':
+        #             self.improvement = Polder()
 
-                if name == 'qhapaq_nan':
-                    self.improvement = QhapaqNan()
+        #         if name == 'qhapaq_nan':
+        #             self.improvement = QhapaqNan()
 
-                if name == 'rock_hewn_church':
-                    self.improvement = RockHewnChurch()
+        #         if name == 'rock_hewn_church':
+        #             self.improvement = RockHewnChurch()
 
-                if name == 'roman_fort':
-                    self.improvement = RomanFort()
+        #         if name == 'roman_fort':
+        #             self.improvement = RomanFort()
 
-                if name == 'sphinx':
-                    self.improvement = Sphinx()
+        #         if name == 'sphinx':
+        #             self.improvement = Sphinx()
 
-                if name == 'stepwell':
-                    self.improvement = Stepwell()
+        #         if name == 'stepwell':
+        #             self.improvement = Stepwell()
 
-                if name == 'terrace_farms':
-                    self.improvement = TerraceFarms()
+        #         if name == 'terrace_farms':
+        #             self.improvement = TerraceFarms()
 
-                if name == 'ziggurat':
-                    self.improvement = Ziggurat()
+        #         if name == 'ziggurat':
+        #             self.improvement = Ziggurat()
 
-                if name == 'city_park':
-                    self.improvement = CityPark()
+        #         if name == 'city_park':
+        #             self.improvement = CityPark()
 
-                if name == 'fishery':
-                    self.improvement = Fishery()
+        #         if name == 'fishery':
+        #             self.improvement = Fishery()
 
-                try:
-                    terrain_type = str(type(self.terrain)).split('.')[2]
-                    if terrain_type not in self.improvement.terrain:
-                        self.improvement = None
-                except:
-                    pass
-                try:
-                    feature_type = str(type(self.feature)).split('.')[2]
-                    if feature_type not in self.improvement.features:
-                        self.improvement = None
-                except:
-                    pass
-                try:
-                    resource_type = str(type(self.resource)).split('.')[2]
-                    if resource_type not in self.improvement.resources:
-                        self.improvement = None
-                except:
-                    pass
+        #         try:
+        #             terrain_type = str(type(self.terrain)).split('.')[2]
+        #             if terrain_type not in self.improvement.terrain:
+        #                 self.improvement = None
+        #         except:
+        #             pass
+        #         try:
+        #             feature_type = str(type(self.feature)).split('.')[2]
+        #             if feature_type not in self.improvement.features:
+        #                 self.improvement = None
+        #         except:
+        #             pass
+        #         try:
+        #             resource_type = str(type(self.resource)).split('.')[2]
+        #             if resource_type not in self.improvement.resources:
+        #                 self.improvement = None
+        #         except:
+        #             pass
 
-            # Districts
-            if dist_name[0] in self.list_of_districts:
-                if 'city_center' in name:
-                    self.district = CityCenter()
+        #     # Districts
+        #     if dist_name[0] in self.list_of_districts:
+        #         if 'city_center' in name:
+        #             self.district = CityCenter()
 
-                if 'campus' in name:
-                    self.district = Campus()
+        #         if 'campus' in name:
+        #             self.district = Campus()
 
-                if 'theater_square' in name:
-                    self.district = TheaterSquare()
+        #         if 'theater_square' in name:
+        #             self.district = TheaterSquare()
 
-                if 'holy_site' in name:
-                    self.district = Holysite()
+        #         if 'holy_site' in name:
+        #             self.district = Holysite()
 
-                if 'encampment' in name:
-                    self.district = Encampment()
+        #         if 'encampment' in name:
+        #             self.district = Encampment()
 
-                if 'commercial_hub' in name:
-                    self.district = CommercialHub()
+        #         if 'commercial_hub' in name:
+        #             self.district = CommercialHub()
 
-                if 'harbor' in name:
-                    self.district = Harbor()
+        #         if 'harbor' in name:
+        #             self.district = Harbor()
 
-                if 'industrial_zone' in name:
-                    self.district = IndustrialZone()
+        #         if 'industrial_zone' in name:
+        #             self.district = IndustrialZone()
 
-                if 'entertainment_complex' in name:
-                    self.district = EntertainmentComplex()
+        #         if 'entertainment_complex' in name:
+        #             self.district = EntertainmentComplex()
 
-                if 'water_park' in name:
-                    self.district = WaterPark()
+        #         if 'water_park' in name:
+        #             self.district = WaterPark()
 
-                if 'aqueduct' in name:
-                    self.district = Aqueduct()
+        #         if 'aqueduct' in name:
+        #             self.district = Aqueduct()
 
-                if 'neighborhood' in name:
-                    self.district = Neighborhood()
+        #         if 'neighborhood' in name:
+        #             self.district = Neighborhood()
 
-                if 'canal' in name:
-                    self.district = Canal()
+        #         if 'canal' in name:
+        #             self.district = Canal()
 
-                if 'dam' in name:
-                    self.district = Dam()
+        #         if 'dam' in name:
+        #             self.district = Dam()
 
-                if 'aerodrome' in name:
-                    self.district = Aerodrome()
+        #         if 'aerodrome' in name:
+        #             self.district = Aerodrome()
 
-                if 'spaceport' in name:
-                    self.district = Spaceport()
+        #         if 'spaceport' in name:
+        #             self.district = Spaceport()
 
-                if 'govermment_plaza' in name:
-                    self.district = GovermmentPlaza()
+        #         if 'govermment_plaza' in name:
+        #             self.district = GovermmentPlaza()
 
-                if 'diplomatic_quarter' in name:
-                    self.district = DiplomaticQuarter()
+        #         if 'diplomatic_quarter' in name:
+        #             self.district = DiplomaticQuarter()
 
-                try:
-                    building = name.split(':')
-                    if len(building) == 1:
-                        raise ValueError
-                    self.district.set_buildings(building[-1])
-                except:
-                    self.district.set_buildings()
-                self.district.calculate_specialist_yield()
+        #         try:
+        #             building = name.split(':')
+        #             if len(building) == 1:
+        #                 raise ValueError
+        #             self.district.set_buildings(building[-1])
+        #         except:
+        #             self.district.set_buildings()
+        #         self.district.calculate_specialist_yield()
 
     # terrain
     @property

@@ -21,7 +21,7 @@ For example you cant add a forrest to an ocean tile but you can add ice.
 Every tile in the game will be made up of one container full of all the individual element classes. 
 
 Order of layers:
-`Terrain` > ~~`Natural Wonders`~~ > ~~`Wonders`~~ > `Districts` > `Feature` >  `Resources` > `Improvements`
+`Terrain` > `Hills` > `River` > ~~`Natural Wonders`~~ > ~~`Wonders`~~ > `Districts` > `Feature` >  `Resources` > `Improvements`
 
 > Wonders are not MVP1
 
@@ -38,5 +38,6 @@ One manager will be used for every itteration of an optimization check.
 City plan will be created as an object that is an array of objects. 
 These sub objects represent each tile and contain arays of elements for the tile. 
 The manager will create a container for each tile passed and populate the container with elements. 
+_The container takes the list and updates the appropriate parameter to the element so the last of every element is what is kept_. 
 The container will sanity check the input and retain what is acceptable. 
 When the yields are generated, the manager will reference the container to calculate the yields of the city as a whole. 
