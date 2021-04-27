@@ -4,7 +4,7 @@ from backend.tile_container import Tile
 
 tile_list = [
     'grassland',
-    'volcanic_soil'
+    'ice'
 ]
 
 tc = Tile(tile_list)
@@ -16,6 +16,7 @@ print(tc.district)
 print(tc.feature)
 print(tc.improvement)
 
-print('-')
-print(tc.feature.)
+# print('-')
+# print(tc.terrain.food)
+# print(tc.feature.food)
 
