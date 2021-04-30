@@ -29,16 +29,8 @@ class Tile(CommonTile):
         # Config
         with open('etc/tile_container.yml') as ycf:
             self.config = yaml.load(ycf, Loader=yaml.FullLoader)
-
-        self.tile_parts = {
-            'terrain': None,
-            'hills': None,
-            'features': None,
-            'river': None,
-            'resources': None,
-            'improvements': None,
-            'districts': None,
-        }
+        # print(self.config['features']['list of elements'])
+        # print('cataract' in self.config['features']['list of elements'])
 
         for name in tile_list:
             # First i need to make sure the order of everything is correct
@@ -53,6 +45,8 @@ class Tile(CommonTile):
             # else:
             #     dist_name = [name]
 
+            print(f"Now serving: {name}")
+
             def convert_file_to_object(input):
                 """
                 Converts a file name to its expected object
@@ -66,20 +60,51 @@ class Tile(CommonTile):
                 self.terrain = klass()
 
             if name == 'hills':
-                self.tile_parts['hills'] = Hills()
+                self.hills = Hills()
 
             if name == 'river':
-                self.tile_parts['river'] = River()
+                self.river = River()
 
             # Natural Wonders
 
             # Wonders
 
             if name in self.config['districts']['list of elements']:
-                self.tile_parts['districts'] = name
+                # self.tile_parts['districts'] = name
+                pass
 
             if name in self.config['features']['list of elements']:
                 klass = globals()[convert_file_to_object(name)]
+
+                print(self.config['features']['list of elements'][name]['restrictions'])
+
+                if self.config['features']['list of elements'][name]['restrictions'] is None:
+                    self.feature = klass()
+                    return
+
+                for restriction in self.config['features']['list of elements'][name]['restrictions']:
+                    print(f"restriction {restriction}")
+                    for key, value in restriction.items():
+                        print(f"k,v: {key}, {value}")
+                        # print(getattr(self, key))
+                        print(getattr(self, key), value)
+                        if getattr(self, key) is None:
+                            if value is False:
+                                valid = True
+                            else:
+                                valid = False
+                        else:
+                            print('Running the esle statement here')
+                            test_val = str(getattr(self, key)).split(' ')[0].split('.')[2]
+                            print(getattr(self, key))
+                            print(test_val)
+                            print(f"{value} = {test_val} ? {value == test_val}")
+                            if value == test_val:
+                                valid = True
+                            else:
+                                valid = False
+                    # Here is whereI would accept a valid match if valid == true else not a match and continue. 
+                # If end of list and still valid ==  false dont assing feature
                 self.feature = klass()
 
             if name in self.config['resources']['list of elements']:

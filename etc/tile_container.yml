@@ -1,134 +1,187 @@
 districts:
     list of elements:
-        - aerodrome
-        - aqueduct
-        - campus
-        - canal
-        - city_center
-        - commercial_hub
-        - dam
-        - diplomatic_quarter
-        - encampment
-        - entertainment_complex
-        - government_plaza
-        - harbor
-        - holy_site
-        - industrial_zone
-        - neighborhood
-        - spaceport
-        - theater_square
-        - water_park
+        aerodrome:
+        aqueduct:
+        campus:
+        canal:
+        city_center:
+        commercial_hub:
+        dam:
+        diplomatic_quarter:
+        encampment:
+        entertainment_complex:
+        government_plaza:
+        harbor:
+        holy_site:
+        industrial_zone:
+        neighborhood:
+        spaceport:
+        theater_square:
+        water_park:
 features:
     list of elements:
-        - cataract
-        - cliffs
-        - floodplains
-        - geothermal_fissure
-        - ice
-        - impact_zone
-        - marsh
-        - mountain
-        - oasis
-        - rainforest
-        - reef
-        - river
-        - volcanic_soil
-        - volcano
-        - woods
+        cataract:
+            restrictions:
+        cliffs:
+            restrictions:
+                - terrain: coast
+                  hills: true
+        floodplains:
+            restrictions:
+                - terrain: desert
+                  river: true
+                - terrain: plains
+                  river: true
+                - terrain: grassland
+                  river: false
+                #   river: true
+        geothermal_fissure:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
+        ice:
+            restrictions:
+                - terrain: ocean
+                - terrain: coast
+        impact_zone:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
+        marsh:
+            restrictions:
+                - terrain: grassland
+                  hills: false
+        # - mountain:
+        #     restrictions:
+        oasis:
+            restrictions:
+                - terrain: desert
+                  hills: false
+        rainforest:
+            restrictions:
+                - terrain: plains
+        reef:
+            restrictions:
+                - terrain: coast
+        river:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
+        volcanic_soil:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
+        # - volcano:
+        #     restrictions:
+        woods:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
 improvements:
     list of elements:
-        - airstrip
-        - camp
-        - farm
-        - fishing_boats
-        - fort
-        - geothermal_plant
-        - lumber_mill
-        - mine
-        - missle_silo
-        - mountain_tunnel
-        - offshore_oil_rig
-        - offshore_wind_farm
-        - oil_well
-        - pasture
-        - plantation
-        - quarry
-        - railroad
-        - seaside_resort
-        - seastead
-        - ski_resort
-        - solar_farm
-        - wind_farm
+        airstrip:
+        camp:
+        farm:
+        fishing_boats:
+        fort:
+        geothermal_plant:
+        lumber_mill:
+        mine:
+        missle_silo:
+        mountain_tunnel:
+        offshore_oil_rig:
+        offshore_wind_farm:
+        oil_well:
+        pasture:
+        plantation:
+        quarry:
+        railroad:
+        seaside_resort:
+        seastead:
+        ski_resort:
+        solar_farm:
+        wind_farm:
 resources:
     list of elements:
-        - aluminum
-        - amber
-        - bananas
-        - cattle
-        - cinnamon
-        - citrus
-        - cloves
-        - coal
-        - cocoa
-        - coffee
-        - copper
-        - cosmetics
-        - cotton
-        - crabs
-        - deer
-        - diamonds
-        - dyes
-        - fish
-        - furs
-        - gold_ore
-        - gypsum
-        - honey
-        - horses
-        - insense
-        - iron
-        - ivory
-        - jade
-        - jeans
-        - maize
-        - marble
-        - murcury
-        - niter
-        - oil
-        - olives
-        - pearls
-        - perfume
-        - rice
-        - salt
-        - sheep
-        - silk
-        - silver
-        - spices
-        - stone
-        - sugar
-        - tea
-        - tobacco
-        - toys
-        - truffles
-        - turtles
-        - uranium
-        - whales
-        - wheat
-        - wine
+        aluminum:
+        amber:
+        bananas:
+        cattle:
+        cinnamon:
+        citrus:
+        cloves:
+        coal:
+        cocoa:
+        coffee:
+        copper:
+        cosmetics:
+        cotton:
+        crabs:
+        deer:
+        diamonds:
+        dyes:
+        fish:
+        furs:
+        gold_ore:
+        gypsum:
+        honey:
+        horses:
+        insense:
+        iron:
+        ivory:
+        jade:
+        jeans:
+        maize:
+        marble:
+        murcury:
+        niter:
+        oil:
+        olives:
+        pearls:
+        perfume:
+        rice:
+        salt:
+        sheep:
+        silk:
+        silver:
+        spices:
+        stone:
+        sugar:
+        tea:
+        tobacco:
+        toys:
+        truffles:
+        turtles:
+        uranium:
+        whales:
+        wheat:
+        wine:
 terrain:
     list of elements:
-        - coast
-        - desert
-        - grassland
-        - hills
-        - lake
-        - ocean
-        - plains
-        - snow
-        - tundra
+        coast:
+        desert:
+        grassland:
+        hills:
+        lake:
+        ocean:
+        plains:
+        snow:
+        tundra:
 natural wonders:
     list of elements:
-        - 
 wonders:
     list of elements:
-        - 
 
