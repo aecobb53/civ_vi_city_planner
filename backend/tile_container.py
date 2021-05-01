@@ -103,9 +103,11 @@ class Tile(CommonTile):
                                 valid = True
                             else:
                                 valid = False
-                    # Here is whereI would accept a valid match if valid == true else not a match and continue. 
-                # If end of list and still valid ==  false dont assing feature
-                self.feature = klass()
+                    if valid:
+                        print(' is valid')
+                        self.feature = klass()
+                    else:
+                        print(' is not valid')
 
             if name in self.config['resources']['list of elements']:
                 klass = globals()[convert_file_to_object(name)]
