@@ -20,6 +20,7 @@ print("\n-----next one-----\n")
 
 tile_list = [
     'grassland',
+    'river',
     'floodplains'
 ]
 

@@ -73,41 +73,44 @@ class Tile(CommonTile):
                 # self.tile_parts['districts'] = name
                 pass
 
-            if name in self.config['features']['list of elements']:
+            if name in [i for i in self.config['features']['list of elements'] if i != 'river']:
                 klass = globals()[convert_file_to_object(name)]
 
-                print(self.config['features']['list of elements'][name]['restrictions'])
+                # print(self.config['features']['list of elements'][name]['restrictions'])
 
                 if self.config['features']['list of elements'][name]['restrictions'] is None:
                     self.feature = klass()
                     return
 
                 for restriction in self.config['features']['list of elements'][name]['restrictions']:
-                    print(f"restriction {restriction}")
+                    # print(f"restriction {restriction}")
                     for key, value in restriction.items():
-                        print(f"k,v: {key}, {value}")
+                        # print(f"k,v: {key}, {value}")
                         # print(getattr(self, key))
-                        print(getattr(self, key), value)
+                        # print(getattr(self, key), value)
                         if getattr(self, key) is None:
+                            # print('HERE', value)
                             if value is False:
                                 valid = True
                             else:
                                 valid = False
                         else:
-                            print('Running the esle statement here')
+                            # print('Running the esle statement here')
                             test_val = str(getattr(self, key)).split(' ')[0].split('.')[2]
-                            print(getattr(self, key))
-                            print(test_val)
-                            print(f"{value} = {test_val} ? {value == test_val}")
+                            # print(getattr(self, key))
+                            # print(test_val)
+                            # print(f"{value} = {test_val} ? {value == test_val}")
                             if value == test_val:
+                                valid = True
+                            elif key == test_val and value == True:
                                 valid = True
                             else:
                                 valid = False
                     if valid:
-                        print(' is valid')
+                        # print(' is valid')
                         self.feature = klass()
-                    else:
-                        print(' is not valid')
+                    # else:
+                        # print(' is not valid')
 
             if name in self.config['resources']['list of elements']:
                 klass = globals()[convert_file_to_object(name)]

@@ -33,8 +33,7 @@ features:
                 - terrain: plains
                   river: true
                 - terrain: grassland
-                  river: false
-                #   river: true
+                  river: true
         geothermal_fissure:
             restrictions:
                 - terrain: grassland
