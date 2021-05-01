@@ -55,34 +55,19 @@ class Tile(CommonTile):
                 output = ''.join([i.capitalize() for i in input.split('_')])
                 return output
 
-            if name in self.config['terrain']['list of elements']:
-                klass = globals()[convert_file_to_object(name)]
-                self.terrain = klass()
+            def object_validation_check(name, conf_element, exceptions=['river', 'hills']):
+                # print(name, conf_element, exceptions)
+                # print(self.config[conf_element])
+                # print(self.config[conf_element]['list of elements'])
+                # print(self.config[conf_element]['list of elements'][name])
+                # print(self.config[conf_element]['list of elements'][name]['restrictions'])
+                # print(self.config[conf_element]['list of elements'][name]['restrictions'])
+                if self.config[conf_element]['list of elements'][name] is None:
+                    return True
+                if self.config[conf_element]['list of elements'][name]['restrictions'] is None:
+                    return True
 
-            if name == 'hills':
-                self.hills = Hills()
-
-            if name == 'river':
-                self.river = River()
-
-            # Natural Wonders
-
-            # Wonders
-
-            if name in self.config['districts']['list of elements']:
-                # self.tile_parts['districts'] = name
-                pass
-
-            if name in [i for i in self.config['features']['list of elements'] if i != 'river']:
-                klass = globals()[convert_file_to_object(name)]
-
-                # print(self.config['features']['list of elements'][name]['restrictions'])
-
-                if self.config['features']['list of elements'][name]['restrictions'] is None:
-                    self.feature = klass()
-                    return
-
-                for restriction in self.config['features']['list of elements'][name]['restrictions']:
+                for restriction in self.config[conf_element]['list of elements'][name]['restrictions']:
                     # print(f"restriction {restriction}")
                     for key, value in restriction.items():
                         # print(f"k,v: {key}, {value}")
@@ -108,17 +93,54 @@ class Tile(CommonTile):
                                 valid = False
                     if valid:
                         # print(' is valid')
-                        self.feature = klass()
-                    # else:
+                        # self.feature = klass()
+                        return True
+                    else:
+                        return False
                         # print(' is not valid')
+                    return False
 
-            if name in self.config['resources']['list of elements']:
-                klass = globals()[convert_file_to_object(name)]
-                self.resource = klass()
+            if name in [i for i in self.config['terrain']['list of elements'] if i not in ['river', 'hills']]:
+                if object_validation_check(name, 'terrain'):
+                    klass = globals()[convert_file_to_object(name)]
+                    self.terrain = klass()
 
-            if name in self.config['improvements']['list of elements']:
-                klass = globals()[convert_file_to_object(name)]
-                self.improvement = klass()
+            if name == 'hills':
+                self.hills = Hills()
+
+            if name == 'river':
+                self.river = River()
+
+            # Natural Wonders
+
+            # Wonders
+
+            if name in [i for i in self.config['districts']['list of elements'] if i not in ['river', 'hills']]:
+                if object_validation_check(name, 'districts'):
+                    klass = globals()[convert_file_to_object(name)]
+                    self.district = klass()
+                    self.feature = None
+
+            if name in [i for i in self.config['features']['list of elements'] if i not in ['river', 'hills']]:
+                if self.district is not None:
+                    continue
+                if object_validation_check(name, 'features'):
+                    klass = globals()[convert_file_to_object(name)]
+                    self.feature = klass()
+
+            if name in [i for i in self.config['resources']['list of elements'] if i not in ['river', 'hills']]:
+                if self.district is not None:
+                    continue
+                if object_validation_check(name, 'resources'):
+                    klass = globals()[convert_file_to_object(name)]
+                    self.resource = klass()
+
+            if name in [i for i in self.config['improvements']['list of elements'] if i not in ['river', 'hills']]:
+                if self.district is not None:
+                    continue
+                if object_validation_check(name, 'improvements'):
+                    klass = globals()[convert_file_to_object(name)]
+                    self.improvement = klass()
 
     # terrain
     @property

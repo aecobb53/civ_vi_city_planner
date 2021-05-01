@@ -21,7 +21,13 @@ print("\n-----next one-----\n")
 tile_list = [
     'grassland',
     'river',
-    'floodplains'
+    'woods',
+    'hills',
+    'floodplains',
+    'campus',
+    'floodplains',
+    'crabs',
+    'farm',
 ]
 
 tc = Tile(tile_list)
@@ -31,6 +37,7 @@ print(tc.hills)
 print(tc.river)
 print(tc.district)
 print(tc.feature)
+print(tc.resource)
 print(tc.improvement)
 
 # print('-')
