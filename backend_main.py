@@ -29,7 +29,8 @@ else:
     c_level = 'WARNING'
 
 # Logging
-logger = Logger('civ_vi',
+logger = Logger(
+    'civ_vi',
     log_directory='logs/backend/',
     app_name_in_file=True,
     log_suffix=log_prefix,
@@ -93,7 +94,6 @@ class CityPlan(BaseModel):
     outer: List[Tile] = None
     nearby: List[Tile] = None
 
-
     # Proposed additions
     # erah
     # city_uuid
@@ -125,7 +125,7 @@ def create_tile_manager_object(city_object):
     logit.debug('creating tile manager object')
     circles = config['circle_layers']
     tile_layers = config['tile_layers']
-    city_dct = {k:[] for k in config['tile_index_list']}
+    city_dct = {k: [] for k in config['tile_index_list']}
     for attribute in city_object.__dict__.keys():
         if attribute in circles:
             for index, tile in enumerate(getattr(city_object, attribute)):
@@ -145,8 +145,8 @@ def create_tile_manager_object(city_object):
                     except:
                         continue
                     try:
-                            logit.debug(f"layer details {tile_index}-{layer}: {getattr(tile, layer)}")
-                            tile_list.append(getattr(tile, layer).name)
+                        logit.debug(f"layer details {tile_index}-{layer}: {getattr(tile, layer)}")
+                        tile_list.append(getattr(tile, layer).name)
                     except AttributeError:
                         pass
                     if layer == 'terrain':
@@ -157,10 +157,11 @@ def create_tile_manager_object(city_object):
                             tile_list.append('river')
                 city_dct[tile_index] = tile_list
                 logit.debug(f"tile_list for {tile_index}: {tile_list}")
-    for i,j in city_dct.items():
+    for i, j in city_dct.items():
         logit.debug(f"city dict {i} : {j}")
     tm = tile_manager.TileManager(**city_dct)
     return tm
+
 
 def create_city_plan_object_from_database(database_entry):
     print(json.dumps(database_entry, indent=2))
@@ -215,6 +216,7 @@ def create_city_plan_object_from_database(database_entry):
     print(json.dumps(city_plan, indent=2))
     return CityPlan(**city_plan)
 
+
 def analize_tm(tile_object):
     indent = '    '
     for tile_index in config['tile_index_list']:
@@ -223,6 +225,7 @@ def analize_tm(tile_object):
             for layer in config['tile_layers']:
                 if getattr(getattr(tile_object, tile_index), layer) is not None:
                     logit.debug(f"{indent}layer: {layer}, {getattr(getattr(tile_object, tile_index), layer)}")
+
 
 def analize_yields(tile_object):
     indent = '    '
@@ -238,6 +241,7 @@ def analize_yields(tile_object):
 app = FastAPI()
 logit.debug('\npage break\n')
 
+
 @app.get('/')
 def heartbeat(request: Request):
     logit.debug('base endpoint hit')
@@ -248,6 +252,7 @@ def heartbeat(request: Request):
 # async def create_item(item: Item):
 #     logit.debug('items endpoint hit')
 #     return item
+
 
 @app.post("/city_plan/")
 async def create_city(city: CityPlan):
@@ -264,6 +269,7 @@ async def create_city(city: CityPlan):
     return JSONResponse(content=json_response)
     # If im supposed to return just the uuid, i have that coded out below
     # return json_object['city_uuid']
+
 
 @app.get("/city_plan/")
 async def return_city(cityId: CityId):

@@ -92,15 +92,15 @@ class TileManager:
 
         self.resource_list = config['tile_resources']
 
-        # The order of this one matters I think
-        self.tile_list = [
-            'wonder',
-            'district',
-            'terrain',
-            'feature',
-            'resources',
-            'improvement',
-        ]
+        # # The order of this one matters I think
+        # self.tile_list = [
+        #     'wonder',
+        #     'district',
+        #     'terrain',
+        #     'feature',
+        #     'resources',
+        #     'improvement',
+        # ]
 
     # cc
     @property
@@ -624,6 +624,14 @@ class TileManager:
         if self._city_uuid is None:
             self._city_uuid = value
 
+    def _zero_out_tile(self, tile_index):
+        print(getattr(self, tile_index))
+        for metric in config['city_metrics']:
+            try:
+                setattr(getattr(self, tile_index), metric, None)
+            except AttributeError:
+                pass
+
     def _generate_uuid(self):
         return uuid.uuid1().hex
 
@@ -693,7 +701,7 @@ class TileManager:
     #     setattr(self, attribute, value)
 
     # def append_attribute(attribute, value):
-    #     if 
+    #     if
     #     getattr(self, attribute).append(value)
 
     def calculate_tile_yield(self, tile_index):
@@ -708,29 +716,31 @@ class TileManager:
         #     if not isinstance(tile_index, list):
         #         search_list = [tile_index]
 
+        self._zero_out_tile(tile_index)
+
         if getattr(self, tile_index) is None:
             return None
 
         if getattr(self, tile_index).wonder is not None:
-            print('has wonder')
+            # print('has wonder')
             # self._calculate_wonder(tile_index)
             return None
 
         if getattr(self, tile_index).district is not None:
-            print('has district')
+            # print('has district')
             self._calculate_district(tile_index)
             return None
 
         if getattr(self, tile_index).terrain is not None:
-            print('has terrain')
+            # print('has terrain')
             self._calculate_terrain(tile_index)
 
         if getattr(self, tile_index).hills is not None:
-            print('has hills')
+            # print('has hills')
             self._calculate_hills(tile_index)
 
         if getattr(self, tile_index).feature is not None:
-            print('has feature')
+            # print('has feature')
             self._calculate_feature(tile_index)
 
         # if getattr(self, tile_index).river is not None:
@@ -739,17 +749,18 @@ class TileManager:
 
         if getattr(self, tile_index).resource is not None:
             self._calculate_resource(tile_index)
-            print('has resource')
+            # print('has resource')
 
         if getattr(self, tile_index).improvement is not None:
-            print('has improvement')
+            # print('has improvement')
             self._calculate_improvement(tile_index)
 
     def sum_city_tiles(self):
         for metric in config['city_metrics']:
             for tile_index in list(self.adjacency_members.keys()):
+                # print(f"  tile_index: {tile_index}")
                 try:
-                    print(f"sum tile stuff: {metric}, {tile_index}, {getattr(getattr(self, tile_index), metric)}")
+                    # print(f"sum tile stuff: {metric}, {tile_index}, {getattr(getattr(self, tile_index), metric)}")
                     tile_value = getattr(getattr(self, tile_index), metric)
                 except AttributeError:
                     continue
@@ -768,7 +779,6 @@ class TileManager:
                         setattr(self, metric, new_value)
                 except TypeError:
                     pass
-                
 
     def calculate_city_yield(self):
         # print('for testing only running first few keys. Fix this later!!!!')

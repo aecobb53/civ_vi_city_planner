@@ -59,3 +59,25 @@ def element_validation(context):
             logit.info(f"i4: list:{context.i4_list}, T:{context.tm.i4.terrain}, F:{context.tm.i4.feature}")
             logit.info(f"i5: list:{context.i5_list}, T:{context.tm.i5.terrain}, F:{context.tm.i5.feature}")
             raise ValueError('values do not match')
+
+@then('I verify the tiles elements match the expected objects')
+def element_validation(context):
+    for row in context.table:
+        value = row['object']
+        logit.debug(f"Comparing {row['element']}:{row['object']} to {getattr(context.tm.cc, row['element'])}")
+        if getattr(context.tm.cc, row['element']) == None:
+            if value == 'none':
+                continue
+            else:
+                logit.error(f"Element {row['element']} is {getattr(context.tm.cc, row['element'])} not {value}")
+                raise ValueError('values do not match')
+        if not str(getattr(context.tm.cc, row['element'])).split(' ')[0].split('.')[2] == value:
+            logit.error(f"Element {row['element']} is {getattr(context.tm.cc, row['element'])} not {value}")
+            logit.info(f"cc: list:{context.cc_list}, T:{context.tm.cc.terrain}, F:{context.tm.cc.feature}")
+            logit.info(f"i0: list:{context.i0_list}, T:{context.tm.i0.terrain}, F:{context.tm.i0.feature}")
+            logit.info(f"i1: list:{context.i1_list}, T:{context.tm.i1.terrain}, F:{context.tm.i1.feature}")
+            logit.info(f"i2: list:{context.i2_list}, T:{context.tm.i2.terrain}, F:{context.tm.i2.feature}")
+            logit.info(f"i3: list:{context.i3_list}, T:{context.tm.i3.terrain}, F:{context.tm.i3.feature}")
+            logit.info(f"i4: list:{context.i4_list}, T:{context.tm.i4.terrain}, F:{context.tm.i4.feature}")
+            logit.info(f"i5: list:{context.i5_list}, T:{context.tm.i5.terrain}, F:{context.tm.i5.feature}")
+            raise ValueError('values do not match')

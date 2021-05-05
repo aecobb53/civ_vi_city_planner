@@ -1,23 +1,125 @@
 districts:
     list of elements:
         aerodrome:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         aqueduct:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         campus:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         canal:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         city_center:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         commercial_hub:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         dam:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         diplomatic_quarter:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         encampment:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         entertainment_complex:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         government_plaza:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         harbor:
+            restrictions:
+                - terrain: coast
+                - terrain: lake
         holy_site:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         industrial_zone:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         neighborhood:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         spaceport:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         theater_square:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         water_park:
+            restrictions:
+                - terrain: coast
+                - terrain: lake
 features:
     list of elements:
         cataract:
@@ -25,6 +127,8 @@ features:
         cliffs:
             restrictions:
                 - terrain: coast
+                  hills: true
+                - terrain: lake
                   hills: true
         floodplains:
             restrictions:
@@ -45,6 +149,7 @@ features:
             restrictions:
                 - terrain: ocean
                 - terrain: coast
+                - terrain: lake
         impact_zone:
             restrictions:
                 - terrain: grassland
@@ -92,27 +197,166 @@ features:
 improvements:
     list of elements:
         airstrip:
+            restrictions:
+                - terrain: grassland
+                  hills: false
+                - terrain: plains
+                  hills: false
+                - terrain: tundra
+                  hills: false
+                - terrain: desert
+                  hills: false
+                - terrain: snow
+                  hills: false
         camp:
+            restrictions:
+                - resource: deer
+                - resource: furs
+                - resource: ivory
+                - resource: truffles
+                - resource: honey
         farm:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
         fishing_boats:
+            restrictions:
+                - resource: fish
+                - resource: crabs
+                - resource: whales
+                - resource: pearls
+                - resource: amber
+                - resource: truffles
         fort:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         geothermal_plant:
+            restrictions:
+                - feature: geothermal_fissure
         lumber_mill:
+            restrictions:
+                - feature: woods
+                - feature: rainforest
         mine:
+            restrictions:
+                - terrain: grassland
+                  hills: true
+                - terrain: plains
+                  hills: true
+                - terrain: tundra
+                  hills: true
+                - terrain: desert
+                  hills: true
+                - terrain: snow 
+                  hills: true
         missle_silo:
+            restrictions:
+                - terrain: grassland
+                  hills: false
+                - terrain: plains
+                  hills: false
+                - terrain: tundra
+                  hills: false
+                - terrain: desert
+                  hills: false
+                - terrain: snow 
+                  hills: false
         mountain_tunnel:
+            restrictions:
         offshore_oil_rig:
+            restrictions:
+                - terrain: ocean
+                  resource: oil
+                - terrain: coast
+                  resource: oil
+                - terrain: lake
+                  resource: oil
         offshore_wind_farm:
+            restrictions:
+                - terrain: coast
+                - terrain: lake
         oil_well:
+            restrictions:
+                - terrain: grassland
+                  resource: oil
+                - terrain: plains
+                  resource: oil
+                - terrain: tundra
+                  resource: oil
+                - terrain: desert
+                  resource: oil
+                - terrain: snow
+                  resource: oil
         pasture:
+            restrictions:
+                - resource: sheep
+                - resource: cattle
+                - resource: horses
         plantation:
+            restrictions:
+                - resource: bananas
+                - resource: citrus
+                - resource: cocoa
+                - resource: coffee
+                - resource: cotton
+                - resource: dyes
+                - resource: silk
+                - resource: sugar
+                - resource: tea
+                - resource: tobacco
+                - resource: wine
+                - resource: olives
         quarry:
+            restrictions:
+                - resource: stone
+                - resource: marble
+                - resource: gypsum
         railroad:
+            restrictions:
         seaside_resort:
+            restrictions:
+                - terrain: grassland
+                  hills: false
+                - terrain: plains
+                  hills: false
+                - terrain: desert
+                  hills: false
         seastead:
+            restrictions:
+                - terrain: ocean
+                - terrain: coast
+                - terrain: lake
         ski_resort:
+            restrictions:
+                - feature: mountain
         solar_farm:
+            restrictions:
+                - terrain: grassland
+                  hills: false
+                - terrain: plains
+                  hills: false
+                - terrain: tundra
+                  hills: false
+                - terrain: desert
+                  hills: false
+                - terrain: snow 
+                  hills: false
         wind_farm:
+            restrictions:
+                - terrain: grassland
+                  hills: true
+                - terrain: plains
+                  hills: true
+                - terrain: tundra
+                  hills: true
+                - terrain: desert
+                  hills: true
+                - terrain: snow 
+                  hills: true
 resources:
     list of elements:
         aluminum:
@@ -183,4 +427,3 @@ natural wonders:
     list of elements:
 wonders:
     list of elements:
-

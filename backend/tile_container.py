@@ -45,7 +45,7 @@ class Tile(CommonTile):
             # else:
             #     dist_name = [name]
 
-            print(f"Now serving: {name}")
+            # print(f"Now serving: {name}")
 
             def convert_file_to_object(input):
                 """
@@ -70,7 +70,7 @@ class Tile(CommonTile):
                 for restriction in self.config[conf_element]['list of elements'][name]['restrictions']:
                     # print(f"restriction {restriction}")
                     for key, value in restriction.items():
-                        # print(f"k,v: {key}, {value}")
+                        print(f"k,v: {key}, {value}")
                         # print(getattr(self, key))
                         # print(getattr(self, key), value)
                         if getattr(self, key) is None:
@@ -87,7 +87,7 @@ class Tile(CommonTile):
                             # print(f"{value} = {test_val} ? {value == test_val}")
                             if value == test_val:
                                 valid = True
-                            elif key == test_val and value == True:
+                            elif key == test_val and value:
                                 valid = True
                             else:
                                 valid = False
@@ -120,6 +120,8 @@ class Tile(CommonTile):
                     klass = globals()[convert_file_to_object(name)]
                     self.district = klass()
                     self.feature = None
+                    self.resource = None
+                    self.improvement = None
 
             if name in [i for i in self.config['features']['list of elements'] if i not in ['river', 'hills']]:
                 if self.district is not None:
