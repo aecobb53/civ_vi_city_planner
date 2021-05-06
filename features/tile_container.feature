@@ -17,7 +17,7 @@ Verifying a tile can be set up with no exceptions
     Then I verify the tiles elements match the expected objects
         | element       | object    |
         | terrain       | grassland |
-        | hills         | hills     |
+        | hills         | none      |
         | river         | river     |
         | district      | campus    |
         | feature       | none      |
@@ -40,7 +40,7 @@ Verifying a tile with a farm is overwritten with a campus and a farm cant be cre
     Then I verify the tiles elements match the expected objects
         | element       | object    |
         | terrain       | grassland |
-        | hills         | hills     |
+        | hills         | none      |
         | river         | river     |
         | district      | campus    |
         | feature       | none      |
@@ -54,7 +54,7 @@ Verifying a tile with a farm is overwritten with a campus and a farm cant be cre
     Then I verify the tiles elements match the expected objects
         | element       | object    |
         | terrain       | grassland |
-        | hills         | hills     |
+        | hills         | none      |
         | river         | river     |
         | district      | campus    |
         | feature       | none      |

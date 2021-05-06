@@ -651,16 +651,33 @@ class TileManager:
             pass
 
     def _calculate_district(self, tile_index):
-        # Calculate the yield and details around the district
+        """
+        Calculate the yield and details around the district
+        It calculates the districts adjacency bonus from the surrounding tiles
+        Then it calculates its bonus from the specialist workers in the district
+        Then it updates the manager to the district values
+        """
         # print(getattr(self, tile_index).district)
-        for resource in self.resource_list:
-            # print(f"----resource: {resource}")
-            self._tile_summer(tile_index, 'district', resource)
+        # print(f' district values1 {self.cc.district.science}')
+        # print(f' district values2 {self.cc.science}')
 
         try:
             getattr(self, tile_index).district.calculate_adjacency(self, tile_index, self.adjacency_members[tile_index])
         except AttributeError:
             pass
+
+        try:
+            getattr(self, tile_index).district.calculate_specialist_yield()
+        except AttributeError:
+            pass
+        # print(f' district values1 {self.cc.district.science}')
+        # print(f' district values2 {self.cc.science}')
+
+        for resource in self.resource_list:
+            # print(f"----resource: {resource}")
+            self._tile_summer(tile_index, 'district', resource)
+        # print(f' district values1 {self.cc.district.science}')
+        # print(f' district values2 {self.cc.science}')
 
     def _calculate_terrain(self, tile_index):
         # Calculate the yield for the terrain of the tile

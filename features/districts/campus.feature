@@ -2,6 +2,25 @@
 
 Feature: Testing Campus
 
+# test the different string passing 
+# campus
+# campus:0
+# campus:library
+# campus:1
+# campus:university
+# campus:2
+# campus:research_lab
+# all the highest tier of buildings with
+# :False
+# :false
+# :FALSE
+# :0
+# :True
+# :true
+# :TRUE
+# :1
+# :anything
+
 @district
 Scenario: Basic Setup
 Verifying basic setup of a Campus works

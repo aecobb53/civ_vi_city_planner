@@ -34,18 +34,19 @@ class Tile(CommonTile):
 
         for name in tile_list:
             # First i need to make sure the order of everything is correct
-            # if ':' in name:
-            #     """
-            #     If i want specific buildings in a district i append the district with a :building name or :building_number
-            #     ex: campus
-            #     ex: campus:2
-            #     ex: campus:univeristy
-            #     """
-            #     dist_name = name.split(':')
-            # else:
-            #     dist_name = [name]
+            if ':' in name:
+                """
+                If i want specific buildings in a district i append the district with a :building name or :building_number
+                ex: campus
+                ex: campus:2
+                ex: campus:univeristy
+                """
+                dist_name = name.split(':')
+                name = name.split(':')[0]
+            else:
+                dist_name = [name]
 
-            # print(f"Now serving: {name}")
+            print(f"Now serving: {name}")
 
             def convert_file_to_object(input):
                 """
@@ -55,8 +56,8 @@ class Tile(CommonTile):
                 output = ''.join([i.capitalize() for i in input.split('_')])
                 return output
 
-            def object_validation_check(name, conf_element, exceptions=['river', 'hills']):
-                # print(name, conf_element, exceptions)
+            def object_validation_check(name, conf_element):
+                # print(name, conf_element)
                 # print(self.config[conf_element])
                 # print(self.config[conf_element]['list of elements'])
                 # print(self.config[conf_element]['list of elements'][name])
@@ -70,7 +71,7 @@ class Tile(CommonTile):
                 for restriction in self.config[conf_element]['list of elements'][name]['restrictions']:
                     # print(f"restriction {restriction}")
                     for key, value in restriction.items():
-                        print(f"k,v: {key}, {value}")
+                        # print(f"k,v: {key}, {value}")
                         # print(getattr(self, key))
                         # print(getattr(self, key), value)
                         if getattr(self, key) is None:
@@ -106,10 +107,14 @@ class Tile(CommonTile):
                     self.terrain = klass()
 
             if name == 'hills':
-                self.hills = Hills()
+                if self.district is not None:
+                    continue
+                if object_validation_check(name, 'terrain'):
+                    self.hills = Hills()
 
             if name == 'river':
-                self.river = River()
+                if object_validation_check(name, 'features'):
+                    self.river = River()
 
             # Natural Wonders
 
@@ -118,10 +123,33 @@ class Tile(CommonTile):
             if name in [i for i in self.config['districts']['list of elements'] if i not in ['river', 'hills']]:
                 if object_validation_check(name, 'districts'):
                     klass = globals()[convert_file_to_object(name)]
+                    # print('district stuff')
+                    # print(name, dist_name)
                     self.district = klass()
+                    self.hills = None
                     self.feature = None
                     self.resource = None
                     self.improvement = None
+                    if len(dist_name) == 1:
+                        self.district.set_buildings()
+                    else:
+                        print(self.district.building_list)
+                        if len(dist_name) == 2:
+                            # print('len == 2')
+                            self.district.set_buildings(
+                                final_improvement=dist_name[1])
+                        elif dist_name[2] in ['False', 'false', 'FALSE', False, 0]:
+                            # print('is false')
+                            self.district.set_buildings(
+                                final_improvement=dist_name[1],
+                                powered=False)
+                        else:
+                            # print('else is run')
+                            self.district.set_buildings(
+                                final_improvement=dist_name[1],
+                                powered=True)
+
+                        print(self.district.building_list)
 
             if name in [i for i in self.config['features']['list of elements'] if i not in ['river', 'hills']]:
                 if self.district is not None:

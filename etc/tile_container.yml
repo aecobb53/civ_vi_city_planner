@@ -161,8 +161,13 @@ features:
             restrictions:
                 - terrain: grassland
                   hills: false
-        # - mountain:
-        #     restrictions:
+        mountain:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         oasis:
             restrictions:
                 - terrain: desert
@@ -418,6 +423,12 @@ terrain:
         desert:
         grassland:
         hills:
+            restrictions:
+                - terrain: grassland
+                - terrain: plains
+                - terrain: tundra
+                - terrain: desert
+                - terrain: snow
         lake:
         ocean:
         plains:

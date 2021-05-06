@@ -28,10 +28,10 @@ Verify I am unable to add hills
         | hills         | cc        |
     When I calculate the yields
     Then I verify the tiles elements match the expected value
-        | element | value   |
-        | food    | 1       |
+        | element       | value   |
+        | food          | 1       |
         | production    | 0       |
-        | gold    | 1       |
+        | gold          | 1       |
 
 
 # @terrain

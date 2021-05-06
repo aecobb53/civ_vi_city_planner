@@ -24,7 +24,7 @@ class Campus(CommonTile):
         self._power = None
         self.maintenance = self.maintenance + 1
         self.specialist_yield = 2
-        self.specialist_power_bonus = 1
+        self.specialist_bonus = 1
 
     # building_list
     @property
@@ -87,7 +87,7 @@ class Campus(CommonTile):
             self.maintenance = self.maintenance + 3
             if self.powered:
                 self.science = self.science + 5
-                self.specialist_yield += self.specialist_power_bonus
+            self.specialist_yield += self.specialist_bonus
             self.update_building_list('research_lab')
             self._research_lab = True
 
@@ -118,6 +118,7 @@ class Campus(CommonTile):
         self,
         final_improvement=None,
         powered=None):
+        print(final_improvement, powered)
 
         if final_improvement is None:
             powered = True
@@ -130,7 +131,10 @@ class Campus(CommonTile):
             final_improvement = self.default_building_list[final_improvement]
 
         if powered:
+            print('powered if run')
+            print(self.powered)
             self.powered = True
+            print(self.powered)
 
         for building in self.default_building_list:
             if building == final_improvement:
@@ -140,6 +144,7 @@ class Campus(CommonTile):
                 setattr(self, building, True)
 
     def calculate_adjacency(self, tile_obj, target_index, adj_list):  # pragma: no cover
+        print('adj calculated')
         target_object = getattr(tile_obj, target_index)
 
         adj_mountain = 0
@@ -159,4 +164,5 @@ class Campus(CommonTile):
         target_object.science = target_object.science + adj_geo_reef * 2
 
     def calculate_specialist_yield(self):
+        print('special calculated')
         self.science = self.science + self.citizen_slot * self.specialist_yield
