@@ -228,7 +228,7 @@ tile_list = [
 ]
 tile_list2 = [
     'grassland',
-    'mountains'
+    'mountain'
 ]
 
 tc = Tile(tile_list)

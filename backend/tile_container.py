@@ -40,6 +40,10 @@ class Tile(CommonTile):
                 ex: campus
                 ex: campus:2
                 ex: campus:univeristy
+                ex: campus:2:True
+                ex: campus:2:False
+                ex: campus:univeristy:True
+                ex: campus:univeristy:False
                 """
                 dist_name = name.split(':')
                 name = name.split(':')[0]
@@ -138,7 +142,7 @@ class Tile(CommonTile):
                             # print('len == 2')
                             self.district.set_buildings(
                                 final_improvement=dist_name[1])
-                        elif dist_name[2] in ['False', 'false', 'FALSE', False, 0]:
+                        elif dist_name[2] in ['False', 'false', 'FALSE', False]:
                             # print('is false')
                             self.district.set_buildings(
                                 final_improvement=dist_name[1],
