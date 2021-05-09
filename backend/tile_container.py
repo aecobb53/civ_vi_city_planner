@@ -50,7 +50,7 @@ class Tile(CommonTile):
             else:
                 dist_name = [name]
 
-            print(f"Now serving: {name}")
+            # print(f"Now serving: {name}")
 
             def convert_file_to_object(input):
                 """
@@ -91,19 +91,21 @@ class Tile(CommonTile):
                             # print(test_val)
                             # print(f"{value} = {test_val} ? {value == test_val}")
                             if value == test_val:
+                                # print('if is True so valid is True')
                                 valid = True
                             elif key == test_val and value:
+                                # print('elif is True so valid is True')
                                 valid = True
                             else:
+                                # print('else is True so valid is False')
                                 valid = False
                     if valid:
                         # print(' is valid')
-                        # self.feature = klass()
                         return True
-                    else:
-                        return False
-                        # print(' is not valid')
-                    return False
+                    # else:
+                    #     print(' is not valid')
+                    #     # return False
+                return False
 
             if name in [i for i in self.config['terrain']['list of elements'] if i not in ['river', 'hills']]:
                 if object_validation_check(name, 'terrain'):
@@ -111,6 +113,7 @@ class Tile(CommonTile):
                     self.terrain = klass()
 
             if name == 'hills':
+                # print(f'hills found district:{self.district}')
                 if self.district is not None:
                     continue
                 if object_validation_check(name, 'terrain'):

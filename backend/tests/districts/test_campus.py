@@ -77,7 +77,7 @@ def test_university(setup_district, resource, value):
 
 # Unpowered Research Lab
 testdata = [
-    ('science', 15),
+    ('science', 18),
     ('housing', 1),
     ('citizen_slot', 3),
     ('power', 0),

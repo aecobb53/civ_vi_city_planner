@@ -67,24 +67,23 @@ from backend.tile_manager import TileManager
 # # print(tc.terrain.food)
 # # print(tc.feature.food)
 
-# print("\n-----next one-----\n")
+print("\n-----next one-----\n")
 
-# tile_list = [
-#     'grassland',
-#     'hills',
-#     'river',
-#     'campus',
-# ]
+tile_list = [
+    'plains',
+    'hills',
+    'river',
+]
 
-# tc = Tile(tile_list)
+tc = Tile(tile_list)
 
-# print(tc.terrain)
-# print(tc.hills)
-# print(tc.river)
-# print(tc.district)
-# print(tc.feature)
-# print(tc.resource)
-# print(tc.improvement)
+print(tc.terrain)
+print(tc.hills)
+print(tc.river)
+print(tc.district)
+print(tc.feature)
+print(tc.resource)
+print(tc.improvement)
 
 # print('-')
 # print(tc.terrain.food)
@@ -217,64 +216,64 @@ from backend.tile_manager import TileManager
 # print(tm.cc.district.science)
 # print(tm.cc.district.building_list)
 
-print("\n-----next one-----\n")
+# print("\n-----next one-----\n")
 
-tile_list = [
-    'grassland',
-    # 'campus'
-    # 'campus:1'
-    # 'campus:university'
-    'campus'
-]
-tile_list2 = [
-    'grassland',
-    'mountain'
-]
+# tile_list = [
+#     'grassland',
+#     # 'campus'
+#     # 'campus:1'
+#     # 'campus:university'
+#     'campus'
+# ]
+# tile_list2 = [
+#     'grassland',
+#     'mountain'
+# ]
 
-tc = Tile(tile_list)
-tc2 = Tile(tile_list2)
-tm = TileManager(
-    cc=tile_list
-)
+# tc = Tile(tile_list)
+# tc2 = Tile(tile_list2)
+# tm = TileManager(
+#     cc=tile_list
+# )
 
-print(tc.terrain)
-print(tc.hills)
-print(tc.river)
-print(tc.district)
-print(tc.feature)
-print(tc.resource)
-print(tc.improvement)
-print('')
-print(tc2.terrain)
-print(tc2.hills)
-print(tc2.river)
-print(tc2.district)
-print(tc2.feature)
-print(tc2.resource)
-print(tc2.improvement)
+# print(tc.terrain)
+# print(tc.hills)
+# print(tc.river)
+# print(tc.district)
+# print(tc.feature)
+# print(tc.resource)
+# print(tc.improvement)
+# print('')
+# print(tc2.terrain)
+# print(tc2.hills)
+# print(tc2.river)
+# print(tc2.district)
+# print(tc2.feature)
+# print(tc2.resource)
+# print(tc2.improvement)
 
-print('')
+# print('')
 
-# print(tm.__dict__)
-print(tm.cc.science)
-print(tm.cc.district.powered)
-print(tm.cc.district.science)
-print(tm.cc.district.building_list)
+# # print(tm.__dict__)
+# print(tm.cc.science)
+# print(tm.cc.district.powered)
+# print(tm.cc.district.science)
+# print(tm.cc.district.building_list)
 
-# tm.calculate_tile_yield('cc')
+# # tm.calculate_tile_yield('cc')
+# # print('')
+
+# # print(tm.cc.science)
+# # print(tm.cc.district.powered)
+# # print(tm.cc.district.science)
+# # print(tm.cc.district.building_list)
+
+# tm.cc.district.calculate_adjacency(tm, 'cc', [])
+# tm.cc.district.calculate_specialist_yield()
+# # tm.calculate_tile_yield('cc')
 # print('')
 
 # print(tm.cc.science)
 # print(tm.cc.district.powered)
 # print(tm.cc.district.science)
 # print(tm.cc.district.building_list)
-
-tm.cc.district.calculate_adjacency(tm, 'cc', [])
-tm.cc.district.calculate_specialist_yield()
-# tm.calculate_tile_yield('cc')
-print('')
-
-print(tm.cc.science)
-print(tm.cc.district.powered)
-print(tm.cc.district.science)
-print(tm.cc.district.building_list)

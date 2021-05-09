@@ -13,9 +13,19 @@ Verifying basic setup of a Coast tile works
         | ice           | cc        |
     When I calculate the yields
     Then I verify the tiles elements match the expected value
-        | element | value   |
-        | food    | 1       |
-        | gold    | 1       |
+        | element       | value   |
+        | food          | 1       |
+        | production    | 0       |
+        | gold          | 1       |
+    Then I verify the tiles elements match the expected objects
+        | element       | object    |
+        | terrain       | coast     |
+        | hills         | none      |
+        | river         | none      |
+        | district      | none      |
+        | feature       | ice       |
+        | resource      | none      |
+        | improvement   | none      |
 
 @terrain
 Scenario: I try to add hills
@@ -32,10 +42,19 @@ Verify I am unable to add hills
         | food          | 1       |
         | production    | 0       |
         | gold          | 1       |
+    Then I verify the tiles elements match the expected objects
+        | element       | object    |
+        | terrain       | coast     |
+        | hills         | none      |
+        | river         | none      |
+        | district      | none      |
+        | feature       | none      |
+        | resource      | none      |
+        | improvement   | none      |
 
 @terrain
 Scenario: I try to add river
-Verify I am able to add river
+Verify I am unable to add river
 
     Given I set up a new tile check
     When I add element tile_addition to tile_name
@@ -48,6 +67,15 @@ Verify I am able to add river
         | food          | 1       |
         | production    | 0       |
         | gold          | 1       |
+    Then I verify the tiles elements match the expected objects
+        | element       | object    |
+        | terrain       | coast     |
+        | hills         | none      |
+        | river         | none      |
+        | district      | none      |
+        | feature       | none      |
+        | resource      | none      |
+        | improvement   | none      |
 
 # @terrain
 # Scenario: Provides fresh water to nearby tiles
