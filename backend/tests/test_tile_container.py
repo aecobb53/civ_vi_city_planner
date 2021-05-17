@@ -1,5 +1,11 @@
-from backend.tile_container import Tile
 import pytest
+
+from backend.tile_container import Tile
+from backend.terrain import *
+from backend.features import *
+from backend.improvements import *
+from backend.districts import *
+from backend.resources import *
 
 # @pytest.fixture(scope="function")
 def setup_tile_container(tile_element_list):
@@ -27,7 +33,31 @@ def test_terrain():
         'river',
     ])
     assert isinstance(getattr(container, 'terrain'), Grassland)
+    assert isinstance(getattr(container, 'hills'), Hills)
+    assert isinstance(getattr(container, 'river'), River)
+
+# Terrain, Hills, River
+def test_feature_happy():
+    container = setup_tile_container([
+        'grassland',
+        'woods',
+        'hills',
+        'river',
+    ])
+    assert isinstance(getattr(container, 'terrain'), Grassland)
+    assert isinstance(getattr(container, 'feature'), Woods)
+    assert isinstance(getattr(container, 'hills'), Hills)
+    assert isinstance(getattr(container, 'river'), River)
     
+def test_feature_sad():
+    container = setup_tile_container([
+        'grassland',
+        'ice',
+    ])
+    print('feature')
+    print(getattr(container, 'feature'))
+    assert isinstance(getattr(container, 'terrain'), Grassland)
+    assert getattr(container, 'feature') is None
 
 # # Init
 # testdata = [
