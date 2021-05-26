@@ -625,7 +625,7 @@ class TileManager:
             self._city_uuid = value
 
     def _zero_out_tile(self, tile_index):
-        print(getattr(self, tile_index))
+        # print(getattr(self, tile_index))
         for metric in config['city_metrics']:
             try:
                 setattr(getattr(self, tile_index), metric, None)

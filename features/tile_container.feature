@@ -133,7 +133,7 @@ Verifying a tile with hills can have a mine and without wont
         | resource      | none      |
         | improvement   | mine      |
 
-@container @DEBUG
+@container
 Scenario: Tile with Coast, fish, fishing boat
 Verifying a water tile can't support a fishing boat without a resource
 
