@@ -61,10 +61,10 @@ class Tile(CommonTile):
                 return output
 
             def object_validation_check(name, conf_element):
-                # print(name, conf_element)
+                print(name, conf_element)
                 # print(self.config[conf_element])
                 # print(self.config[conf_element]['list of elements'])
-                # print(self.config[conf_element]['list of elements'][name])
+                print(self.config[conf_element]['list of elements'][name])
                 # print(self.config[conf_element]['list of elements'][name]['restrictions'])
                 # print(self.config[conf_element]['list of elements'][name]['restrictions'])
                 if self.config[conf_element]['list of elements'][name] is None:
@@ -159,9 +159,12 @@ class Tile(CommonTile):
                         print(self.district.building_list)
 
             if name in [i for i in self.config['features']['list of elements'] if i not in ['river', 'hills']]:
+                print(f'features run {name}')
                 if self.district is not None:
+                    print(f"district found not running")
                     continue
                 if object_validation_check(name, 'features'):
+                    print(f"object validation check passed")
                     klass = globals()[convert_file_to_object(name)]
                     self.feature = klass()
 

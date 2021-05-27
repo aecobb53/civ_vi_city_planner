@@ -48,17 +48,22 @@ def test_feature_happy():
     assert isinstance(getattr(container, 'feature'), Woods)
     assert isinstance(getattr(container, 'hills'), Hills)
     assert isinstance(getattr(container, 'river'), River)
-    
+
 def test_feature_sad():
     container = setup_tile_container([
         'grassland',
         'ice',
     ])
-    print('feature')
-    print(getattr(container, 'feature'))
     assert isinstance(getattr(container, 'terrain'), Grassland)
     assert getattr(container, 'feature') is None
 
+def test_feature_sad():
+    container = setup_tile_container([
+        'grassland',
+        'ice',
+    ])
+    assert isinstance(getattr(container, 'terrain'), Grassland)
+    assert getattr(container, 'feature') is None
 # # Init
 # testdata = [
 #     ('food', 0),

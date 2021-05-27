@@ -71,6 +71,7 @@ print("\n-----next one-----\n")
 
 tile_list = [
     'plains',
+    'marsh',
     'hills',
     'river',
 ]
