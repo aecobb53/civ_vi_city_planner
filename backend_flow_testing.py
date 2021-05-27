@@ -74,6 +74,7 @@ tile_list = [
     'marsh',
     'hills',
     'river',
+    'campus:1',
 ]
 
 tc = Tile(tile_list)

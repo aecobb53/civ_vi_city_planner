@@ -43,7 +43,7 @@ class Tile(CommonTile):
         # Config
         with open('etc/tile_container.yml') as ycf:
             self.config = yaml.load(ycf, Loader=yaml.FullLoader)
-        self.logit.debug('new container created')
+        # self.logit.debug('new container created')
 
         for name in tile_list:
             # First i need to make sure the order of everything is correct
@@ -75,69 +75,60 @@ class Tile(CommonTile):
 
             def object_validation_check(name, conf_element):
                 self.logit.debug(f"name:{name}, element type:{conf_element}")
-                self.logit.debug(f"list of elements:{self.config[conf_element]['list of elements'][name]['restrictions']}")
-                # self.logit.debug(f"list of elements:{self.config[conf_element]['list of elements'][name]}")
-                # self.logit.debug(f"list of elements:{self.config[conf_element]['list of elements'][name][0]}")
-                # print(name, conf_element)
-                # print(self.config[conf_element])
-                # print(self.config[conf_element]['list of elements'])
-                # print(self.config[conf_element]['list of elements'][name])
-                # print(self.config[conf_element]['list of elements'][name]['restrictions'])
-                # print(self.config[conf_element]['list of elements'][name]['restrictions'])
+                try:
+                    self.logit.debug(f"list of elements:{self.config[conf_element]['list of elements'][name]['restrictions']}")
+                except TypeError:
+                    self.logit.debug(f"type is terrain")
                 if self.config[conf_element]['list of elements'][name] is None:
                     return True
                 if self.config[conf_element]['list of elements'][name]['restrictions'] is None:
                     return True
 
                 for restriction in self.config[conf_element]['list of elements'][name]['restrictions']:
-                    # print(f"restriction {restriction}")
+                    self.logit.debug(f"considering restriction:{restriction}")
                     for key, value in restriction.items():
-                        # print(f"k,v: {key}, {value}")
-                        # print(getattr(self, key))
-                        # print(getattr(self, key), value)
+                        self.logit.debug(f"k,v: {key}, {value}")
                         if getattr(self, key) is None:
-                            # print('HERE', value)
                             if value is False:
                                 valid = True
+                                self.logit.debug('type is None and desired')
                             else:
                                 valid = False
+                                self.logit.debug('type is None and NOT desired')
                         else:
-                            # print('Running the esle statement here')
                             test_val = str(getattr(self, key)).split(' ')[0].split('.')[2]
-                            # print(getattr(self, key))
-                            # print(test_val)
-                            # print(f"{value} = {test_val} ? {value == test_val}")
+                            self.logit.debug(f"test string:{test_val} against value:{value}")
                             if value == test_val:
-                                # print('if is True so valid is True')
+                                self.logit.debug(f"value == testval")
                                 valid = True
                             elif key == test_val and value:
-                                # print('elif is True so valid is True')
+                                self.logit.debug(f"key == test_val and value == True")
                                 valid = True
                             else:
-                                # print('else is True so valid is False')
+                                self.logit.debug(f"test_val != value or key")
                                 valid = False
                     if valid:
-                        # print(' is valid')
+                        self.logit.debug('valid is Ture, returning True')
                         return True
-                    # else:
-                    #     print(' is not valid')
-                    #     # return False
+                self.logit('valid is False, returning False')
                 return False
 
             if name in [i for i in self.config['terrain']['list of elements'] if i not in ['river', 'hills']]:
                 if object_validation_check(name, 'terrain'):
                     klass = globals()[convert_file_to_object(name)]
+                    self.logit.debug(f"Name:{name} is a terrain object and created {klass}")
                     self.terrain = klass()
 
             if name == 'hills':
-                # print(f'hills found district:{self.district}')
                 if self.district is not None:
                     continue
                 if object_validation_check(name, 'terrain'):
+                    self.logit.debug(f"Name:{name} is a hills object and will create Hills")
                     self.hills = Hills()
 
             if name == 'river':
                 if object_validation_check(name, 'features'):
+                    self.logit.debug(f"Name:{name} is a river object and will create River")
                     self.river = River()
 
             # Natural Wonders
@@ -147,41 +138,38 @@ class Tile(CommonTile):
             if name in [i for i in self.config['districts']['list of elements'] if i not in ['river', 'hills']]:
                 if object_validation_check(name, 'districts'):
                     klass = globals()[convert_file_to_object(name)]
-                    # print('district stuff')
-                    # print(name, dist_name)
+                    self.logit.debug(f"Name:{dist_name} is a district object and created {klass}")
                     self.district = klass()
                     self.hills = None
                     self.feature = None
                     self.resource = None
                     self.improvement = None
                     if len(dist_name) == 1:
+                        self.logit.debug('no district extention, using defaults')
                         self.district.set_buildings()
                     else:
-                        print(self.district.building_list)
                         if len(dist_name) == 2:
-                            # print('len == 2')
+                            self.logit.debug(f"district building set to {dist_name[1]}")
                             self.district.set_buildings(
                                 final_improvement=dist_name[1])
                         elif dist_name[2] in ['False', 'false', 'FALSE', False]:
-                            # print('is false')
+                            self.logit.debug(f"dist_name[2] is a False type")
                             self.district.set_buildings(
                                 final_improvement=dist_name[1],
                                 powered=False)
                         else:
-                            # print('else is run')
+                            self.logit.debug(f"No false, dist_name[1] is {dist_name[1]}")
                             self.district.set_buildings(
                                 final_improvement=dist_name[1],
                                 powered=True)
 
-                        print(self.district.building_list)
+                    self.logit.debug(f"district building list:{self.district.building_list}")
 
             if name in [i for i in self.config['features']['list of elements'] if i not in ['river', 'hills']]:
-                print(f'features run {name}')
                 if self.district is not None:
-                    print(f"district found not running")
                     continue
                 if object_validation_check(name, 'features'):
-                    print(f"object validation check passed")
+                    self.logit.debug(f"Name:{name} is a feature object and created {klass}")
                     klass = globals()[convert_file_to_object(name)]
                     self.feature = klass()
 
@@ -189,6 +177,7 @@ class Tile(CommonTile):
                 if self.district is not None:
                     continue
                 if object_validation_check(name, 'resources'):
+                    self.logit.debug(f"Name:{name} is a resource object and created {klass}")
                     klass = globals()[convert_file_to_object(name)]
                     self.resource = klass()
 
@@ -196,6 +185,7 @@ class Tile(CommonTile):
                 if self.district is not None:
                     continue
                 if object_validation_check(name, 'improvements'):
+                    self.logit.debug(f"Name:{name} is a improvement object and created {klass}")
                     klass = globals()[convert_file_to_object(name)]
                     self.improvement = klass()
 
