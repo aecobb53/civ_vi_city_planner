@@ -7,6 +7,8 @@ from backend.improvements import *
 from backend.districts import *
 from backend.resources import *
 
+from backend.bin.logger import Logger
+
 
 class Tile(CommonTile):
     """
@@ -25,12 +27,23 @@ class Tile(CommonTile):
         self._improvement = None
         self._district = None
         self._wonder = None
+        self.logger = Logger(
+            'tile_container',
+            log_directory='logs/backend/',
+            app_name_in_file=True,
+            # log_suffix=log_prefix,
+            # log_prefix='main',
+            date_in_file=False,
+            time_in_file=False,
+            utc_in_file=False,
+            f_level='DEBUG',
+            c_level='WARNING')
+        self.logit = self.logger.return_logit()
 
         # Config
         with open('etc/tile_container.yml') as ycf:
             self.config = yaml.load(ycf, Loader=yaml.FullLoader)
-        # print(self.config['features']['list of elements'])
-        # print('cataract' in self.config['features']['list of elements'])
+        self.logit.debug('new container created')
 
         for name in tile_list:
             # First i need to make sure the order of everything is correct
@@ -50,7 +63,7 @@ class Tile(CommonTile):
             else:
                 dist_name = [name]
 
-            # print(f"Now serving: {name}")
+            self.logit.debug(f"Now serving: {name}")
 
             def convert_file_to_object(input):
                 """
@@ -61,10 +74,14 @@ class Tile(CommonTile):
                 return output
 
             def object_validation_check(name, conf_element):
-                print(name, conf_element)
+                self.logit.debug(f"name:{name}, element type:{conf_element}")
+                self.logit.debug(f"list of elements:{self.config[conf_element]['list of elements'][name]['restrictions']}")
+                # self.logit.debug(f"list of elements:{self.config[conf_element]['list of elements'][name]}")
+                # self.logit.debug(f"list of elements:{self.config[conf_element]['list of elements'][name][0]}")
+                # print(name, conf_element)
                 # print(self.config[conf_element])
                 # print(self.config[conf_element]['list of elements'])
-                print(self.config[conf_element]['list of elements'][name])
+                # print(self.config[conf_element]['list of elements'][name])
                 # print(self.config[conf_element]['list of elements'][name]['restrictions'])
                 # print(self.config[conf_element]['list of elements'][name]['restrictions'])
                 if self.config[conf_element]['list of elements'][name] is None:
