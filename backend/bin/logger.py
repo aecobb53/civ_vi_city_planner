@@ -322,6 +322,7 @@ class Logger:
 
     def append_file_handler(self, app_name, **kwargs):
         # Havnt tested this very well yet
+        kwargs['appname'] = app_name
         self._set_state(kwargs)
         self._set_file()
         self._set_handlers()
